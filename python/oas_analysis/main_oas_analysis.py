@@ -2,6 +2,8 @@ import yaml
 import json
 import os
 
+from python.classes import Parameter
+
 
 def yaml2json(path: str):
     with open(path, 'r') as f:
@@ -23,4 +25,25 @@ def load_oas(path: str):
         raise ValueError('File format not supported')
 
     return _file
+
+
+def load_parameters(file, url, method):
+    path = file['paths'][url][method]
+    parameters = path.get('parameters', [])
+    res = []
+    for parameter in parameters:
+        name = parameter.get('name', '')
+        query = parameter.get('in', '') == 'query'
+        required = parameter.get('required', False)
+        type = parameter['schema']['type']
+        if type == 'array':
+            type = f'{type}[{parameter["schema"]["items"]["type"]}]'
+        res.append(Parameter(name, type, query, required))
+    return res
+
+
+
+
+
+
 
