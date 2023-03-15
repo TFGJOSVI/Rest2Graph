@@ -2,58 +2,91 @@ from dataclasses import dataclass, field
 
 
 # Validations
-def validate_list(field, value):
+def validate_list(key, value):
     if not value:
-        raise ValueError(f'{field.name}: the list cannot be empty')
+        raise ValueError(f'{key}: the list cannot be empty')
     return value
+
+
+def validate_str(values):
+    errors = []
+
+    for key, value in values.items():
+
+        if type(value) is str and not value:
+            errors.append(key)
+
+    if errors:
+        raise ValueError(f'{", ".join(errors)}: the field cannot be empty')
 
 
 # Dataclass
 @dataclass
-class Atribute:
-    name: str = field(default='', metadata={'required': True})
-    type: str = field(default='', metadata={'required': True})
-    required: bool = field(default=False, metadata={'required': True})
+class Attribute:
+    name: str = field(metadata={'required': True})
+    type: str = field(metadata={'required': True})
+    required: bool = field(metadata={'required': True})
+
+    def __post_init__(self):
+        validate_str(self.__dict__)
 
 
 @dataclass
 class Component:
-    atributes: list[Atribute] = field(default_factory=list, metadata={'validate': validate_list})
-    name: str = field(default='', metadata={'required': True})
+    name: str = field(metadata={'required': True})
+    attributes: list[Attribute] = field(default_factory=list)
+
+    def __post_init__(self):
+        validate_str(self.__dict__)
+        self.attributes = validate_list('attributes', self.attributes)
 
 
 @dataclass
 class Schema:
-    type: str = field(default='', metadata={'required': True})
-    component: Component = field(default=None, metadata={'required': True})
+    type: str = field(metadata={'required': True})
+    component: Component = field(metadata={'required': True})
+
+    def __post_init__(self):
+        validate_str(self.__dict__)
 
 
 @dataclass
 class Response:
-    schema: Schema = field(default=None, metadata={'required': True})
+    schema: Schema = field(metadata={'required': True})
 
 
 @dataclass
 class RequestBody:
-    schema: Schema
-    required: bool = field(default=False, metadata={'required': True})
+    required: bool = field(metadata={'required': True})
+    schema: Schema = field(default=None)
 
 
 @dataclass
 class Parameter:
-    name: str = field(default='', metadata={'required': True})
-    type: str = field(default='', metadata={'required': True})
-    query: bool = field(default=False, metadata={'required': True})
-    required: bool = field(default=False, metadata={'required': True})
+    name: str = field(metadata={'required': True})
+    type: str = field(metadata={'required': True})
+    query: bool = field(metadata={'required': True})
+    required: bool = field(metadata={'required': True})
+
+    def __post_init__(self):
+        validate_str(self.__dict__)
 
 
 @dataclass
 class Query:
     description: str
     parameters: list[Parameter]
-    url: str = field(default='', metadata={'required': True})
-    name: str = field(default='', metadata={'required': True})
-    response: Response = field(default=None, metadata={'required': True})
+    url: str = field(metadata={'required': True})
+    name: str = field(metadata={'required': True})
+    response: Response = field(metadata={'required': True})
+
+    def __post_init__(self):
+        validate_str(
+            {
+                'url': self.url,
+                'name': self.name,
+            }
+        )
 
 
 @dataclass
@@ -61,6 +94,14 @@ class Mutation:
     description: str
     request: RequestBody
     parameters: list[Parameter]
-    url: str = field(default='', metadata={'required': True})
-    name: str = field(default='', metadata={'required': True})
-    response: Response = field(default=None, metadata={'required': True})
+    url: str = field(metadata={'required': True})
+    name: str = field(metadata={'required': True})
+    response: Response = field(metadata={'required': True})
+
+    def __post_init__(self):
+        validate_str(
+            {
+                'url': self.url,
+                'name': self.name,
+            }
+        )
