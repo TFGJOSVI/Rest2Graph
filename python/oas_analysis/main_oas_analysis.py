@@ -9,6 +9,20 @@ def yaml2json(path: str):
     return json.dumps(data)
 
 
+def parse_ref(ref):
+    # Check if ref is valid
+    if not ref.startswith('#'):
+        raise ValueError('Ref is not valid')
+
+    # Remove #/ from ref
+    ref = ref[2:]
+
+    # Split ref
+    ref = ref.split('/')
+
+    return ref
+
+
 def load_oas(path: str):
     # Check if path exists
     if not os.path.exists(path):
