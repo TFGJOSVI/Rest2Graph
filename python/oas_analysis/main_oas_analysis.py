@@ -28,6 +28,20 @@ def yaml2json(path: str):
     return json.dumps(data, default=custom_json_serializer)
 
 
+def parse_ref(ref):
+    # Check if ref is valid
+    if not ref.startswith('#'):
+        raise ValueError('Ref is not valid')
+
+    # Remove #/ from ref
+    ref = ref[2:]
+
+    # Split ref
+    ref = ref.split('/')
+
+    return ref
+
+
 def load_oas(path: str):
     '''
     Load an oas file
