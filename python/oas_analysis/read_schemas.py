@@ -1,32 +1,56 @@
 from python.classes import Schema, Attribute, Component
-from .main_oas_analysis import parse_ref
+from python.oas_analysis.main_oas_analysis import parse_ref
+
+STRING_COMPONENT_OBJECT = Component('String', [Attribute('value', 'string', True)])
+STRING_SCHEMA = Schema('_OBJECT_STRING', STRING_COMPONENT_OBJECT)
+
+NUMBER_COMPONENT_OBJECT = Component('Number', [Attribute('value', 'number', True)])
+NUMBER_SCHEMA = Schema('_OBJECT_NUMBER', NUMBER_COMPONENT_OBJECT)
+
+BOOLEAN_COMPONENT_OBJECT = Component('Boolean', [Attribute('value', 'boolean', True)])
+BOOLEAN_SCHEMA = Schema('_OBJECT_BOOLEAN', BOOLEAN_COMPONENT_OBJECT)
+
+INTEGER_COMPONENT_OBJECT = Component('Integer', [Attribute('value', 'integer', True)])
+INTEGER_SCHEMA = Schema('_OBJECT_INTEGER', INTEGER_COMPONENT_OBJECT)
 
 
-def read_schemas(schemas, oas):
+def read_object_schema(schema, required, oas):
 
-    return [read_schema(schema, oas) for schema in schemas]
+    attributes = []
 
-
-def read_object_schema(schema, required):
-    atributes = []
 
     if 'properties' in schema:
         for name, parameter in schema['properties'].items():
 
-            if '$ref' in parameter:
-                parameter = Attribute(name, 'Object', name in required if required else False)
+            if '$ref' in parameter or 'properties' in parameter:
+                parameter = read_schema(parameter, oas)
+                parameter = Attribute(name, parameter.type, name in required if required else False)
+            elif type in parameter and parameter['type'] == 'array':
+                parameter = read_schema(parameter, oas)
+                parameter = Attribute(name, parameter.type, name in required if required else False)
             else:
+
+                if 'oneOf' in parameter:
+                    continue
+
                 parameter = Attribute(name, parameter['type'], name in required if required else False)
 
-            atributes.append(parameter)
+            attributes.append(parameter)
 
-    component = Component(schema['title'], atributes)
+    if 'additionalProperties' in schema:
+        additional_properties = schema['additionalProperties']
+        additional_properties = Attribute('additionalProperties', additional_properties['type'], False)
+        attributes.append(additional_properties)
+
+    if 'title' not in schema:
+        schema['title'] = 'Object'
+
+    component = Component(schema['title'], attributes)
 
     return Schema('object', component)
 
 
 def read_array_schema(schema, oas):
-
     schema = read_schema(schema['items'], oas)
 
     schema.type = 'array'
@@ -52,6 +76,16 @@ def read_schema(schema, oas):
 
     if 'type' in schema:
         if schema['type'] == 'object':
-            return read_object_schema(schema, required)
+            return read_object_schema(schema, required, oas)
         elif schema['type'] == 'array':
             return read_array_schema(schema, oas)
+        elif schema['type'] == 'string':
+            return STRING_SCHEMA
+        elif schema['type'] == 'number':
+            return NUMBER_SCHEMA
+        elif schema['type'] == 'integer':
+            return INTEGER_SCHEMA
+        elif schema['type'] == 'boolean':
+            return BOOLEAN_SCHEMA
+    else:
+        return read_object_schema(schema, required, oas)

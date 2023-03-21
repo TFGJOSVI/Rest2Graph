@@ -36,10 +36,6 @@ class Component:
     name: str = field(metadata={'required': True})
     attributes: list[Attribute] = field(default_factory=list)
 
-    def __post_init__(self):
-        validate_str(self.__dict__)
-        self.attributes = validate_list('attributes', self.attributes)
-
 
 @dataclass
 class Schema:
