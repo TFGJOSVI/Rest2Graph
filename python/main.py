@@ -1,15 +1,20 @@
-from oas_analysis.main_oas_analysis import load_oas, load_parameters, search_ref
-
+from oas_analysis.main_oas_analysis import load_oas
+from oas_analysis.read_requetsBody import read_requestBody
 
 if __name__ == '__main__':
-    path = 'tests_set/pet_clinic.yaml'
+    path = 'tests_set/configuration_API.yaml'
     oas = load_oas(path)
-    path = oas['paths']
+    paths = oas['paths']
 
-    for url in path:
+    for url in paths:
         print(f'\n################## {url} ##################')
-        for method in path[url]:
-            print(load_parameters(oas['paths'][url][method], oas))
+        for method in paths[url]:
+            print(f'\n\t{method}')
+            requestBody = paths[url][method].get('requestBody', None)
+            if requestBody:
+                print(f'\t\t{read_requestBody(requestBody, oas)}')
+            else:
+                print(f'\t\tNo request body')
 
 
 

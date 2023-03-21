@@ -48,7 +48,6 @@ def read_schema(schema, oas):
         schema.pop('$ref')
         schema.update(schema_ref)
         schema['title'] = ref[-1]
-
         return read_schema(schema, oas)
 
     if 'type' in schema:
