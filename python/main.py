@@ -1,5 +1,4 @@
-from oas_analysis.main_oas_analysis import load_oas, load_parameters, search_ref
-
+from oas_analysis.main_oas_analysis import load_oas, load_parameters
 
 if __name__ == '__main__':
     path = 'tests_set/pet_clinic.yaml'
@@ -10,10 +9,3 @@ if __name__ == '__main__':
         print(f'\n################## {url} ##################')
         for method in path[url]:
             print(load_parameters(oas['paths'][url][method], oas))
-
-
-
-
-
-
-

@@ -1,7 +1,8 @@
 import datetime
-import yaml
 import json
 import os
+
+import yaml
 
 from python.classes import Parameter
 
@@ -12,10 +13,11 @@ def custom_json_serializer(obj):
     :param obj:     object to serialize
     :return:        serialized object
     '''
-    print(type(obj))
+
     if isinstance(obj, datetime.datetime) or isinstance(obj, datetime.date):
         return obj.isoformat()
     raise TypeError("Type %s not serializable" % type(obj))
+
 
 def yaml2json(path: str):
     '''
@@ -64,7 +66,6 @@ def load_oas(path: str):
 
 
 def load_parameters(method: dict, oas: dict):
-
     '''
     Load parameters from a method
     :param method:  method to load parameters from
@@ -86,6 +87,7 @@ def load_parameters(method: dict, oas: dict):
         res.append(Parameter(name, type, query, required))
     return res
 
+
 def search_ref(oas: dict, ref: str):
     '''
     Search a reference in an oas file
@@ -98,9 +100,3 @@ def search_ref(oas: dict, ref: str):
         if i != '#':
             oas = oas[i]
     return oas
-
-
-
-
-
-
