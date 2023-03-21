@@ -17,10 +17,9 @@ INTEGER_SCHEMA = Schema('_OBJECT_INTEGER', INTEGER_COMPONENT_OBJECT)
 def read_object_schema(schema, required, oas):
 
     attributes = []
-
-
     if 'properties' in schema:
         for name, parameter in schema['properties'].items():
+
 
             if '$ref' in parameter or 'properties' in parameter:
                 parameter = read_schema(parameter, oas)
@@ -89,3 +88,4 @@ def read_schema(schema, oas):
             return BOOLEAN_SCHEMA
     else:
         return read_object_schema(schema, required, oas)
+
