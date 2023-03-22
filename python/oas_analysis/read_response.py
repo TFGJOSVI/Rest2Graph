@@ -1,7 +1,7 @@
 import re
 
 from python.classes import Response
-from read_schemas import read_schema
+from python.oas_analysis.read_schemas import read_schema
 
 
 def read_response(response, oas):
