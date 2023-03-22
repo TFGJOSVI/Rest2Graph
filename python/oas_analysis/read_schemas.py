@@ -42,7 +42,8 @@ def read_object_schema(schema, required, oas):
         attributes.append(additional_properties)
 
     if 'title' not in schema:
-        schema['title'] = 'Object'
+
+        schema['title'] = ''.join(i.title() for i in schema['type'].split('_')) + 'Object'
 
     component = Component(schema['title'], attributes)
 
