@@ -33,3 +33,5 @@ def read_response(response, oas):
                     schema = read_schema(schema, oas)
 
                     return Response(schema=schema)
+
+    return None
