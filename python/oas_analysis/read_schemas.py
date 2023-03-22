@@ -16,20 +16,22 @@ INTEGER_SCHEMA = Schema('_OBJECT_INTEGER', INTEGER_COMPONENT_OBJECT)
 
 def read_object_schema(schema, required, oas):
 
-
-
     attributes = []
-
     if 'properties' in schema:
         for name, parameter in schema['properties'].items():
 
-            if '$ref' in parameter:
+
+            if '$ref' in parameter or 'properties' in parameter:
                 parameter = read_schema(parameter, oas)
                 parameter = Attribute(name, parameter.type, name in required if required else False)
             elif type in parameter and parameter['type'] == 'array':
                 parameter = read_schema(parameter, oas)
                 parameter = Attribute(name, parameter.type, name in required if required else False)
             else:
+
+                if 'oneOf' in parameter:
+                    continue
+
                 parameter = Attribute(name, parameter['type'], name in required if required else False)
 
             attributes.append(parameter)
@@ -69,7 +71,6 @@ def read_schema(schema, oas):
         schema.pop('$ref')
         schema.update(schema_ref)
         schema['title'] = ref[-1]
-
         return read_schema(schema, oas)
 
     if 'type' in schema:
@@ -85,3 +86,6 @@ def read_schema(schema, oas):
             return INTEGER_SCHEMA
         elif schema['type'] == 'boolean':
             return BOOLEAN_SCHEMA
+    else:
+        return read_object_schema(schema, required, oas)
+

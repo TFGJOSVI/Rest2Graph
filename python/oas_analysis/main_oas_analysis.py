@@ -100,3 +100,4 @@ def search_ref(oas: dict, ref: str):
         if i != '#':
             oas = oas[i]
     return oas
+
