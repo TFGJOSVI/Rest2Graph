@@ -131,8 +131,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Create an account holder
       tags:
         - Account holders
@@ -206,8 +206,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get an account holder
       tags:
         - Account holders
@@ -292,8 +292,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Update an account holder
       tags:
         - Account holders
@@ -384,8 +384,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get all balance accounts of an account holder
       tags:
         - Account holders
@@ -460,8 +460,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Create a balance account
       tags:
         - Balance accounts
@@ -552,8 +552,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get all sweeps for a balance account
       tags:
         - Balance accounts
@@ -641,8 +641,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Create a sweep
       tags:
         - Balance accounts
@@ -715,8 +715,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Delete a sweep
       tags:
         - Balance accounts
@@ -795,8 +795,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get a sweep
       tags:
         - Balance accounts
@@ -883,8 +883,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Update a sweep
       tags:
         - Balance accounts
@@ -958,8 +958,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get a balance account
       tags:
         - Balance accounts
@@ -1034,8 +1034,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Update a balance account
       tags:
         - Balance accounts
@@ -1126,8 +1126,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get all payment instruments for a balance account
       tags:
         - Balance accounts
@@ -1201,8 +1201,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get a balance platform
       tags:
         - Platform
@@ -1293,8 +1293,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get all account holders under a balance platform
       tags:
         - Platform
@@ -1369,8 +1369,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Create a payment instrument group
       tags:
         - Payment instrument groups
@@ -1444,8 +1444,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get a payment instrument group
       tags:
         - Payment instrument groups
@@ -1519,8 +1519,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get all transaction rules for a payment instrument group
       tags:
         - Payment instrument groups
@@ -1606,8 +1606,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Create a payment instrument
       tags:
         - Payment instruments
@@ -1681,8 +1681,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get a payment instrument
       tags:
         - Payment instruments
@@ -1767,8 +1767,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Update a payment instrument
       tags:
         - Payment instruments
@@ -1842,8 +1842,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get all transaction rules for a payment instrument
       tags:
         - Payment instruments
@@ -1930,8 +1930,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Create a transaction rule
       tags:
         - Transaction rules
@@ -2005,8 +2005,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Delete a transaction rule
       tags:
         - Transaction rules
@@ -2079,8 +2079,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get a transaction rule
       tags:
         - Transaction rules
@@ -2166,8 +2166,8 @@ paths:
                 $ref: "#/components/schemas/RestServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Update a transaction rule
       tags:
         - Transaction rules
@@ -3566,7 +3566,7 @@ components:
           type: string
       required:
         - country
-    CapabilityProblem: {}
+    CapabilityProblem: { }
     Card:
       properties:
         authentication:
@@ -5024,7 +5024,7 @@ components:
             - invalidInput
             - pendingStatus
           type: string
-    void: {}
+    void: { }
   securitySchemes:
     ApiKeyAuth:
       in: header

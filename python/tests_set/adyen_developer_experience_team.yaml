@@ -123,8 +123,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Trigger verification
       tags:
         - Verification
@@ -193,8 +193,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Close an account
       tags:
         - Accounts
@@ -262,8 +262,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Close an account holder
       tags:
         - Account holders
@@ -322,8 +322,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Close stores
       tags:
         - Account holders
@@ -392,8 +392,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Create an account
       tags:
         - Accounts
@@ -457,8 +457,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Create an account holder
       tags:
         - Account holders
@@ -526,8 +526,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Delete bank accounts
       tags:
         - Verification
@@ -606,8 +606,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Delete legal arrangements
       tags:
         - Verification
@@ -675,8 +675,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Delete payout methods
       tags:
         - Verification
@@ -745,8 +745,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Delete shareholders
       tags:
         - Verification
@@ -811,8 +811,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Delete signatories
       tags:
         - Verification
@@ -882,8 +882,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get an account holder
       tags:
         - Account holders
@@ -945,8 +945,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get a tax form
       tags:
         - Account holders
@@ -1009,8 +1009,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Get documents
       tags:
         - Verification
@@ -1078,8 +1078,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Suspend an account holder
       tags:
         - Account holders
@@ -1151,8 +1151,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Unsuspend an account holder
       tags:
         - Account holders
@@ -1220,8 +1220,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Update an account
       tags:
         - Accounts
@@ -1315,8 +1315,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Update an account holder
       tags:
         - Account holders
@@ -1384,8 +1384,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Update payout or processing state
       tags:
         - Account holders
@@ -1453,8 +1453,8 @@ paths:
                 $ref: "#/components/schemas/ServiceError"
           description: Internal Server Error - the server could not process the request.
       security:
-        - BasicAuth: []
-        - ApiKeyAuth: []
+        - BasicAuth: [ ]
+        - ApiKeyAuth: [ ]
       summary: Upload a document
       tags:
         - Verification
@@ -1546,7 +1546,7 @@ components:
     post-deleteLegalArrangements-arrangements-200:
       summary: Legal arrangement deleted
       value:
-        invalidFields: []
+        invalidFields: [ ]
         pspReference: "8816080397613514"
     post-deleteLegalArrangements-arrangements-400:
       summary: Response code 400. Bad Request.
@@ -1570,7 +1570,7 @@ components:
     post-deleteLegalArrangements-entities-200:
       summary: Legal arrangement entities deleted
       value:
-        invalidFields: []
+        invalidFields: [ ]
         pspReference: "8816080397613514"
     post-deleteLegalArrangements-entities-400:
       summary: Response code 400. Bad Request.
