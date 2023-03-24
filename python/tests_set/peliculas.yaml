@@ -51,11 +51,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Director'
         '400':
-            description: Error al crear director
+          description: Error al crear director
         '404':
-            description: No se encontraron directores
+          description: No se encontraron directores
         '500':
-            description: Error interno
+          description: Error interno
 
   /directores/{id}:
     get:
@@ -105,11 +105,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Director'
         '400':
-            description: Error al actualizar director
+          description: Error al actualizar director
         '404':
-            description: No se encontraron directores
+          description: No se encontraron directores
         '500':
-            description: Error interno
+          description: Error interno
     delete:
       tags:
         - Directores
@@ -130,11 +130,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Director'
         '400':
-            description: Error al eliminar director
+          description: Error al eliminar director
         '404':
-            description: No se encontraron directores
+          description: No se encontraron directores
         '500':
-            description: Error interno
+          description: Error interno
 
   /categorias:
     get:
@@ -172,11 +172,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Categoria'
         '400':
-            description: Error al crear categoria
+          description: Error al crear categoria
         '404':
-            description: No se encontraron categorias
+          description: No se encontraron categorias
         '500':
-            description: Error interno
+          description: Error interno
 
   /categorias/{id}:
     get:
@@ -226,11 +226,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Categoria'
         '400':
-            description: Error al actualizar categoria
+          description: Error al actualizar categoria
         '404':
-            description: No se encontraron categorias
+          description: No se encontraron categorias
         '500':
-            description: Error interno
+          description: Error interno
     delete:
       tags:
         - Categorias
@@ -251,11 +251,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Categoria'
         '400':
-            description: Error al eliminar categoria
+          description: Error al eliminar categoria
         '404':
-            description: No se encontraron categorias
+          description: No se encontraron categorias
         '500':
-            description: Error interno
+          description: Error interno
 
   /peliculas:
     get:
@@ -293,11 +293,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pelicula'
         '400':
-            description: Error al crear pelicula
+          description: Error al crear pelicula
         '404':
-            description: No se encontraron peliculas
+          description: No se encontraron peliculas
         '500':
-            description: Error interno
+          description: Error interno
 
   /peliculas/{id}:
     get:
@@ -347,11 +347,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pelicula'
         '400':
-            description: Error al actualizar pelicula
+          description: Error al actualizar pelicula
         '404':
-            description: No se encontraron peliculas
+          description: No se encontraron peliculas
         '500':
-            description: Error interno
+          description: Error interno
     delete:
       tags:
         - Peliculas
@@ -372,11 +372,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pelicula'
         '400':
-            description: Error al eliminar pelicula
+          description: Error al eliminar pelicula
         '404':
-            description: No se encontraron peliculas
+          description: No se encontraron peliculas
         '500':
-            description: Error interno
+          description: Error interno
 
   /peliculas/categoria/{id}:
     get:
@@ -430,36 +430,36 @@ paths:
 
   /peliculas/{id}/categoria/{cat}:
     delete:
-        tags:
-            - Peliculas
-        summary: Eliminar categoria de pelicula
-        description: Eliminar categoria de pelicula
-        parameters:
-          - name: id
-            in: path
-            required: true
-            description: ID de la pelicula
-            schema:
-                type: integer
-          - name: cat
-            in: path
-            required: true
-            description: ID de la categoria
-            schema:
-                type: integer
-        responses:
-            '200':
-              description: Categoria eliminada de pelicula
-              content:
-                  application/json:
-                    schema:
-                        $ref: '#/components/schemas/Pelicula'
-            '400':
-                description: Error al eliminar categoria de pelicula
-            '404':
-                description: No se encontraron peliculas
-            '500':
-                description: Error interno
+      tags:
+        - Peliculas
+      summary: Eliminar categoria de pelicula
+      description: Eliminar categoria de pelicula
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la pelicula
+          schema:
+            type: integer
+        - name: cat
+          in: path
+          required: true
+          description: ID de la categoria
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Categoria eliminada de pelicula
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pelicula'
+        '400':
+          description: Error al eliminar categoria de pelicula
+        '404':
+          description: No se encontraron peliculas
+        '500':
+          description: Error interno
 
 
 
@@ -497,13 +497,13 @@ components:
           type: integer
 
     Categoria:
-        type: object
-        properties:
-          id:
-            type: integer
-            readOnly: true
-          nombre:
-            type: string
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nombre:
+          type: string
 
     requestBodies:
       Director:

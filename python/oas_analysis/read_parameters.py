@@ -1,8 +1,8 @@
 from python.classes import Parameter
+from python.oas_analysis.main_oas_analysis import search_ref
 
 
 def read_parameters(method: dict, oas: dict):
-
     '''
     Load parameters from a method
     :param method:  method to load parameters from
@@ -23,16 +23,3 @@ def read_parameters(method: dict, oas: dict):
             type = f'{type}[{parameter["schema"]["items"]["type"]}]'
         res.append(Parameter(name, type, query, required))
     return res
-
-def search_ref(oas: dict, ref: str):
-    '''
-    Search a reference in an oas file
-    :param oas:     oas file
-    :param ref:     reference to search
-    :return:        reference
-    '''
-    rute = ref.split('/')
-    for i in rute:
-        if i != '#':
-            oas = oas[i]
-    return oas

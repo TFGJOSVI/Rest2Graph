@@ -4,9 +4,8 @@ import os
 
 import yaml
 
-from python.classes import Parameter
 
-
+# Utils
 def custom_json_serializer(obj):
     '''
     Custom json serializer
@@ -30,20 +29,6 @@ def yaml2json(path: str):
     return json.dumps(data, default=custom_json_serializer)
 
 
-def parse_ref(ref):
-    # Check if ref is valid
-    if not ref.startswith('#'):
-        raise ValueError('Ref is not valid')
-
-    # Remove #/ from ref
-    ref = ref[2:]
-
-    # Split ref
-    ref = ref.split('/')
-
-    return ref
-
-
 def load_oas(path: str):
     '''
     Load an oas file
@@ -65,29 +50,6 @@ def load_oas(path: str):
     return _file
 
 
-def load_parameters(method: dict, oas: dict):
-    '''
-    Load parameters from a method
-    :param method:  method to load parameters from
-    :param oas:     oas file
-    :return:        list of parameters
-    '''
-
-    parameters_list = method.get('parameters', [])
-    res = []
-    for parameter in parameters_list:
-        if '$ref' in parameter:
-            parameter = search_ref(oas, parameter['$ref'])
-        name = parameter.get('name', '')
-        query = parameter.get('in', '') == 'query'
-        required = parameter.get('required', False)
-        type = parameter['schema']['type']
-        if type == 'array':
-            type = f'{type}[{parameter["schema"]["items"]["type"]}]'
-        res.append(Parameter(name, type, query, required))
-    return res
-
-
 def search_ref(oas: dict, ref: str):
     '''
     Search a reference in an oas file
@@ -95,9 +57,31 @@ def search_ref(oas: dict, ref: str):
     :param ref:     reference to search
     :return:        reference
     '''
+
+    if not ref.startswith('#'):
+        raise ValueError('Ref is not valid')
+
     rute = ref.split('/')
     for i in rute:
         if i != '#':
             oas = oas[i]
     return oas
 
+
+def parse_ref(ref: str):
+    '''
+    :param ref:    ref to parse
+    :return:       parsed ref
+    '''
+
+    # Check if ref is valid
+    if not ref.startswith('#'):
+        raise ValueError('Ref is not valid')
+
+    # Remove #/ from ref
+    ref = ref[2:]
+
+    # Split ref
+    ref = ref.split('/')
+
+    return ref

@@ -1,5 +1,5 @@
 from python.classes import Schema, Attribute, Component
-from python.oas_analysis.main_oas_analysis import parse_ref
+from python.oas_analysis.main_oas_analysis import parse_ref, search_ref
 
 STRING_COMPONENT_OBJECT = Component('String', [Attribute('value', 'string', True)])
 STRING_SCHEMA = Schema('_OBJECT_STRING', STRING_COMPONENT_OBJECT)
@@ -15,11 +15,9 @@ INTEGER_SCHEMA = Schema('_OBJECT_INTEGER', INTEGER_COMPONENT_OBJECT)
 
 
 def read_object_schema(schema, required, oas):
-
     attributes = []
     if 'properties' in schema:
         for name, parameter in schema['properties'].items():
-
 
             if '$ref' in parameter or 'properties' in parameter:
                 parameter = read_schema(parameter, oas)
@@ -42,7 +40,6 @@ def read_object_schema(schema, required, oas):
         attributes.append(additional_properties)
 
     if 'title' not in schema:
-
         schema['title'] = ''.join(i.title() for i in schema['type'].split('_')) + 'Object'
 
     component = Component(schema['title'], attributes)
@@ -58,7 +55,16 @@ def read_array_schema(schema, oas):
     return schema
 
 
-def read_schema(schema, oas):
+def read_schema(schema: dict, oas: dict):
+    '''
+    Read a schema
+    :param schema:  schema to read
+    :param oas:     oas file
+    :return:        schema
+    '''
+
+    schema = schema.get('schema', schema)
+
     required = schema.get('required', False)
 
     if 'required' in schema:
@@ -66,9 +72,9 @@ def read_schema(schema, oas):
         schema.pop('required')
 
     if '$ref' in schema:
-        ref = schema['$ref']
-        ref = parse_ref(ref)
-        schema_ref = eval('oas' + ''.join(f'["{i}"]' for i in ref))
+        ref_ = schema['$ref']
+        ref = parse_ref(ref_)
+        schema_ref = search_ref(oas, ref_)
         schema.pop('$ref')
         schema.update(schema_ref)
         schema['title'] = ref[-1]
@@ -89,4 +95,3 @@ def read_schema(schema, oas):
             return BOOLEAN_SCHEMA
     else:
         return read_object_schema(schema, required, oas)
-
