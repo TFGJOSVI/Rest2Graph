@@ -92,6 +92,7 @@ class Mutation:
     parameters: list[Parameter]
     url: str = field(metadata={'required': True})
     name: str = field(metadata={'required': True})
+    type: str = field(metadata={'required': True})
     response: Response = field(metadata={'required': True})
 
     def __post_init__(self):
@@ -101,3 +102,12 @@ class Mutation:
                 'name': self.name,
             }
         )
+
+@dataclass
+class OpenAPI:
+    queries: list[Query]
+    mutations: list[Mutation]
+    servers: list[str]
+
+
+

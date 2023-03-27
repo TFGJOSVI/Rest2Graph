@@ -1,5 +1,4 @@
 import os
-
 from python.classes import Query, Mutation
 from python.oas_analysis.main_oas_analysis import load_oas
 from python.oas_analysis.read_parameters import read_parameters
@@ -37,7 +36,7 @@ def read_method(method, oas, url, type='get'):
         return Query(description=description, parameters=parameters, url=url, name=name, response=response)
     else:
         return Mutation(description=description, parameters=parameters, url=url, name=name, response=response,
-                        request=request_body)
+                        request=request_body, type=type)
 
 
 def read_methods(oas):
