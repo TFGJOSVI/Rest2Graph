@@ -1,5 +1,7 @@
+from typing import Union
+
 from python.classes import Schema, Attribute, Component
-from python.oas_analysis.main_oas_analysis import parse_ref, search_ref
+from python.oas_analysis.utils import search_ref, parse_ref
 
 STRING_COMPONENT_OBJECT = Component('String', [Attribute('value', 'string', True)])
 STRING_SCHEMA = Schema('_OBJECT_STRING', STRING_COMPONENT_OBJECT)
@@ -14,15 +16,26 @@ INTEGER_COMPONENT_OBJECT = Component('Integer', [Attribute('value', 'integer', T
 INTEGER_SCHEMA = Schema('_OBJECT_INTEGER', INTEGER_COMPONENT_OBJECT)
 
 
-def read_object_schema(schema, required, oas):
+def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict) -> Schema:
+    """
+    Reads the definition of an object schema and converts it into a `Schema` instance.
+
+    :param schema:
+        A dictionary that should contain type, properties ... and other fields that are part of the OpenAPI.
+    :param required:
+        A list of strings containing the names of the required attributes, or False if there are no required attributes.
+    :param oas:
+        A dictionary containing the complete API specification, following the OpenAPI format.
+    :return:
+        An instance of the `Schema` class.
+    """
+
     attributes = []
     if 'properties' in schema:
         for name, parameter in schema['properties'].items():
 
-            if '$ref' in parameter or 'properties' in parameter:
-                parameter = read_schema(parameter, oas)
-                parameter = Attribute(name, parameter.type, name in required if required else False)
-            elif type in parameter and parameter['type'] == 'array':
+            if ('$ref' in parameter or 'properties' in parameter) or \
+                    (type in parameter and parameter['type'] == 'array'):
                 parameter = read_schema(parameter, oas)
                 parameter = Attribute(name, parameter.type, name in required if required else False)
             else:
@@ -47,7 +60,17 @@ def read_object_schema(schema, required, oas):
     return Schema('object', component)
 
 
-def read_array_schema(schema, oas):
+def read_array_schema(schema: dict, oas: dict) -> Schema:
+    """
+    Reads the definition of an array schema and converts it into a `Schema` instance.
+    :param schema:
+        A dictionary that should contain type, properties ... and other fields that are part of the OpenAPI.
+    :param oas:
+        A dictionary containing the complete API specification, following the OpenAPI format.
+    :return:
+        An instance of the `Schema` class.
+    """
+
     schema = read_schema(schema['items'], oas)
 
     schema.type = 'array'
@@ -55,13 +78,17 @@ def read_array_schema(schema, oas):
     return schema
 
 
-def read_schema(schema: dict, oas: dict):
-    '''
-    Read a schema
-    :param schema:  schema to read
-    :param oas:     oas file
-    :return:        schema
-    '''
+def read_schema(schema: dict, oas: dict) -> Schema:
+    """
+    Reads the definition of a schema and converts it into a `Schema` instance.
+
+    :param schema:
+        A dictionary that should contain type, properties ... and other fields that are part of the OpenAPI.
+    :param oas:
+        A dictionary containing the complete API specification, following the OpenAPI format.
+    :return:
+        An instance of the `Schema` class.
+    """
 
     schema = schema.get('schema', schema)
 

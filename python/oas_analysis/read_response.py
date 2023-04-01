@@ -1,10 +1,22 @@
 import re
+from typing import Union
 
 from python.classes import Response
 from python.oas_analysis.read_schemas import read_schema
 
 
-def read_response(method, oas):
+def read_response(method: dict, oas: dict) -> Union[Response, None]:
+    """
+    Reads the definition of a response and converts it into a `Response` instance.
+
+    :param method:
+        A dictionary that should contain responses, parameters ... and other fields that are part of the OpenAPI.
+    :param oas:
+        A dictionary containing the complete API specification, following the OpenAPI format.
+    :return:
+        An instance of the `Response` class, or None if response does not contain 20X code.
+    """
+
     response = method.get('responses', {})
 
     status_codes = list(response.keys())
