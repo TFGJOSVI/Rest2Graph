@@ -1,7 +1,6 @@
 from python.classes import OpenAPI
 from python.oas_analysis.read_methods import read_methods
-
-from utils import load_oas
+from python.oas_analysis.utils import load_oas
 
 
 def read_servers(oas: str) -> list[str]:

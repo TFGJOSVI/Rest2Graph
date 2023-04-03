@@ -5,6 +5,7 @@ info:
   description: Proyecto API
 servers:
   - url: http://localhost:8000
+  - url: http://127.0.0.0:8080
 tags:
   - name: Directores
     description: API para los directores

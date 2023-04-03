@@ -1,0 +1,15 @@
+Customize your GraphQl API
+
+servers:
+	- http://localhost:8000
+	- http://127.0.0.0:8080
+
+
+queries:
+sub_queries
+
+mutations:
+sub_mutations
+
+types:
+sub_types
