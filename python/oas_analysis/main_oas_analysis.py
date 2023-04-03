@@ -1,26 +1,10 @@
-import yaml
-import json
-import os
+if __name__ == '__main__':
+    import os
 
+    list_of_files = os.listdir('../tests_set/')
 
-def yaml2json(path: str):
-    with open(path, 'r') as f:
-        data = yaml.safe_load(f)
-    return json.dumps(data)
+    from read_open_api import read_open_api
 
-
-def load_oas(path: str):
-    # Check if path exists
-    if not os.path.exists(path):
-        raise ValueError('Path does not exist')
-
-    if path.endswith('.json'):
-        _file = json.load(open(path))
-    elif path.endswith('.yaml'):
-        _file = yaml2json(path)
-        _file = json.loads(_file)
-    else:
-        raise ValueError('File format not supported')
-
-    return _file
-
+    for file in list_of_files:
+        oas = read_open_api(f'../tests_set/{file}')
+        print(oas)
