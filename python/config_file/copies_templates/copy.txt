@@ -1,15 +1,73 @@
 Customize your GraphQl API
 
 servers:
-	- http://localhost:8000
-	- http://127.0.0.0:8080
-
+sub_servers
 
 queries:
 sub_queries
 
 mutations:
-sub_mutations
+	- post-checkAccountHolder: GenericResponse
+		- url: POST /checkAccountHolder
+		- request_body: InputPerformVerificationRequest
+	- post-closeAccount: CloseAccountResponse
+		- url: POST /closeAccount
+		- request_body: InputCloseAccountRequest
+	- post-closeAccountHolder: CloseAccountHolderResponse
+		- url: POST /closeAccountHolder
+		- request_body: InputCloseAccountHolderRequest
+	- post-closeStores: GenericResponse
+		- url: POST /closeStores
+		- request_body: InputCloseStoresRequest
+	- post-createAccount: CreateAccountResponse
+		- url: POST /createAccount
+		- request_body: InputCreateAccountRequest
+	- post-createAccountHolder: CreateAccountHolderResponse
+		- url: POST /createAccountHolder
+		- request_body: InputCreateAccountHolderRequest
+	- post-deleteBankAccounts: GenericResponse
+		- url: POST /deleteBankAccounts
+		- request_body: InputDeleteBankAccountRequest
+	- post-deleteLegalArrangements: GenericResponse
+		- url: POST /deleteLegalArrangements
+		- request_body: InputDeleteLegalArrangementRequest
+	- post-deletePayoutMethods: GenericResponse
+		- url: POST /deletePayoutMethods
+		- request_body: InputDeletePayoutMethodRequest
+	- post-deleteShareholders: GenericResponse
+		- url: POST /deleteShareholders
+		- request_body: InputDeleteShareholderRequest
+	- post-deleteSignatories: GenericResponse
+		- url: POST /deleteSignatories
+		- request_body: InputDeleteSignatoriesRequest
+	- post-getAccountHolder: GetAccountHolderResponse
+		- url: POST /getAccountHolder
+		- request_body: InputGetAccountHolderRequest
+	- post-getTaxForm: GetTaxFormResponse
+		- url: POST /getTaxForm
+		- request_body: InputGetTaxFormRequest
+	- post-getUploadedDocuments: GetUploadedDocumentsResponse
+		- url: POST /getUploadedDocuments
+		- request_body: InputGetUploadedDocumentsRequest
+	- post-suspendAccountHolder: SuspendAccountHolderResponse
+		- url: POST /suspendAccountHolder
+		- request_body: InputSuspendAccountHolderRequest
+	- post-unSuspendAccountHolder: UnSuspendAccountHolderResponse
+		- url: POST /unSuspendAccountHolder
+		- request_body: InputUnSuspendAccountHolderRequest
+	- post-updateAccount: UpdateAccountResponse
+		- url: POST /updateAccount
+		- request_body: InputUpdateAccountRequest
+	- post-updateAccountHolder: UpdateAccountHolderResponse
+		- url: POST /updateAccountHolder
+		- request_body: InputUpdateAccountHolderRequest
+	- post-updateAccountHolderState: GetAccountHolderStatusResponse
+		- url: POST /updateAccountHolderState
+		- request_body: InputUpdateAccountHolderStateRequest
+	- post-uploadDocument: UpdateAccountHolderResponse
+		- url: POST /uploadDocument
+		- request_body: InputUploadDocumentRequest
+
 
 types:
 sub_types
