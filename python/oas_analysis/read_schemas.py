@@ -15,6 +15,8 @@ BOOLEAN_SCHEMA = Schema('_OBJECT_BOOLEAN', BOOLEAN_COMPONENT_OBJECT)
 INTEGER_COMPONENT_OBJECT = Component('Integer', [Attribute('value', 'integer', True)])
 INTEGER_SCHEMA = Schema('_OBJECT_INTEGER', INTEGER_COMPONENT_OBJECT)
 
+SPECIAL_SCHEMAS = [STRING_SCHEMA, NUMBER_SCHEMA, BOOLEAN_SCHEMA, INTEGER_SCHEMA]
+
 
 def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict) -> Schema:
     """
@@ -36,8 +38,15 @@ def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict
 
             if ('$ref' in parameter or 'properties' in parameter) or \
                     (type in parameter and parameter['type'] == 'array'):
+
+                lost_parameter = parameter
+
                 parameter = read_schema(parameter, oas)
-                parameter = Attribute(name, parameter.type, name in required if required else False)
+
+                if parameter.type == 'array':
+                    parameter = Attribute(name, parameter.type, name in required if required else False, lost_parameter['items']['type'])
+                else:
+                    parameter = Attribute(name, parameter.type, name in required if required else False)
             else:
 
                 if 'oneOf' in parameter:

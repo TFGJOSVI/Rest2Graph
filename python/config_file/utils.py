@@ -4,7 +4,7 @@ from tempfile import mkstemp
 import os
 
 
-def replace(file_path: str, new_file_path: str, pattern: str, subst: str) ->  None:
+def replace(file_path: str, new_file_path: str, pattern: str, subst: str) -> None:
 
     fh, abs_path = mkstemp()
 
@@ -34,3 +34,17 @@ def replace(file_path: str, new_file_path: str, pattern: str, subst: str) ->  No
     remove(file_path)
 
     move(abs_path, file_path)
+
+
+def parse_type_oas_graphql(type_oas: str) -> str:
+
+    if type_oas == 'string':
+        return 'String'
+    elif type_oas == 'integer':
+        return 'Int'
+    elif type_oas == 'number':
+        return 'Float'
+    elif type_oas == 'boolean':
+        return 'Boolean'
+    else:
+        return type_oas

@@ -1,9 +1,7 @@
 Customize your GraphQl API
 
 servers:
-	- http://localhost:8000
-	- http://127.0.0.0:8080
-
+sub_servers
 
 queries:
 sub_queries
@@ -12,4 +10,92 @@ mutations:
 sub_mutations
 
 types:
-sub_types
+	type Pet {
+		id: Int
+		name: String!
+		category: object
+		photoUrls: array!
+		tags: array
+		status: String
+	}
+
+	type User {
+		id: Int
+		username: String
+		firstName: String
+		lastName: String
+		email: String
+		password: String
+		phone: String
+		userStatus: Int
+	}
+
+	type Pet {
+		id: Int
+		name: String!
+		category: object
+		photoUrls: array!
+		tags: array
+		status: String
+	}
+
+	type ObjectObject {
+		additionalProperties: Int
+	}
+
+	type Order {
+		id: Int
+		petId: Int
+		quantity: Int
+		shipDate: String
+		status: String
+		complete: Boolean
+	}
+
+	input User {
+		id: Int
+		username: String
+		firstName: String
+		lastName: String
+		email: String
+		password: String
+		phone: String
+		userStatus: Int
+	}
+
+	input User {
+		id: Int
+		username: String
+		firstName: String
+		lastName: String
+		email: String
+		password: String
+		phone: String
+		userStatus: Int
+	}
+
+	input Pet {
+		id: Int
+		name: String!
+		category: object
+		photoUrls: array!
+		tags: array
+		status: String
+	}
+
+	input ApiResponse {
+		code: Int
+		type: String
+		message: String
+	}
+
+	input Order {
+		id: Int
+		petId: Int
+		quantity: Int
+		shipDate: String
+		status: String
+		complete: Boolean
+	}
+
+
