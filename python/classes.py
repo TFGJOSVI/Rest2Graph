@@ -27,6 +27,7 @@ class Attribute:
     type: str = field(metadata={'required': True})
     required: bool = field(metadata={'required': True})
     items_type: str = field(default=None)
+    ref_schema: str = field(default=None)
 
     def __post_init__(self):
         validate_str(self.__dict__)

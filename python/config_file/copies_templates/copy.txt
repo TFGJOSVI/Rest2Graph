@@ -10,92 +10,62 @@ mutations:
 sub_mutations
 
 types:
-	type Pet {
-		id: Int
-		name: String!
-		category: object
-		photoUrls: array!
-		tags: array
+	type JWT {
+		since: String
+		status: String
+		sub: String
+	}
+
+	type JWT {
+		exp: Int
+		field: String
+		sub: String
+	}
+
+	input PushToken {
+		aud: String!
+		exp: Int
+		iat: Int
+		iss: String!
+		nbf: Int
+		sub: String!
+	}
+
+	input ObjectObject {
+		secret: String
 		status: String
 	}
 
-	type User {
-		id: Int
-		username: String
-		firstName: String
-		lastName: String
+	input AuthentiqID {
+		devtoken: String
+		sub: String
+	}
+
+	input ObjectObject {
+		status: String
+	}
+
+	input Claims {
 		email: String
-		password: String
 		phone: String
-		userStatus: Int
-	}
-
-	type Pet {
-		id: Int
-		name: String!
-		category: object
-		photoUrls: array!
-		tags: array
-		status: String
-	}
-
-	type ObjectObject {
-		additionalProperties: Int
-	}
-
-	type Order {
-		id: Int
-		petId: Int
-		quantity: Int
-		shipDate: String
-		status: String
-		complete: Boolean
-	}
-
-	input User {
-		id: Int
-		username: String
-		firstName: String
-		lastName: String
-		email: String
-		password: String
-		phone: String
-		userStatus: Int
-	}
-
-	input User {
-		id: Int
-		username: String
-		firstName: String
-		lastName: String
-		email: String
-		password: String
-		phone: String
-		userStatus: Int
-	}
-
-	input Pet {
-		id: Int
-		name: String!
-		category: object
-		photoUrls: array!
-		tags: array
-		status: String
-	}
-
-	input ApiResponse {
-		code: Int
+		scope: String!
+		sub: String!
 		type: String
-		message: String
 	}
 
-	input Order {
-		id: Int
-		petId: Int
-		quantity: Int
-		shipDate: String
+	input AuthentiqID {
+		devtoken: String
+		sub: String!
+	}
+
+	input ObjectObject {
+		jwt: String
 		status: String
-		complete: Boolean
+	}
+
+	input ObjectObject {
+		job: String
+		status: String
 	}
 
 

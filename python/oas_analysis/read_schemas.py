@@ -36,17 +36,27 @@ def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict
     if 'properties' in schema:
         for name, parameter in schema['properties'].items():
 
-            if ('$ref' in parameter or 'properties' in parameter) or \
-                    (type in parameter and parameter['type'] == 'array'):
+            if '$ref' in parameter or 'properties' in parameter:
 
-                lost_parameter = parameter
+                ref_schema = parameter['$ref'] if '$ref' in parameter else None
 
                 parameter = read_schema(parameter, oas)
 
-                if parameter.type == 'array':
-                    parameter = Attribute(name, parameter.type, name in required if required else False, lost_parameter['items']['type'])
+                parameter = Attribute(name, parameter.type, name in required if required else False, ref_schema=ref_schema)
+
+            elif 'type' in parameter and parameter['type'] == 'array':
+
+                items_types = parameter['items']
+
+                if '$ref' in items_types:
+                    ref_schema = items_types['$ref']
+                    items_types = parse_ref(items_types['$ref'])[-1]
                 else:
-                    parameter = Attribute(name, parameter.type, name in required if required else False)
+                    items_types = items_types['type']
+                    ref_schema = None
+
+                parameter = Attribute(name, 'array', name in required if required else False, items_types, ref_schema)
+
             else:
 
                 if 'oneOf' in parameter:
