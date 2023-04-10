@@ -2,6 +2,9 @@ from os import fdopen, remove
 from shutil import copymode, move
 from tempfile import mkstemp
 import os
+from typing import Union
+
+from python.classes import Response
 
 
 def replace(file_path: str, new_file_path: str, pattern: str, subst: str) -> None:
@@ -48,3 +51,23 @@ def parse_type_oas_graphql(type_oas: str) -> str:
         return 'Boolean'
     else:
         return type_oas
+
+def parse_parameters(parameters: list) -> str:
+    string_parameters = ''
+    for parameter in parameters:
+        if parameter.required:
+            string_parameters += f'{parameter.name}: {parse_type_oas_graphql(parameter.type)}!, '
+        else:
+            string_parameters += f'{parameter.name}: {parse_type_oas_graphql(parameter.type)}, '
+    return string_parameters[:-2]
+
+def parse_schema(response: Response) -> Union[str, None]:
+    if response:
+        if response.schema.type == 'array':
+            return f'[{response.schema.component.name}]'
+        elif response.schema.type == 'object':
+            return response.schema.component.name
+        else:
+            parse_type_oas_graphql(response.schema.type)
+    else:
+        return None

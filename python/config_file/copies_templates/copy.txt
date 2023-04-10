@@ -10,62 +10,67 @@ mutations:
 sub_mutations
 
 types:
-	type JWT {
-		since: String
-		status: String
-		sub: String
+	type Director {
+		id: Int
+		nombre: String
+		apellido: String
+		edad: Int
 	}
 
-	type JWT {
-		exp: Int
-		field: String
-		sub: String
+	type Categoria {
+		id: Int
+		nombre: String
 	}
 
-	input PushToken {
-		aud: String!
-		exp: Int
-		iat: Int
-		iss: String!
-		nbf: Int
-		sub: String!
+	type Pelicula {
+		id: Int
+		nombre: String
+		descripcion: String
+		anyo: Int
+		director: Int
+		categoria: Int
 	}
 
-	input ObjectObject {
-		secret: String
-		status: String
+	type Director {
+		id: Int
+		nombre: String
+		apellido: String
+		edad: Int
 	}
 
-	input AuthentiqID {
-		devtoken: String
-		sub: String
+	type Categoria {
+		id: Int
+		nombre: String
 	}
 
-	input ObjectObject {
-		status: String
+	type Pelicula {
+		id: Int
+		nombre: String
+		descripcion: String
+		anyo: Int
+		director: Int
+		categoria: Int
 	}
 
-	input Claims {
-		email: String
-		phone: String
-		scope: String!
-		sub: String!
-		type: String
+	input InputDirector {
+		id: Int
+		nombre: String
+		apellido: String
+		edad: Int
 	}
 
-	input AuthentiqID {
-		devtoken: String
-		sub: String!
+	input InputCategoria {
+		id: Int
+		nombre: String
 	}
 
-	input ObjectObject {
-		jwt: String
-		status: String
-	}
-
-	input ObjectObject {
-		job: String
-		status: String
+	input InputPelicula {
+		id: Int
+		nombre: String
+		descripcion: String
+		anyo: Int
+		director: Int
+		categoria: Int
 	}
 
 

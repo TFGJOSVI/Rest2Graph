@@ -35,8 +35,7 @@ def write_schemas_string(open_api: OpenAPI, oas: dict) -> str:
         for attribute in schema.component.attributes:
 
             if attribute.ref_schema:
-                schema = read_schema(
-                    {'schema': {'$ref': attribute.ref_schema}}, oas)
+                schema = read_schema({'schema': {'$ref': attribute.ref_schema}}, oas)
                 extra_schemas.append(schema)
 
 
@@ -54,7 +53,7 @@ def write_schemas_string(open_api: OpenAPI, oas: dict) -> str:
         schemas += '\t}\n\n'
 
     for schema in mutations_schemas:
-        schemas += '\tinput ' + schema.component.name + ' {\n'
+        schemas += '\tinput ' + 'Input' + schema.component.name + ' {\n'
 
         for attribute in schema.component.attributes:
 
@@ -85,8 +84,7 @@ def write_schemas_string(open_api: OpenAPI, oas: dict) -> str:
             for attribute in schema.component.attributes:
 
                 if attribute.ref_schema:
-                    schema = read_schema(
-                        {'schema': {'$ref': attribute.ref_schema}}, oas)
+                    schema = read_schema({'schema': {'$ref': attribute.ref_schema}}, oas)
                     extra_schemas.append(schema)
 
                 if attribute.type == 'array':
