@@ -34,3 +34,37 @@ def replace(file_path: str, new_file_path: str, pattern: str, subst: str) ->  No
     remove(file_path)
 
     move(abs_path, file_path)
+
+def parse_parameters(parameters: list) -> str:
+    string_parameters = ''
+    for parameter in parameters:
+        if parameter.required:
+            string_parameters += f'{parameter.name}: {parse_type(parameter.type)}!, '
+        else:
+            string_parameters += f'{parameter.name}: {parse_type(parameter.type)}, '
+    return string_parameters[:-2]
+
+
+def parse_type(type: str) -> str:
+    if type == 'string':
+        return 'String'
+    elif type == 'integer':
+        return 'Int'
+    elif type == 'number':
+        return 'Float'
+    elif type == 'boolean':
+        return 'Boolean'
+    else:
+        return None
+
+
+def parse_schema(response: dict) -> str:
+    if response:
+        if response.schema.type == 'array':
+            return f'[{response.schema.component.name}]'
+        elif response.schema.type == 'object':
+            return response.schema.component.name
+        else:
+            parse_type(response.schema.type)
+    else:
+        return None
