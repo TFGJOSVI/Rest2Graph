@@ -70,9 +70,11 @@ def search_ref(oas: dict, ref: str):
         raise ValueError('Ref is not valid')
 
     rute = ref.split('/')
+
     for i in rute:
         if i != '#':
             oas = oas[i]
+
     return oas
 
 

@@ -15,6 +15,8 @@ BOOLEAN_SCHEMA = Schema('_OBJECT_BOOLEAN', BOOLEAN_COMPONENT_OBJECT)
 INTEGER_COMPONENT_OBJECT = Component('Integer', [Attribute('value', 'integer', True)])
 INTEGER_SCHEMA = Schema('_OBJECT_INTEGER', INTEGER_COMPONENT_OBJECT)
 
+SPECIAL_SCHEMAS = [STRING_SCHEMA, NUMBER_SCHEMA, BOOLEAN_SCHEMA, INTEGER_SCHEMA]
+
 
 def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict) -> Schema:
     """
@@ -34,10 +36,27 @@ def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict
     if 'properties' in schema:
         for name, parameter in schema['properties'].items():
 
-            if ('$ref' in parameter or 'properties' in parameter) or \
-                    (type in parameter and parameter['type'] == 'array'):
+            if '$ref' in parameter or 'properties' in parameter:
+
+                ref_schema = parameter['$ref'] if '$ref' in parameter else None
+
                 parameter = read_schema(parameter, oas)
-                parameter = Attribute(name, parameter.type, name in required if required else False)
+
+                parameter = Attribute(name, parameter.type, name in required if required else False, ref_schema=ref_schema)
+
+            elif 'type' in parameter and parameter['type'] == 'array':
+
+                items_types = parameter['items']
+
+                if '$ref' in items_types:
+                    ref_schema = items_types['$ref']
+                    items_types = parse_ref(items_types['$ref'])[-1]
+                else:
+                    items_types = items_types['type']
+                    ref_schema = None
+
+                parameter = Attribute(name, 'array', name in required if required else False, items_types, ref_schema)
+
             else:
 
                 if 'oneOf' in parameter:

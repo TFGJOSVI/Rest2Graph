@@ -11,7 +11,7 @@ def load_mutations(open_api: OpenAPI, new_file_path: str) -> None:
     string_replace = ''
 
     for mutation in mutations:
-        print(mutation)
+
         name = mutation.name
         response = parse_schema(mutation.response)
         if len(mutation.parameters) > 0:
@@ -24,7 +24,10 @@ def load_mutations(open_api: OpenAPI, new_file_path: str) -> None:
         string_replace += url
 
         request_body = parse_schema(mutation.request)
-        if request_body:
+
+        if request_body and mutation.request.schema.type == 'array':
+            string_replace += f'\t\t- request_body: {request_body}\n'
+        elif request_body:
             string_replace += f'\t\t- request_body: Input{request_body}\n'
 
 
