@@ -7,25 +7,29 @@ from typing import Union
 from python.classes import Response
 
 
-def replace(file_path: str, new_file_path: str, pattern: str, subst: str) -> None:
+def replace(file_path: str, new_file_path: Union[str, None], pattern: str, subst: str, copy : bool = True) -> None:
 
     fh, abs_path = mkstemp()
 
-    if os.path.isfile(file_path):
+    if copy:
 
-        if os.path.exists(new_file_path):
-            os.remove(new_file_path)
+        if os.path.isfile(file_path):
 
-        with open(file_path, "r") as archivo_orig, open(new_file_path,"w") as archivo_copia:
-            for linea in archivo_orig:
-                archivo_copia.write(linea)
-        archivo_orig.close()
-        archivo_copia.close()
+            if os.path.exists(new_file_path):
+                os.remove(new_file_path)
 
-    else:
-        print("The file doesn't exist.")
+            print(f'Copying {file_path} to {new_file_path}')
 
-    file_path = new_file_path
+            with open(file_path, "r") as archivo_orig, open(new_file_path,"w") as archivo_copia:
+                for linea in archivo_orig:
+                    archivo_copia.write(linea)
+            archivo_orig.close()
+            archivo_copia.close()
+
+        else:
+            print("The file doesn't exist.")
+
+        file_path = new_file_path
 
     with fdopen(fh, 'w') as new_file:
         with open(file_path) as old_file:
