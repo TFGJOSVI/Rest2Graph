@@ -4,7 +4,7 @@ from python.config_file.utils import replace, parse_schema, parse_parameters
 FILE_PATH = './templates/config_template_v1.txt'
 
 
-def load_queries(open_api: OpenAPI, new_file_path: str) -> None:
+def load_queries(open_api: OpenAPI, new_file_path: str) -> str:
 
     queries = open_api.queries
 
@@ -22,7 +22,9 @@ def load_queries(open_api: OpenAPI, new_file_path: str) -> None:
         url = f'\t\t- url: GET {query.url}\n'
         string_replace += url
 
-    replace(FILE_PATH, new_file_path, 'sub_queries', string_replace)
+    # replace(FILE_PATH, new_file_path, 'sub_queries', string_replace)
+
+    return string_replace
 
 
 

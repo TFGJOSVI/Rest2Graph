@@ -103,7 +103,7 @@ def write_schemas_string(open_api: OpenAPI, oas: dict) -> str:
     return schemas
 
 
-def load_schemas(open_api: OpenAPI, new_file_path: str, oas: dict) -> None:
-    schemas_string = write_schemas_string(open_api, oas)
+def load_schemas(open_api: OpenAPI, new_file_path: str, oas: dict) -> str:
+    return write_schemas_string(open_api, oas)
 
-    replace(FILE_PATH, new_file_path, 'sub_types', schemas_string)
+    # replace(FILE_PATH, new_file_path, 'sub_types', schemas_string)
