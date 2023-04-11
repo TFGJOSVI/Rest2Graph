@@ -11,7 +11,7 @@ def load_mutations(open_api: OpenAPI, new_file_path: str) -> None:
     string_replace = ''
 
     for mutation in mutations:
-        print(mutation)
+
         name = mutation.name
         response = parse_schema(mutation.response)
         if len(mutation.parameters) > 0:

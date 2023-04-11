@@ -120,7 +120,6 @@ def read_schema(schema: dict, oas: dict) -> Schema:
     if '$ref' in schema:
         ref_ = schema['$ref']
         ref = parse_ref(ref_)
-        print(ref_)
         schema_ref = search_ref(oas, ref_)
         schema.pop('$ref')
         schema.update(schema_ref)
