@@ -1,5 +1,5 @@
-from python.classes import OpenAPI
-from python.config_file.utils import replace
+from classes import OpenAPI
+from config_file.utils import replace
 
 FILE_PATH = './templates/config_template_v1.txt'
 

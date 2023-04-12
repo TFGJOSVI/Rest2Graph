@@ -1,9 +1,9 @@
 from typing import Union
 
-from python.classes import Query, Mutation
-from python.oas_analysis.read_parameters import read_parameters
-from python.oas_analysis.read_requets_body import read_request_body
-from python.oas_analysis.read_response import read_response
+from classes import Query, Mutation
+from oas_analysis.read_parameters import read_parameters
+from oas_analysis.read_requets_body import read_request_body
+from oas_analysis.read_response import read_response
 
 
 def read_method(method: dict, oas: dict, url: str, method_type: str = 'get') -> Union[Query, Mutation]:

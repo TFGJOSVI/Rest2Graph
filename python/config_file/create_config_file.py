@@ -1,10 +1,10 @@
-from python.config_file.load_schemas import load_schemas
-from python.config_file.load_mutations import load_mutations
-from python.config_file.load_queries import load_queries
-from python.config_file.load_servers import load_servers
-from python.config_file.utils import replace
-from python.oas_analysis.read_open_api import read_open_api
-from python.oas_analysis.utils import load_oas
+from config_file.load_schemas import load_schemas
+from config_file.load_mutations import load_mutations
+from config_file.load_queries import load_queries
+from config_file.load_servers import load_servers
+from config_file.utils import replace
+from oas_analysis.read_open_api import read_open_api
+from oas_analysis.utils import load_oas
 
 FILE_PATH = './templates/config_template_v1.txt'
 

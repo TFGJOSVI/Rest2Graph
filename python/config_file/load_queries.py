@@ -1,5 +1,5 @@
-from python.classes import OpenAPI
-from python.config_file.utils import replace, parse_schema, parse_parameters
+from classes import OpenAPI
+from config_file.utils import replace, parse_schema, parse_parameters
 
 FILE_PATH = './templates/config_template_v1.txt'
 

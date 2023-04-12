@@ -1,7 +1,7 @@
 from typing import Union
 
-from python.classes import Schema, Attribute, Component
-from python.oas_analysis.utils import search_ref, parse_ref
+from classes import Schema, Attribute, Component
+from oas_analysis.utils import search_ref, parse_ref
 
 STRING_COMPONENT_OBJECT = Component('String', [Attribute('value', 'string', True)])
 STRING_SCHEMA = Schema('_OBJECT_STRING', STRING_COMPONENT_OBJECT)

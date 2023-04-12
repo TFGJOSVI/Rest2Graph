@@ -59,45 +59,15 @@ mutations:
 
 
 types:
-	type BalancePlatform {
+	type BalanceAccount {
+		accountHolderId: String!
+		balances: [Balance]
+		defaultCurrencyCode: String
 		description: String
 		id: String!
-		status: String
-	}
-
-	type PaginatedBalanceAccountsResponse {
-		balanceAccounts: [BalanceAccount]!
-		hasNext: Boolean!
-		hasPrevious: Boolean!
-	}
-
-	type PaymentInstrument {
-		balanceAccountId: String!
-		bankAccount: object
-		card: object
-		description: String
-		id: String!
-		issuingCountryCode: String!
-		paymentInstrumentGroupId: String
 		reference: String
 		status: String
-		statusReason: String
-		type: String!
-	}
-
-	type BalanceSweepConfigurationsResponse {
-		hasNext: Boolean!
-		hasPrevious: Boolean!
-		sweeps: [SweepConfigurationV2]!
-	}
-
-	type PaymentInstrumentGroup {
-		balancePlatform: String!
-		description: String
-		id: String
-		properties: object
-		reference: String
-		txVariant: String!
+		timeZone: String
 	}
 
 	type AccountHolder {
@@ -111,6 +81,16 @@ types:
 		reference: String
 		status: String
 		timeZone: String
+	}
+
+	type TransactionRulesResponse {
+		transactionRules: [TransactionRule]
+	}
+
+	type PaginatedAccountHoldersResponse {
+		accountHolders: [AccountHolder]!
+		hasNext: Boolean!
+		hasPrevious: Boolean!
 	}
 
 	type SweepConfigurationV2 {
@@ -131,44 +111,28 @@ types:
 		paymentInstruments: [PaymentInstrument]!
 	}
 
-	type BalanceAccount {
-		accountHolderId: String!
-		balances: [Balance]
-		defaultCurrencyCode: String
-		description: String
-		id: String!
-		reference: String
-		status: String
-		timeZone: String
-	}
-
-	type TransactionRuleResponse {
-		transactionRule: object
-	}
-
-	type TransactionRulesResponse {
-		transactionRules: [TransactionRule]
-	}
-
-	type PaginatedAccountHoldersResponse {
-		accountHolders: [AccountHolder]!
+	type PaginatedBalanceAccountsResponse {
+		balanceAccounts: [BalanceAccount]!
 		hasNext: Boolean!
 		hasPrevious: Boolean!
 	}
 
-	input InputPaymentInstrumentInfo {
-		balanceAccountId: String!
-		card: object
+	type BalancePlatform {
 		description: String
-		issuingCountryCode: String!
-		paymentInstrumentGroupId: String
-		reference: String
+		id: String!
 		status: String
-		statusReason: String
-		type: String!
 	}
 
-	input InputPaymentInstrument {
+	type PaymentInstrumentGroup {
+		balancePlatform: String!
+		description: String
+		id: String
+		properties: object
+		reference: String
+		txVariant: String!
+	}
+
+	type PaymentInstrument {
 		balanceAccountId: String!
 		bankAccount: object
 		card: object
@@ -182,38 +146,25 @@ types:
 		type: String!
 	}
 
-	input InputAccountHolderInfo {
-		balancePlatform: String
-		capabilities: object
-		contactDetails: object
-		description: String
-		legalEntityId: String!
-		reference: String
-		timeZone: String
+	type TransactionRuleResponse {
+		transactionRule: object
 	}
 
-	input InputTransactionRuleInfo {
-		aggregationLevel: String
-		description: String!
-		endDate: String
-		entityKey: object!
-		interval: object!
-		outcomeType: String
-		reference: String!
-		ruleRestrictions: object!
-		score: Int
-		startDate: String
+	type BalanceSweepConfigurationsResponse {
+		hasNext: Boolean!
+		hasPrevious: Boolean!
+		sweeps: [SweepConfigurationV2]!
+	}
+
+	input InputBalanceAccount {
+		accountHolderId: String!
+		balances: [Balance]
+		defaultCurrencyCode: String
+		description: String
+		id: String!
+		reference: String
 		status: String
-		type: String!
-	}
-
-	input InputPaymentInstrumentGroup {
-		balancePlatform: String!
-		description: String
-		id: String
-		properties: object
-		reference: String
-		txVariant: String!
+		timeZone: String
 	}
 
 	input InputAccountHolder {
@@ -229,16 +180,16 @@ types:
 		timeZone: String
 	}
 
-	input InputSweepConfigurationV2 {
-		counterparty: object!
-		currency: String!
+	input InputPaymentInstrumentInfo {
+		balanceAccountId: String!
+		card: object
 		description: String
-		id: String!
+		issuingCountryCode: String!
+		paymentInstrumentGroupId: String
+		reference: String
 		status: String
-		sweepAmount: object
-		targetAmount: object
-		triggerAmount: object
-		type: String
+		statusReason: String
+		type: String!
 	}
 
 	input InputBalanceAccountInfo {
@@ -249,12 +200,16 @@ types:
 		timeZone: String
 	}
 
-	input InputPaymentInstrumentGroupInfo {
-		balancePlatform: String!
+	input InputSweepConfigurationV2 {
+		counterparty: object!
+		currency: String!
 		description: String
-		properties: object
-		reference: String
-		txVariant: String!
+		id: String!
+		status: String
+		sweepAmount: object
+		targetAmount: object
+		triggerAmount: object
+		type: String
 	}
 
 	input InputTransactionRule {
@@ -273,37 +228,67 @@ types:
 		type: String!
 	}
 
-	input InputBalanceAccount {
-		accountHolderId: String!
-		balances: [Balance]
-		defaultCurrencyCode: String
+	input InputAccountHolderInfo {
+		balancePlatform: String
+		capabilities: object
+		contactDetails: object
 		description: String
-		id: String!
+		legalEntityId: String!
 		reference: String
-		status: String
 		timeZone: String
 	}
 
-	type Card {
-		authentication: object
-		bin: String
-		brand: String!
-		brandVariant: String!
-		cardholderName: String!
-		configuration: object
-		cvc: String
-		deliveryContact: object
-		expiration: object
-		formFactor: String!
-		lastFour: String
-		number: String!
+	input InputPaymentInstrument {
+		balanceAccountId: String!
+		bankAccount: object
+		card: object
+		description: String
+		id: String!
+		issuingCountryCode: String!
+		paymentInstrumentGroupId: String
+		reference: String
+		status: String
+		statusReason: String
+		type: String!
 	}
 
-	type Balance {
-		available: Int!
-		balance: Int!
-		currency: String!
-		reserved: Int!
+	input InputPaymentInstrumentGroup {
+		balancePlatform: String!
+		description: String
+		id: String
+		properties: object
+		reference: String
+		txVariant: String!
+	}
+
+	input InputPaymentInstrumentGroupInfo {
+		balancePlatform: String!
+		description: String
+		properties: object
+		reference: String
+		txVariant: String!
+	}
+
+	input InputTransactionRuleInfo {
+		aggregationLevel: String
+		description: String!
+		endDate: String
+		entityKey: object!
+		interval: object!
+		outcomeType: String
+		reference: String!
+		ruleRestrictions: object!
+		score: Int
+		startDate: String
+		status: String
+		type: String!
+	}
+
+	type ContactDetails {
+		address: object!
+		email: String!
+		phone: object!
+		webAddress: String
 	}
 
 	type TransactionRuleInterval {
@@ -315,32 +300,8 @@ types:
 		type: String!
 	}
 
-	type SweepCounterparty {
-		balanceAccountId: String
-		merchantAccount: String
-		transferInstrumentId: String
-	}
-
-	type Amount {
-		currency: String!
-		value: Int!
-	}
-
-	type ContactDetails {
-		address: object!
-		email: String!
-		phone: object!
-		webAddress: String
-	}
-
-	type CardInfo {
-		authentication: object
-		brand: String!
-		brandVariant: String!
-		cardholderName: String!
-		configuration: object
-		deliveryContact: object
-		formFactor: String!
+	type BankAccount {
+		iban: String!
 	}
 
 	type TransactionRule {
@@ -359,13 +320,81 @@ types:
 		type: String!
 	}
 
-	type BankAccount {
-		iban: String!
+	type TransactionRuleEntityKey {
+		entityReference: String
+		entityType: String
+	}
+
+	type Card {
+		authentication: object
+		bin: String
+		brand: String!
+		brandVariant: String!
+		cardholderName: String!
+		configuration: object
+		cvc: String
+		deliveryContact: object
+		expiration: object
+		formFactor: String!
+		lastFour: String
+		number: String!
+	}
+
+	type CardInfo {
+		authentication: object
+		brand: String!
+		brandVariant: String!
+		cardholderName: String!
+		configuration: object
+		deliveryContact: object
+		formFactor: String!
+	}
+
+	type TransactionRuleRestrictions {
+		activeNetworkTokens: object
+		brandVariants: object
+		countries: object
+		differentCurrencies: object
+		entryModes: object
+		internationalTransaction: object
+		matchingTransactions: object
+		mccs: object
+		merchants: object
+		processingTypes: object
+		timeOfDay: object
+		totalAmount: object
+	}
+
+	type SweepCounterparty {
+		balanceAccountId: String
+		merchantAccount: String
+		transferInstrumentId: String
+	}
+
+	type Balance {
+		available: Int!
+		balance: Int!
+		currency: String!
+		reserved: Int!
+	}
+
+	type Amount {
+		currency: String!
+		value: Int!
 	}
 
 	type TransactionRuleEntityKey {
 		entityReference: String
 		entityType: String
+	}
+
+	type TransactionRuleInterval {
+		dayOfMonth: Int
+		dayOfWeek: String
+		duration: object
+		timeOfDay: String
+		timeZone: String
+		type: String!
 	}
 
 	type TransactionRuleRestrictions {
@@ -413,35 +442,6 @@ types:
 		name: object!
 		phoneNumber: object
 		webAddress: String
-	}
-
-	type TransactionRuleEntityKey {
-		entityReference: String
-		entityType: String
-	}
-
-	type TransactionRuleInterval {
-		dayOfMonth: Int
-		dayOfWeek: String
-		duration: object
-		timeOfDay: String
-		timeZone: String
-		type: String!
-	}
-
-	type TransactionRuleRestrictions {
-		activeNetworkTokens: object
-		brandVariants: object
-		countries: object
-		differentCurrencies: object
-		entryModes: object
-		internationalTransaction: object
-		matchingTransactions: object
-		mccs: object
-		merchants: object
-		processingTypes: object
-		timeOfDay: object
-		totalAmount: object
 	}
 
 
