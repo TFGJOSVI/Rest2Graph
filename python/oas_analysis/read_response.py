@@ -1,8 +1,8 @@
 import re
 from typing import Union
 
-from classes import Response
-from oas_analysis.read_schemas import read_schema
+from python.classes import Response
+from python.oas_analysis.read_schemas import read_schema
 
 
 def read_response(method: dict, oas: dict) -> Union[Response, None]:

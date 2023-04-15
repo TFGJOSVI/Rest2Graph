@@ -1,7 +1,7 @@
 from classes import OpenAPI
 from config_file.utils import replace, parse_schema, parse_parameters
 
-FILE_PATH = './templates/config_template_v1.txt'
+FILE_PATH = 'templates/config_template_v1.txt'
 
 
 def load_queries(open_api: OpenAPI, new_file_path: str) -> str:

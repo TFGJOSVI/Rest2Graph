@@ -1,8 +1,8 @@
 from typing import Union
 
-from classes import RequestBody
-from oas_analysis.read_schemas import read_schema
-from oas_analysis.utils import search_ref
+from python.classes import RequestBody
+from python.oas_analysis.read_schemas import read_schema
+from python.oas_analysis.utils import search_ref
 
 
 def read_request_body(request_body: dict, oas: dict) -> RequestBody:

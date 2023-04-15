@@ -6,7 +6,7 @@ from config_file.utils import replace, parse_type_oas_graphql
 from oas_analysis.read_schemas import read_schema
 
 
-FILE_PATH = './templates/config_template_v1.txt'
+FILE_PATH = 'templates/config_template_v1.txt'
 
 
 def write_schemas_string(open_api: OpenAPI, oas: dict) -> str:

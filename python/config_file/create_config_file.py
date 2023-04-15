@@ -6,7 +6,7 @@ from config_file.utils import replace
 from oas_analysis.read_open_api import read_open_api
 from oas_analysis.utils import load_oas
 
-FILE_PATH = './templates/config_template_v1.txt'
+FILE_PATH = 'templates/config_template_v1.txt'
 
 
 def create_config_file(oas_path: str, new_file_path: str) -> None:

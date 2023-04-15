@@ -1,5 +1,5 @@
-from classes import Parameter
-from oas_analysis.utils import search_ref
+from python.classes import Parameter
+from python.oas_analysis.utils import search_ref
 
 
 def read_parameters(method: dict, oas: dict) -> list[Parameter]:
