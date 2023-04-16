@@ -29,8 +29,7 @@ class TestOasAnalysis:
             'posts_parameters': [],
             'puts_parameters': [],
             'deletes_parameters': [],
-
-
+            'responses_queries': []
         }
 
         oas_auth = {
@@ -180,6 +179,32 @@ class TestOasAnalysis:
                                    [('id', 'integer', False, True)],
                                    [('id', 'integer', False, True)],
                                    [('id', 'integer', False, True), ('cat', 'integer', False, True)]],
+            'responses_queries': [
+                {
+                    'name': 'Pelicula',
+                    'type': 'array'
+                },
+                {
+                    'name': 'Categoria',
+                    'type': 'array'
+                },
+                {
+                    'name': 'Director',
+                    'type': 'array'
+                },
+                {
+                    'name': 'Categoria',
+                    'type': 'object'
+                },
+                {
+                    'name': 'Pelicula',
+                    'type': 'object'
+                },
+                {
+                    'name': 'Director',
+                    'type': 'object'
+                }
+            ]
         }
 
         oas_pet = {
