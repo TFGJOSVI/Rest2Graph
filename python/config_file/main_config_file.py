@@ -1,7 +1,7 @@
-from python.config_file.load_schemas import load_schemas
-from python.oas_analysis.read_open_api import read_open_api
-from python.oas_analysis.utils import load_oas
-from python.config_file.create_config_file import create_config_file
+from config_file.load_schemas import load_schemas
+from oas_analysis.read_open_api import read_open_api
+from oas_analysis.utils import load_oas
+from config_file.create_config_file import create_config_file
 
 if __name__ == '__main__':
     # open_api = read_open_api('../tests_set/configuration_API.yaml')
@@ -12,4 +12,4 @@ if __name__ == '__main__':
     # # load_queries(open_api, './copies_templates/copy.txt')
     # # load_mutations(open_api, './copies_templates/copy.txt')
 
-    create_config_file('../tests_set/configuration_API.yaml', './copies_templates/copy.txt')
+    create_config_file('../tests/tests_set/adyen_developer_experience_team.yaml', './copies_templates/copy.txt')

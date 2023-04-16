@@ -1,10 +1,10 @@
-from python.classes import OpenAPI
-from python.config_file.utils import replace
+from classes import OpenAPI
+from config_file.utils import replace
 
-FILE_PATH = './templates/config_template_v1.txt'
+FILE_PATH = 'templates/config_template_v1.txt'
 
 
-def load_servers(open_api: OpenAPI, new_file_path: str) -> str:
+def load_servers(open_api: OpenAPI) -> str:
 
     servers = open_api.servers
 
@@ -12,7 +12,5 @@ def load_servers(open_api: OpenAPI, new_file_path: str) -> str:
 
     for server in servers:
         string_replace += f'\t- {server}\n'
-
-    # replace(FILE_PATH, new_file_path, 'sub_servers', string_replace)
 
     return string_replace

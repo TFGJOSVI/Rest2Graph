@@ -42,7 +42,7 @@ def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict
 
                 parameter = read_schema(parameter, oas)
 
-                parameter = Attribute(name, parameter.type, name in required if required else False, ref_schema=ref_schema)
+                parameter = Attribute(name, parameter.component.name, name in required if required else False, ref_schema=ref_schema)
 
             elif 'type' in parameter and parameter['type'] == 'array':
 

@@ -1,13 +1,13 @@
 import re
 
-from python.classes import OpenAPI
-from python.oas_analysis.read_schemas import SPECIAL_SCHEMAS
-from python.config_file.utils import replace, parse_type_oas_graphql
-from python.oas_analysis.utils import search_ref
-from python.oas_analysis.read_schemas import read_schema
+from classes import OpenAPI
+from oas_analysis.read_schemas import SPECIAL_SCHEMAS
+from config_file.utils import replace, parse_type_oas_graphql
+from oas_analysis.read_schemas import read_schema
+from oas_analysis.utils import parse_ref
 
 
-FILE_PATH = './templates/config_template_v1.txt'
+FILE_PATH = 'templates/config_template_v1.txt'
 
 
 def write_schemas_string(open_api: OpenAPI, oas: dict) -> str:
@@ -37,9 +37,10 @@ def write_schemas_string(open_api: OpenAPI, oas: dict) -> str:
             if attribute.ref_schema:
                 schema = read_schema({'schema': {'$ref': attribute.ref_schema}}, oas)
                 extra_schemas.append(schema)
+                attribute.type = parse_ref(attribute.ref_schema)[-1]
 
 
-            if attribute.type == 'array':
+            if attribute.type == 'array' or attribute.items_type:
                 if attribute.required:
                     schemas += '\t\t' + attribute.name + ': [' + parse_type_oas_graphql(attribute.items_type) + ']!\n'
                 else:
@@ -103,7 +104,6 @@ def write_schemas_string(open_api: OpenAPI, oas: dict) -> str:
     return schemas
 
 
-def load_schemas(open_api: OpenAPI, new_file_path: str, oas: dict) -> str:
+def load_schemas(open_api: OpenAPI, oas: dict) -> str:
     return write_schemas_string(open_api, oas)
 
-    # replace(FILE_PATH, new_file_path, 'sub_types', schemas_string)
