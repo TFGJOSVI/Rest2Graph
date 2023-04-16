@@ -26,6 +26,11 @@ class TestOasAnalysis:
             'urls_puts' : [],
             'urls_deletes' : [],
             'queries_parameters': [],
+            'posts_parameters': [],
+            'puts_parameters': [],
+            'deletes_parameters': [],
+
+
         }
 
         oas_auth = {
@@ -40,6 +45,17 @@ class TestOasAnalysis:
             'urls_puts' : ['/key/{PK}', '/scope/{job}'],
             'urls_deletes' : ['/key', '/key/{PK}', '/scope/{job}'],
             'queries_parameters': [[('PK', 'string', False, True)], [('job', 'string', False, True)]],
+            'posts_parameters': [[],
+                                 [('PK', 'string', False, True)],
+                                 [('callback', 'string', True, True)],
+                                 [('test', 'integer',True, False)],
+                                [('job', 'string', False, True)]],
+            'puts_parameters': [[('PK', 'string', False, True)], [('job', 'string', False, True)]],
+
+            'deletes_parameters': [
+                [('email', 'string', True, True), ('phone', 'string', True, True), ('code', 'string', True, False)],
+                [('PK', 'string', False, True), ('secret', 'string', True, True)],
+                [('job', 'string', False, True)]],
             'responses_queries':[
                 {
                     'type': 'object',
@@ -81,6 +97,12 @@ class TestOasAnalysis:
                                     [('id', 'string', False, True)],
                                     [('id', 'string', False, True)],
                                     [('transactionRuleId', 'string', False, True)]],
+            'posts_parameters': [[], [], [('balanceAccountId', 'string', False, True)], [], [], []],
+            'puts_parameters': [],
+            'deletes_parameters': [[('balanceAccountId', 'string', False, True), ('sweepId', 'string', False, True)],
+                                   [('transactionRuleId', 'string', False, True)]],
+
+
             'responses_queries': [
                 {
                     'type': 'object',
@@ -151,7 +173,13 @@ class TestOasAnalysis:
                                    [('id', 'integer', False, True)],
                                    [],
                                    [('id', 'integer', False, True)],
-                                   [('id', 'integer', False, True)], [('id', 'integer', False, True)]]
+                                   [('id', 'integer', False, True)], [('id', 'integer', False, True)]] ,
+            'posts_parameters': [[], [], []],
+            'puts_parameters': [[('id', 'integer', False, True)], [('id', 'integer', False, True)], [('id', 'integer', False, True)]],
+            'deletes_parameters': [[('id', 'integer', False, True)],
+                                   [('id', 'integer', False, True)],
+                                   [('id', 'integer', False, True)],
+                                   [('id', 'integer', False, True), ('cat', 'integer', False, True)]],
         }
 
         oas_pet = {
@@ -174,6 +202,13 @@ class TestOasAnalysis:
                                    [('username', 'string', True, False), ('password', 'string', True, False)],
                                    [],
                                    [('username', 'string', False, True)]],
+            'posts_parameters': [[], [('petId', 'integer', False, True), ('name', 'string', True, False), (('status', 'string',True, False))],
+                                 [('petId', 'integer', False, True), ('additionalMetadata', 'string', True, False)],
+                                 [], [], []],
+            'puts_parameters': [[], [('username', 'string', False, True)]],
+            'deletes_parameters':  [[('api_key', 'string', False, False), ('petId', 'integer', False, True)],
+                                    [('orderId', 'integer', False, True)],
+                                    [('username','string', False,True)]],
             'responses_queries': [
                 {
                     'type': 'array',
@@ -264,7 +299,43 @@ class TestOasAnalysis:
                     assert p in i['queries_parameters'][index]
                 index += 1
 
+    def test_check_post_parameters(self):
+        for i in self.oas_list:
+            oas = read_api(os.path.join(TESTS_SET_PATH, i['name']))
+            index = 0
+            mutations_posts = [method for method in oas.mutations if method.type == 'post']
+            for mutation in mutations_posts:
+                for j in range(len(mutation.parameters)):
+                    p = (mutation.parameters[j].name, mutation.parameters[j].type, mutation.parameters[j].query, mutation.parameters[j].required)
+                    assert p in i['posts_parameters'][index]
+                index += 1
 
+
+    def test_check_put_parameters(self):
+        for i in self.oas_list:
+            oas = read_api(os.path.join(TESTS_SET_PATH, i['name']))
+            index = 0
+            mutations_puts = [method for method in oas.mutations if method.type == 'put']
+            for mutation in mutations_puts:
+                print(f'\nURL {mutation.url}')
+                for j in range(len(mutation.parameters)):
+                    p = (mutation.parameters[j].name, mutation.parameters[j].type, mutation.parameters[j].query, mutation.parameters[j].required)
+                    assert p in i['puts_parameters'][index]
+                index += 1
+
+
+
+    def test_check_delete_parameters(self):
+        for i in self.oas_list:
+            oas = read_api(os.path.join(TESTS_SET_PATH, i['name']))
+            index = 0
+            mutations_deletes = [method for method in oas.mutations if method.type == 'delete']
+            for mutation in mutations_deletes:
+                    for j in range(len(mutation.parameters)):
+                        p = (mutation.parameters[j].name, mutation.parameters[j].type, mutation.parameters[j].query, mutation.parameters[j].required)
+                        assert p in i['deletes_parameters'][index]
+
+                    index += 1
 
 
 
