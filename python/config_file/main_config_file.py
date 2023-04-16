@@ -12,4 +12,4 @@ if __name__ == '__main__':
     # # load_queries(open_api, './copies_templates/copy.txt')
     # # load_mutations(open_api, './copies_templates/copy.txt')
 
-    create_config_file('../tests_set/configuration_API.yaml', './copies_templates/copy.txt')
+    create_config_file('../tests/tests_set/adyen_developer_experience_team.yaml', './copies_templates/copy.txt')
