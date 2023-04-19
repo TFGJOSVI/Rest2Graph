@@ -31,9 +31,19 @@ def load_mutations(open_api: OpenAPI) -> str:
         request_body = parse_schema(mutation.request)
 
         if request_body and mutation.request.schema.type == 'array':
-            string_replace += f'\t\t- request_body: {request_body}\n'
+            string_replace += f'\t\t- request_body: {request_body}'
+        elif request_body == 'String' or request_body == 'Int' or request_body == 'Boolean' or request_body == 'Float':
+            string_replace += f'\t\t- request_body: {request_body}'
+        elif not request_body:
+            pass
+        else:
+            string_replace += f'\t\t- request_body: Input{request_body}'
+
+        if request_body and mutation.request.required:
+            string_replace += '!\n'
         elif request_body:
-            string_replace += f'\t\t- request_body: Input{request_body}\n'
+            string_replace += '\n'
+
 
         if parameters_query != '\t\t- query_parameters:':
             string_replace += f'{parameters_query}\n'

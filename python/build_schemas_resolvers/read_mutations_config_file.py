@@ -12,7 +12,7 @@ def read_mutations_config_file(file_path: str) -> list:
         posicion_inicio = lines.find('mutations:')
         posicion_fin = lines.find('types:')
 
-        contenido_deseado = lines[posicion_inicio + len('queries'):posicion_fin]
+        contenido_deseado = lines[posicion_inicio + len('mutations'):posicion_fin]
 
         for query in contenido_deseado.split('\n\n\t-')[1:]:
             parameters = []
@@ -45,49 +45,50 @@ def read_mutations_config_file(file_path: str) -> list:
                 component_name = first_line.split(': ')[1].strip()
 
 
-            schema = search_schema(file_path, component_name)
+            schema_response = search_schema(file_path, component_name)
 
-            if schema:
-                response = Response(schema=schema)
+            if schema_response:
+                response = Response(schema=schema_response)
             else:
                 response = None
 
-            for line in query.splitlines():
-                if line.startswith('\t\t- url:'):
-                    url = line.split('url: ')[1].split(' ')[1]
+            if 'url:' in query:
+                for line in query.splitlines():
+                    if line.startswith('\t\t- url:'):
+                        url = line.split('url: ')[1].split(' ')[1]
+                        type = line.split('url: ')[1].split(' ')[0]
 
-                if line.startswith('\t\t\t-'):
-                    name_parameter = line.split(':')[0].split('-')[1].strip()
-                    type_parameter = line.split(':')[1].strip()
-                    required = False
-                    in_query = True
-                    if type_parameter.__contains__('!'):
-                        required = True
+            if 'query_parameters:' in query:
+                for line in query.splitlines():
+                    if line.startswith('\t\t\t-'):
+                        name_parameter = line.split(':')[0].split('-')[1].strip()
+                        type_parameter = line.split(':')[1].strip()
+                        required = False
+                        in_query = True
+                        if type_parameter.__contains__('!'):
+                            required = True
 
-                    parameters.append(
-                        Parameter(name=name_parameter, type=type_parameter, required=required, query=in_query))
+                        parameters.append(
+                            Parameter(name=name_parameter, type=type_parameter, required=required, query=in_query))
 
-                request_body = None
-                if line.startswith('\t\t- request_body:'):
-                    request_body = line.split('request_body:')[1].split(' ')[1]
-                    if request_body.__contains__('Input'):
-                        request_body = request_body.replace('Input', '')
-                    schema = search_schema(file_path, request_body)
-                    required = False
-                    if request_body.__contains__('!'):
-                        required = True
-                    if schema:
-                        request_body = RequestBody(schema=schema, required=required)
+            request_body = None
+            if 'request_body:' in query:
+                for line in query.splitlines():
+                    if line.startswith('\t\t- request_body:'):
+                        required = False
+                        request_body = line.split('request_body:')[1].split(' ')[1]
+                        if request_body.__contains__('!'):
+                            required = True
+                            request_body = request_body.replace('!', '')
+                        if request_body.__contains__('Input'):
+                            request_body = request_body.replace('Input', '')
+                        schema_request = search_schema(file_path, request_body)
+                        if schema_request:
+                            request_body = RequestBody(schema=schema_request, required=required)
 
 
 
-
-
-            print(name)
-            print(url)
-            print(parameters)
-            print(response)
-            print(request_body)
-            print()
+            mutations.append(Mutation(name=name, url=url, type=type, parameters=parameters, response=response,
+                                      request=request_body, description=None))
 
     return mutations

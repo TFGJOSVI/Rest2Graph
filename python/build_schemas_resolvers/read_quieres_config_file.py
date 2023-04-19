@@ -1,3 +1,4 @@
+from build_schemas_resolvers.read_schemas_config_file import search_schema
 from build_schemas_resolvers.utils import parse_type
 from classes import Query, Parameter, Response
 
@@ -9,7 +10,7 @@ def read_queires_config_file(file_path: str) -> list[Query]:
         lines = file.read()
 
         posicion_inicio = lines.find('queries:')
-        posicion_fin = lines.find('mutations')
+        posicion_fin = lines.find('mutations:')
 
         contenido_deseado = lines[posicion_inicio + len('queries'):posicion_fin]
 
@@ -23,7 +24,7 @@ def read_queires_config_file(file_path: str) -> list[Query]:
                 name = query.splitlines()[0].split(':')[0].strip()
 
             if first_line.__contains__('('):
-                component_name = first_line.split(') :')[1].strip()
+                component_name = first_line.split('):')[1].strip()
                 parameters_path = first_line.split('(')[1].split(')')[0].strip()
                 if parameters_path:
                     for parameter in parameters_path.split(','):
@@ -37,34 +38,41 @@ def read_queires_config_file(file_path: str) -> list[Query]:
 
                         name_parameter = parameter.split(':')[0].strip()
 
-
-
-
-
-                        parameters.append(Parameter(name = name_parameter, type = type_parameter, required = required, query = in_query))
+                        parameters.append(
+                            Parameter(name=name_parameter, type=type_parameter, required=required, query=in_query))
 
             else:
                 component_name = first_line.split(': ')[1].strip()
 
+            schema_response = search_schema(file_path, component_name)
 
-            schema = search_schema(file_path, component_name)
+            if schema_response:
+                response = Response(schema=schema_response)
+            else:
+                response = None
 
-            for line in query.splitlines():
-                if line.startswith('\t\t- url:'):
-                    url = line.split('url: ')[1].split(' ')[1]
+            if 'url:' in query:
+                for line in query.splitlines():
+                    if line.startswith('\t\t- url:'):
+                        url = line.split('url: ')[1].split(' ')[1]
 
-                if line.startswith('\t\t\t-'):
-                    name_parameter = line.split(':')[0].split('-')[1].strip()
-                    type_parameter = line.split(':')[1].strip()
-                    required = False
-                    in_query = True
-                    if type_parameter.__contains__('!'):
-                        required = True
+            if 'query_parameters:' in query:
+                for line in query.splitlines():
+                    if line.startswith('\t\t\t-'):
+                        name_parameter = line.split(':')[0].split('-')[1].strip()
+                        type_parameter = line.split(':')[1].strip()
+                        required = False
+                        in_query = True
+                        if type_parameter.__contains__('!'):
+                            required = True
 
-                    parameters.append(Parameter(name = name_parameter, type = type_parameter, required = required, query = in_query))
+                        parameters.append(
+                            Parameter(name=name_parameter, type=type_parameter, required=required, query=in_query))
 
-            response = Response(schema = schema)
-            queries.append(Query(name = name, url = url, parameters = parameters, response = response, description= None))
+
+
+            queries.append(Query(name=name, url=url, parameters=parameters, response=response, description=None))
+
     return queries
 
 

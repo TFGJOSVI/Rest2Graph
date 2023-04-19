@@ -17,7 +17,7 @@ def load_queries(open_api: OpenAPI) -> str:
         if len(query.parameters) > 0:
             parameters_path = parse_parameters(query.parameters)
             parameters_query = parse_parameters_query(query.parameters)
-            string_replace += f'\n\t- {name}({parameters_path}) : {response}\n'
+            string_replace += f'\n\t- {name}({parameters_path}): {response}\n'
         else:
             string_replace += f'\n\t- {name}: {response}\n'
 

@@ -6,27 +6,27 @@ servers:
 
 queries:
 
-	- findPetsByStatus() : [Pet]
+	- findPetsByStatus(): [Pet]
 		- url: GET /pet/findByStatus
 		- query_parameters:
 			- status: string
 
-	- findPetsByTags() : [Pet]
+	- findPetsByTags(): [Pet]
 		- url: GET /pet/findByTags
 		- query_parameters:
 			- tags: array[string]
 
-	- getPetById(petId: Int!) : Pet
+	- getPetById(petId: Int!): Pet
 		- url: GET /pet/{petId}
 
 	- getInventory: ObjectObject
 		- url: GET /store/inventory
 
 
-	- getOrderById(orderId: Int!) : Order
+	- getOrderById(orderId: Int!): Order
 		- url: GET /store/order/{orderId}
 
-	- loginUser() : String
+	- loginUser(): String
 		- url: GET /user/login
 		- query_parameters:
 			- username: string
@@ -36,7 +36,7 @@ queries:
 		- url: GET /user/logout
 
 
-	- getUserByName(username: String!) : User
+	- getUserByName(username: String!): User
 		- url: GET /user/{username}
 
 
@@ -44,12 +44,12 @@ mutations:
 
 	- updatePet: Pet
 		- url: PUT /pet
-		- request_body: InputPet
+		- request_body: InputPet!
 
 
 	- addPet: Pet
 		- url: POST /pet
-		- request_body: InputPet
+		- request_body: InputPet!
 
 
 	- updatePetWithForm(petId: Int!): None
@@ -63,7 +63,7 @@ mutations:
 
 	- uploadFile(petId: Int!): ApiResponse
 		- url: POST /pet/{petId}/uploadImage
-		- request_body: InputString
+		- request_body: String
 		- query_parameters:
 			- additionalMetadata: string
 
@@ -94,19 +94,6 @@ mutations:
 
 
 types:
-	type ObjectObject {
-		additionalProperties: Int
-	}
-
-	type Pet {
-		id: Int
-		name: String!
-		category: Category
-		photoUrls: [String]!
-		tags: [Tag]
-		status: String
-	}
-
 	type User {
 		id: Int
 		username: String
@@ -118,13 +105,35 @@ types:
 		userStatus: Int
 	}
 
+	type ObjectObject {
+		additionalProperties: Int
+	}
+
+	type Order {
+		id: Int
+		petId: Int
+		quantity: Int
+		shipDate: String
+		status: String
+		complete: Boolean
+	}
+
 	type ApiResponse {
 		code: Int
 		type: String
 		message: String
 	}
 
-	type Order {
+	type Pet {
+		id: Int
+		name: String!
+		category: Category
+		photoUrls: [String]!
+		tags: [Tag]
+		status: String
+	}
+
+	input InputOrder {
 		id: Int
 		petId: Int
 		quantity: Int
@@ -151,15 +160,6 @@ types:
 		photoUrls: [String]!
 		tags: [Tag]
 		status: String
-	}
-
-	input InputOrder {
-		id: Int
-		petId: Int
-		quantity: Int
-		shipDate: String
-		status: String
-		complete: Boolean
 	}
 
 	type Category {

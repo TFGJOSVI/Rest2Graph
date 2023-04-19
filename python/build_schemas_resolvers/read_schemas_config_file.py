@@ -2,6 +2,18 @@ from build_schemas_resolvers.utils import parse_type
 from classes import Attribute, Component, Schema
 
 
+STRING_COMPONENT_OBJECT = Component('String', [Attribute('value', 'string', True)])
+STRING_SCHEMA = Schema('_OBJECT_STRING', STRING_COMPONENT_OBJECT)
+
+NUMBER_COMPONENT_OBJECT = Component('Number', [Attribute('value', 'number', True)])
+NUMBER_SCHEMA = Schema('_OBJECT_NUMBER', NUMBER_COMPONENT_OBJECT)
+
+BOOLEAN_COMPONENT_OBJECT = Component('Boolean', [Attribute('value', 'boolean', True)])
+BOOLEAN_SCHEMA = Schema('_OBJECT_BOOLEAN', BOOLEAN_COMPONENT_OBJECT)
+
+INTEGER_COMPONENT_OBJECT = Component('Integer', [Attribute('value', 'integer', True)])
+INTEGER_SCHEMA = Schema('_OBJECT_INTEGER', INTEGER_COMPONENT_OBJECT)
+
 def read_schemas(file_path: str) -> list[str]:
     schemas = []
     with open(file_path, 'r') as file:
@@ -48,6 +60,14 @@ def read_schemas(file_path: str) -> list[str]:
     return schemas
 
 def search_schema(file_path: str, component_name:str) -> Schema:
+    if component_name == 'String':
+        return STRING_SCHEMA
+    elif component_name == 'Number':
+        return NUMBER_SCHEMA
+    elif component_name == 'Boolean':
+        return BOOLEAN_SCHEMA
+    elif component_name == 'Integer':
+        return INTEGER_SCHEMA
     schemas = read_schemas(file_path)
     type_array = False
     if component_name.__contains__('['):
@@ -58,3 +78,6 @@ def search_schema(file_path: str, component_name:str) -> Schema:
             if type_array:
                 schema.type = 'array'
             return schema
+
+
+
