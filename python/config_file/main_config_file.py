@@ -11,5 +11,8 @@ if __name__ == '__main__':
     # # load_servers(open_api, './copies_templates/copy.txt')
     # # load_queries(open_api, './copies_templates/copy.txt')
     # # load_mutations(open_api, './copies_templates/copy.txt')
+    print(read_open_api('../tests/tests_set/pet_clinic.yaml').queries)
+    for query in read_open_api('../tests/tests_set/pet_clinic.yaml').queries:
+        print(query.parameters)
 
-    create_config_file('../tests/tests_set/adyen_developer_experience_team.yaml', './copies_templates/copy.txt')
+    create_config_file('../tests/tests_set/pet_clinic.yaml', './copies_templates/copy.txt')

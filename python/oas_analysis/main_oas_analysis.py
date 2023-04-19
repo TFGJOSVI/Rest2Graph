@@ -10,9 +10,11 @@ if __name__ == '__main__':
     for file in list_of_files:
         oas = read_open_api(f'../tests/tests_set/{file}')
         print(f'\n\nFile: {file}#######################################')
-        for mutation in oas.mutations:
-            if mutation.type == 'delete':
-                print(f'POST: {mutation.url}')
-                print(f'POST: {mutation.parameters}')
-                print()
+        for query in oas.queries:
+            print(f'\n\nQuery: {query.name}#######################################')
+            print(f'Url: {query.url}')
+            print(f'Description: {query.description}')
+            print(f'Parameters: {query.parameters}')
+            print(f'Response: {query.response}')
+
 
