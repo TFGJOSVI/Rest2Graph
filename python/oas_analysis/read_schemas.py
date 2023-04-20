@@ -147,4 +147,4 @@ def read_schema(schema: dict, oas: dict, atributes: Union[list | None] = []) -> 
         elif schema['type'] == 'boolean':
             return BOOLEAN_SCHEMA
     else:
-        return read_object_schema(schema, required, oas)
+        return read_object_schema(schema, required, oas, atributes)

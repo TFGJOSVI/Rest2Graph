@@ -73,6 +73,7 @@ def search_schema(file_path: str, component_name:str) -> Schema:
     if component_name.__contains__('['):
         component_name = component_name.replace('[', '').replace(']', '')
         type_array = True
+
     for schema in schemas:
         if schema.component.name == component_name.strip():
             if type_array:

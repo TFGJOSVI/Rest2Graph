@@ -10,5 +10,6 @@ def parse_type(response: str):
     elif response == 'String':
         type = 'string'
     else:
-        type = 'object'
+        type = response
+
     return type
