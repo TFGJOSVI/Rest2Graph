@@ -1,866 +1,175 @@
 Customize your GraphQl API
 
 servers:
-	- https://cal-test.adyen.com/cal/services/Account/v6
+	- https://petstore3.swagger.io/api/v3
 
 
 queries:
 
+	- findPetsByStatus(): [Pet]
+		- url: GET /pet/findByStatus
+		- query_parameters:
+			- status: string
+
+	- findPetsByTags(): [Pet]
+		- url: GET /pet/findByTags
+		- query_parameters:
+			- tags: array[string]
+
+	- getPetById(petId: Int!): Pet
+		- url: GET /pet/{petId}
+
+	- getInventory: ObjectObject
+		- url: GET /store/inventory
+
+
+	- getOrderById(orderId: Int!): Order
+		- url: GET /store/order/{orderId}
+
+	- loginUser(): String
+		- url: GET /user/login
+		- query_parameters:
+			- username: string
+			- password: string
+
+	- logoutUser: None
+		- url: GET /user/logout
+
+
+	- getUserByName(username: String!): User
+		- url: GET /user/{username}
+
 
 mutations:
-	- post-checkAccountHolder: GenericResponse
-		- url: POST /checkAccountHolder
-		- request_body: InputPerformVerificationRequest
-	- post-closeAccount: CloseAccountResponse
-		- url: POST /closeAccount
-		- request_body: InputCloseAccountRequest
-	- post-closeAccountHolder: CloseAccountHolderResponse
-		- url: POST /closeAccountHolder
-		- request_body: InputCloseAccountHolderRequest
-	- post-closeStores: GenericResponse
-		- url: POST /closeStores
-		- request_body: InputCloseStoresRequest
-	- post-createAccount: CreateAccountResponse
-		- url: POST /createAccount
-		- request_body: InputCreateAccountRequest
-	- post-createAccountHolder: CreateAccountHolderResponse
-		- url: POST /createAccountHolder
-		- request_body: InputCreateAccountHolderRequest
-	- post-deleteBankAccounts: GenericResponse
-		- url: POST /deleteBankAccounts
-		- request_body: InputDeleteBankAccountRequest
-	- post-deleteLegalArrangements: GenericResponse
-		- url: POST /deleteLegalArrangements
-		- request_body: InputDeleteLegalArrangementRequest
-	- post-deletePayoutMethods: GenericResponse
-		- url: POST /deletePayoutMethods
-		- request_body: InputDeletePayoutMethodRequest
-	- post-deleteShareholders: GenericResponse
-		- url: POST /deleteShareholders
-		- request_body: InputDeleteShareholderRequest
-	- post-deleteSignatories: GenericResponse
-		- url: POST /deleteSignatories
-		- request_body: InputDeleteSignatoriesRequest
-	- post-getAccountHolder: GetAccountHolderResponse
-		- url: POST /getAccountHolder
-		- request_body: InputGetAccountHolderRequest
-	- post-getTaxForm: GetTaxFormResponse
-		- url: POST /getTaxForm
-		- request_body: InputGetTaxFormRequest
-	- post-getUploadedDocuments: GetUploadedDocumentsResponse
-		- url: POST /getUploadedDocuments
-		- request_body: InputGetUploadedDocumentsRequest
-	- post-suspendAccountHolder: SuspendAccountHolderResponse
-		- url: POST /suspendAccountHolder
-		- request_body: InputSuspendAccountHolderRequest
-	- post-unSuspendAccountHolder: UnSuspendAccountHolderResponse
-		- url: POST /unSuspendAccountHolder
-		- request_body: InputUnSuspendAccountHolderRequest
-	- post-updateAccount: UpdateAccountResponse
-		- url: POST /updateAccount
-		- request_body: InputUpdateAccountRequest
-	- post-updateAccountHolder: UpdateAccountHolderResponse
-		- url: POST /updateAccountHolder
-		- request_body: InputUpdateAccountHolderRequest
-	- post-updateAccountHolderState: GetAccountHolderStatusResponse
-		- url: POST /updateAccountHolderState
-		- request_body: InputUpdateAccountHolderStateRequest
-	- post-uploadDocument: UpdateAccountHolderResponse
-		- url: POST /uploadDocument
-		- request_body: InputUploadDocumentRequest
+
+	- updatePet: Pet
+		- url: PUT /pet
+		- request_body: InputPet!
+
+
+	- addPet: Pet
+		- url: POST /pet
+		- request_body: InputPet!
+
+
+	- updatePetWithForm(petId: Int!): None
+		- url: POST /pet/{petId}
+		- query_parameters:
+			- name: string
+			- status: string
+
+	- deletePet(api_key: String, petId: Int!): None
+		- url: DELETE /pet/{petId}
+
+	- uploadFile(petId: Int!): ApiResponse
+		- url: POST /pet/{petId}/uploadImage
+		- request_body: String
+		- query_parameters:
+			- additionalMetadata: string
+
+	- placeOrder: Order
+		- url: POST /store/order
+		- request_body: InputOrder
+
+
+	- deleteOrder(orderId: Int!): None
+		- url: DELETE /store/order/{orderId}
+
+	- createUser: User
+		- url: POST /user
+		- request_body: InputUser
+
+
+	- createUsersWithListInput: User
+		- url: POST /user/createWithList
+		- request_body: [User]
+
+
+	- updateUser(username: String!): None
+		- url: PUT /user/{username}
+		- request_body: InputUser
+
+	- deleteUser(username: String!): None
+		- url: DELETE /user/{username}
 
 
 types:
-	input InputPerformVerificationRequest {
-		accountHolderCode: String!
-		accountStateType: String!
-		tier: Int!
-	}
-
-	input InputGetTaxFormRequest {
-		accountHolderCode: String!
-		formType: String!
-		year: Int!
-	}
-
-	input InputDeleteShareholderRequest {
-		accountHolderCode: String!
-		shareholderCodes: [String]!
-	}
-
-	input InputUpdateAccountHolderRequest {
-		accountHolderCode: String!
-		accountHolderDetails: AccountHolderDetails
-		description: String
-		legalEntity: String
-		primaryCurrency: String
-		processingTier: Int
-		verificationProfile: String
-	}
-
-	input InputUploadDocumentRequest {
-		documentContent: String!
-		documentDetail: DocumentDetail!
-	}
-
-	input InputCreateAccountResponse {
-		accountCode: String!
-		accountHolderCode: String!
-		bankAccountUUID: String
-		description: String
-		invalidFields: [ErrorFieldType]
-		metadata: object
-		payoutMethodCode: String
-		payoutSchedule: PayoutScheduleResponse
-		payoutSpeed: String
-		pspReference: String
-		resultCode: String
-		status: String!
-	}
-
-	input InputDeleteBankAccountRequest {
-		accountHolderCode: String!
-		bankAccountUUIDs: [String]!
-	}
-
-	input InputCreateAccountRequest {
-		accountHolderCode: String!
-		bankAccountUUID: String
-		description: String
-		metadata: object
-		payoutMethodCode: String
-		payoutSchedule: String
-		payoutScheduleReason: String
-		payoutSpeed: String
-	}
-
-	input InputSuspendAccountHolderResponse {
-		accountHolderStatus: AccountHolderStatus!
-		invalidFields: [ErrorFieldType]
-		pspReference: String
-		resultCode: String
-	}
-
-	input InputUpdateAccountHolderStateRequest {
-		accountHolderCode: String!
-		disable: Boolean!
-		reason: String
-		stateType: String!
-	}
-
-	input InputCreateAccountHolderResponse {
-		accountCode: String
-		accountHolderCode: String!
-		accountHolderDetails: AccountHolderDetails!
-		accountHolderStatus: AccountHolderStatus!
-		description: String
-		invalidFields: [ErrorFieldType]
-		legalEntity: String!
-		primaryCurrency: String
-		pspReference: String
-		resultCode: String
-		verification: KYCVerificationResult!
-		verificationProfile: String
-	}
-
-	input InputDeleteLegalArrangementRequest {
-		accountHolderCode: String!
-		legalArrangements: [LegalArrangementRequest]!
-	}
-
-	input InputCloseAccountHolderRequest {
-		accountHolderCode: String!
-	}
-
-	input InputSuspendAccountHolderRequest {
-		accountHolderCode: String!
-	}
-
-	input InputCloseAccountHolderResponse {
-		accountHolderStatus: AccountHolderStatus!
-		invalidFields: [ErrorFieldType]
-		pspReference: String
-		resultCode: String
-	}
-
-	input InputDeletePayoutMethodRequest {
-		accountHolderCode: String!
-		payoutMethodCodes: [String]!
-	}
-
-	input InputGetUploadedDocumentsResponse {
-		documentDetails: [DocumentDetail]
-		invalidFields: [ErrorFieldType]
-		pspReference: String
-		resultCode: String
-	}
-
-	input InputCreateAccountHolderRequest {
-		accountHolderCode: String!
-		accountHolderDetails: AccountHolderDetails!
-		createDefaultAccount: Boolean
-		description: String
-		legalEntity: String!
-		primaryCurrency: String
-		processingTier: Int
-		verificationProfile: String
-	}
-
-	input InputGetAccountHolderRequest {
-		accountCode: String
-		accountHolderCode: String
-		showDetails: Boolean
-	}
-
-	input InputDeleteSignatoriesRequest {
-		accountHolderCode: String!
-		signatoryCodes: [String]!
-	}
-
-	input InputUnSuspendAccountHolderRequest {
-		accountHolderCode: String!
-	}
-
-	input InputGetAccountHolderResponse {
-		accountHolderCode: String!
-		accountHolderDetails: AccountHolderDetails!
-		accountHolderStatus: AccountHolderStatus!
-		accounts: [Account]
-		description: String
-		invalidFields: [ErrorFieldType]
-		legalEntity: String!
-		primaryCurrency: String
-		pspReference: String
-		resultCode: String
-		systemUpToDateTime: String
-		verification: KYCVerificationResult!
-		verificationProfile: String
-	}
-
-	input InputCloseStoresRequest {
-		accountHolderCode: String!
-		stores: [String]!
-	}
-
-	input InputGenericResponse {
-		invalidFields: [ErrorFieldType]
-		pspReference: String
-		resultCode: String
-	}
-
-	input InputUpdateAccountHolderResponse {
-		accountHolderCode: String
-		accountHolderDetails: AccountHolderDetails
-		accountHolderStatus: AccountHolderStatus!
-		description: String
-		invalidFields: [ErrorFieldType]
-		legalEntity: String!
-		primaryCurrency: String
-		pspReference: String
-		resultCode: String
-		verification: KYCVerificationResult!
-		verificationProfile: String
-	}
-
-	input InputGetAccountHolderStatusResponse {
-		accountHolderCode: String!
-		accountHolderStatus: AccountHolderStatus!
-		invalidFields: [ErrorFieldType]
-		pspReference: String
-		resultCode: String
-	}
-
-	input InputGetTaxFormResponse {
-		content: String
-		contentType: String
-		invalidFields: [ErrorFieldType]
-		pspReference: String
-		resultCode: String
-	}
-
-	input InputGetUploadedDocumentsRequest {
-		accountHolderCode: String!
-		bankAccountUUID: String
-		shareholderCode: String
-	}
-
-	input InputUnSuspendAccountHolderResponse {
-		accountHolderStatus: AccountHolderStatus!
-		invalidFields: [ErrorFieldType]
-		pspReference: String
-		resultCode: String
-	}
-
-	input InputCloseAccountRequest {
-		accountCode: String!
-	}
-
-	input InputCloseAccountResponse {
-		accountCode: String
-		invalidFields: [ErrorFieldType]
-		pspReference: String
-		resultCode: String
-		status: String!
-	}
-
-	input InputUpdateAccountResponse {
-		accountCode: String!
-		bankAccountUUID: String
-		description: String
-		invalidFields: [ErrorFieldType]
-		metadata: object
-		payoutMethodCode: String
-		payoutSchedule: PayoutScheduleResponse
-		payoutSpeed: String
-		pspReference: String
-		resultCode: String
-	}
-
-	input InputUpdateAccountRequest {
-		accountCode: String!
-		bankAccountUUID: String
-		description: String
-		metadata: object
-		payoutMethodCode: String
-		payoutSchedule: UpdatePayoutScheduleRequest
-		payoutSpeed: String
-	}
-
-	type AccountHolderDetails {
-		address: ViasAddress
-		bankAccountDetails: [BankAccountDetail]
-		bankAggregatorDataReference: String
-		businessDetails: BusinessDetails
-		email: String!
-		fullPhoneNumber: String!
-		individualDetails: IndividualDetails
-		lastReviewDate: String
-		legalArrangements: [LegalArrangementDetail]
-		merchantCategoryCode: String
-		metadata: object
-		payoutMethods: [PayoutMethod]
-		principalBusinessAddress: ViasAddress
-		storeDetails: [StoreDetail]
-		webAddress: String!
-	}
-
-	type DocumentDetail {
-		accountHolderCode: String!
-		bankAccountUUID: String
-		description: String
-		documentType: String!
-		filename: String!
-		legalArrangementCode: String
-		legalArrangementEntityCode: String
-		shareholderCode: String
-		signatoryCode: String
-	}
-
-	type KYCVerificationResult {
-		accountHolder: KYCCheckResult
-		legalArrangements: [KYCLegalArrangementCheckResult]
-		legalArrangementsEntities: [KYCLegalArrangementEntityCheckResult]
-		payoutMethods: [KYCPayoutMethodCheckResult]
-		shareholders: [KYCShareholderCheckResult]
-		signatories: [KYCSignatoryCheckResult]
-		ultimateParentCompany: [KYCUltimateParentCompanyCheckResult]
-	}
-
-	type AccountHolderStatus {
-		events: [AccountEvent]
-		payoutState: AccountPayoutState
-		processingState: AccountProcessingState
-		status: String!
-		statusReason: String
-	}
-
-	type Account {
-		accountCode: String
-		bankAccountUUID: String
-		beneficiaryAccount: String
-		beneficiaryMerchantReference: String
-		description: String
-		metadata: object
-		payoutMethodCode: String
-		payoutSchedule: PayoutScheduleResponse
-		payoutSpeed: String
+	type Order {
+		id: Int
+		petId: Int
+		quantity: Int
+		shipDate: String
 		status: String
+		complete: Boolean
 	}
 
-	type ErrorFieldType {
-		errorCode: Int
-		errorDescription: String
-		fieldType: FieldType
+	type User {
+		id: Int
+		username: String
+		firstName: String
+		lastName: String
+		email: String
+		password: String
+		phone: String
+		userStatus: Int
 	}
 
-	type LegalArrangementRequest {
-		legalArrangementCode: String!
-		legalArrangementEntityCodes: [String]
-	}
-
-	type UpdatePayoutScheduleRequest {
-		action: String
-		reason: String
-		schedule: String!
-	}
-
-	type PayoutScheduleResponse {
-		nextScheduledPayout: String
-		schedule: String!
-	}
-
-	type ViasAddress {
-		city: String
-		country: String!
-		houseNumberOrName: String
-		postalCode: String
-		stateOrProvince: String
-		street: String
-	}
-
-	type BankAccountDetail {
-		accountNumber: String
-		accountType: String
-		bankAccountName: String
-		bankAccountReference: String
-		bankAccountUUID: String
-		bankBicSwift: String
-		bankCity: String
-		bankCode: String
-		bankName: String
-		branchCode: String
-		checkCode: String
-		countryCode: String
-		currencyCode: String
-		iban: String
-		ownerCity: String
-		ownerCountryCode: String
-		ownerDateOfBirth: String
-		ownerHouseNumberOrName: String
-		ownerName: String
-		ownerNationality: String
-		ownerPostalCode: String
-		ownerState: String
-		ownerStreet: String
-		primaryAccount: Boolean
-		taxId: String
-		urlForVerification: String
-	}
-
-	type BusinessDetails {
-		doingBusinessAs: String
-		legalBusinessName: String
-		listedUltimateParentCompany: [UltimateParentCompany]
-		registrationNumber: String
-		shareholders: [ShareholderContact]
-		signatories: [SignatoryContact]
-		stockExchange: String
-		stockNumber: String
-		stockTicker: String
-		taxId: String
-	}
-
-	type IndividualDetails {
-		name: ViasName
-		personalData: ViasPersonalData
-	}
-
-	type LegalArrangementDetail {
-		address: ViasAddress!
-		legalArrangementCode: String
-		legalArrangementEntities: [LegalArrangementEntityDetail]
-		legalArrangementReference: String
-		legalForm: String
+	type Pet {
+		id: Int
 		name: String!
-		registrationNumber: String
-		taxNumber: String
-		type: String!
-	}
-
-	type PayoutMethod {
-		merchantAccount: String!
-		payoutMethodCode: String
-		payoutMethodReference: String
-		recurringDetailReference: String!
-		shopperReference: String!
-	}
-
-	type ViasAddress {
-		city: String
-		country: String!
-		houseNumberOrName: String
-		postalCode: String
-		stateOrProvince: String
-		street: String
-	}
-
-	type StoreDetail {
-		address: ViasAddress!
-		fullPhoneNumber: String
-		logo: String
-		merchantAccount: String!
-		merchantCategoryCode: String!
-		merchantHouseNumber: String
-		phoneNumber: ViasPhoneNumber
-		shopperInteraction: String
-		splitConfigurationUUID: String
+		category: Category
+		photoUrls: [String]!
+		tags: [Tag]
 		status: String
-		store: String
-		storeName: String
-		storeReference: String!
-		virtualAccount: String
-		webAddress: String
 	}
 
-	type KYCCheckResult {
-		checks: [KYCCheckStatusData]
+	type ObjectObject {
+		additionalProperties: Int
 	}
 
-	type KYCLegalArrangementCheckResult {
-		checks: [KYCCheckStatusData]
-		legalArrangementCode: String
+	type ApiResponse {
+		code: Int
+		type: String
+		message: String
 	}
 
-	type KYCLegalArrangementEntityCheckResult {
-		checks: [KYCCheckStatusData]
-		legalArrangementCode: String
-		legalArrangementEntityCode: String
+	input InputPet {
+		id: Int
+		name: String!
+		category: Category
+		photoUrls: [String]!
+		tags: [Tag]
+		status: String
 	}
 
-	type KYCPayoutMethodCheckResult {
-		checks: [KYCCheckStatusData]
-		payoutMethodCode: String
+	input InputOrder {
+		id: Int
+		petId: Int
+		quantity: Int
+		shipDate: String
+		status: String
+		complete: Boolean
 	}
 
-	type KYCShareholderCheckResult {
-		checks: [KYCCheckStatusData]
-		legalArrangementCode: String
-		legalArrangementEntityCode: String
-		shareholderCode: String
-	}
-
-	type KYCSignatoryCheckResult {
-		checks: [KYCCheckStatusData]
-		signatoryCode: String
-	}
-
-	type KYCUltimateParentCompanyCheckResult {
-		checks: [KYCCheckStatusData]
-		ultimateParentCompanyCode: String
-	}
-
-	type AccountEvent {
-		event: String!
-		executionDate: String!
-		reason: String!
-	}
-
-	type AccountPayoutState {
-		allowPayout: Boolean
-		disableReason: String
-		disabled: Boolean
-		notAllowedReason: String
-		payoutLimit: Amount
-		tierNumber: Int
-	}
-
-	type AccountProcessingState {
-		disableReason: String
-		disabled: Boolean
-		processedFrom: Amount
-		processedTo: Amount
-		tierNumber: Int
-	}
-
-	type PayoutScheduleResponse {
-		nextScheduledPayout: String
-		schedule: String!
-	}
-
-	type FieldType {
-		field: String
-		fieldName: String
-		shareholderCode: String
-	}
-
-	type UltimateParentCompany {
-		address: ViasAddress
-		businessDetails: UltimateParentCompanyBusinessDetails
-		ultimateParentCompanyCode: String
-	}
-
-	type ShareholderContact {
-		address: ViasAddress
+	input InputUser {
+		id: Int
+		username: String
+		firstName: String
+		lastName: String
 		email: String
-		fullPhoneNumber: String
-		jobTitle: String
-		name: ViasName
-		personalData: ViasPersonalData
-		phoneNumber: ViasPhoneNumber
-		shareholderCode: String
-		shareholderReference: String
-		shareholderType: String
-		webAddress: String
+		password: String
+		phone: String
+		userStatus: Int
 	}
 
-	type SignatoryContact {
-		address: ViasAddress
-		email: String
-		fullPhoneNumber: String
-		jobTitle: String
-		name: ViasName
-		personalData: ViasPersonalData
-		phoneNumber: ViasPhoneNumber
-		signatoryCode: String
-		signatoryReference: String
-		webAddress: String
+	type Tag {
+		id: Int
+		name: String
 	}
 
-	type ViasAddress {
-		city: String
-		country: String!
-		houseNumberOrName: String
-		postalCode: String
-		stateOrProvince: String
-		street: String
-	}
-
-	type LegalArrangementEntityDetail {
-		address: ViasAddress
-		businessDetails: BusinessDetails
-		email: String
-		fullPhoneNumber: String
-		individualDetails: IndividualDetails
-		legalArrangementEntityCode: String
-		legalArrangementEntityReference: String
-		legalArrangementMembers: [String]
-		legalEntityType: String!
-		phoneNumber: ViasPhoneNumber
-		webAddress: String
-	}
-
-	type ViasAddress {
-		city: String
-		country: String!
-		houseNumberOrName: String
-		postalCode: String
-		stateOrProvince: String
-		street: String
-	}
-
-	type ViasPhoneNumber {
-		phoneCountryCode: String!
-		phoneNumber: String!
-		phoneType: String
-	}
-
-	type KYCCheckStatusData {
-		requiredFields: [String]
-		status: String!
-		summary: KYCCheckSummary
-		type: String!
-	}
-
-	type KYCCheckStatusData {
-		requiredFields: [String]
-		status: String!
-		summary: KYCCheckSummary
-		type: String!
-	}
-
-	type KYCCheckStatusData {
-		requiredFields: [String]
-		status: String!
-		summary: KYCCheckSummary
-		type: String!
-	}
-
-	type KYCCheckStatusData {
-		requiredFields: [String]
-		status: String!
-		summary: KYCCheckSummary
-		type: String!
-	}
-
-	type KYCCheckStatusData {
-		requiredFields: [String]
-		status: String!
-		summary: KYCCheckSummary
-		type: String!
-	}
-
-	type KYCCheckStatusData {
-		requiredFields: [String]
-		status: String!
-		summary: KYCCheckSummary
-		type: String!
-	}
-
-	type KYCCheckStatusData {
-		requiredFields: [String]
-		status: String!
-		summary: KYCCheckSummary
-		type: String!
-	}
-
-	type ViasAddress {
-		city: String
-		country: String!
-		houseNumberOrName: String
-		postalCode: String
-		stateOrProvince: String
-		street: String
-	}
-
-	type UltimateParentCompanyBusinessDetails {
-		legalBusinessName: String
-		registrationNumber: String
-		stockExchange: String
-		stockNumber: String
-		stockTicker: String
-	}
-
-	type ViasAddress {
-		city: String
-		country: String!
-		houseNumberOrName: String
-		postalCode: String
-		stateOrProvince: String
-		street: String
-	}
-
-	type ViasName {
-		firstName: String!
-		gender: String
-		infix: String
-		lastName: String!
-	}
-
-	type ViasPersonalData {
-		dateOfBirth: String
-		documentData: [PersonalDocumentData]
-		nationality: String
-	}
-
-	type ViasPhoneNumber {
-		phoneCountryCode: String!
-		phoneNumber: String!
-		phoneType: String
-	}
-
-	type ViasAddress {
-		city: String
-		country: String!
-		houseNumberOrName: String
-		postalCode: String
-		stateOrProvince: String
-		street: String
-	}
-
-	type ViasName {
-		firstName: String!
-		gender: String
-		infix: String
-		lastName: String!
-	}
-
-	type ViasPersonalData {
-		dateOfBirth: String
-		documentData: [PersonalDocumentData]
-		nationality: String
-	}
-
-	type ViasPhoneNumber {
-		phoneCountryCode: String!
-		phoneNumber: String!
-		phoneType: String
-	}
-
-	type ViasAddress {
-		city: String
-		country: String!
-		houseNumberOrName: String
-		postalCode: String
-		stateOrProvince: String
-		street: String
-	}
-
-	type BusinessDetails {
-		doingBusinessAs: String
-		legalBusinessName: String
-		listedUltimateParentCompany: [UltimateParentCompany]
-		registrationNumber: String
-		shareholders: [ShareholderContact]
-		signatories: [SignatoryContact]
-		stockExchange: String
-		stockNumber: String
-		stockTicker: String
-		taxId: String
-	}
-
-	type IndividualDetails {
-		name: ViasName
-		personalData: ViasPersonalData
-	}
-
-	type ViasPhoneNumber {
-		phoneCountryCode: String!
-		phoneNumber: String!
-		phoneType: String
-	}
-
-	type KYCCheckSummary {
-		kycCheckCode: Int
-		kycCheckDescription: String
-	}
-
-	type PersonalDocumentData {
-		expirationDate: String
-		issuerCountry: String
-		issuerState: String
-		number: String
-		type: String!
-	}
-
-	type PersonalDocumentData {
-		expirationDate: String
-		issuerCountry: String
-		issuerState: String
-		number: String
-		type: String!
-	}
-
-	type UltimateParentCompany {
-		address: ViasAddress
-		businessDetails: UltimateParentCompanyBusinessDetails
-		ultimateParentCompanyCode: String
-	}
-
-	type ShareholderContact {
-		address: ViasAddress
-		email: String
-		fullPhoneNumber: String
-		jobTitle: String
-		name: ViasName
-		personalData: ViasPersonalData
-		phoneNumber: ViasPhoneNumber
-		shareholderCode: String
-		shareholderReference: String
-		shareholderType: String
-		webAddress: String
-	}
-
-	type SignatoryContact {
-		address: ViasAddress
-		email: String
-		fullPhoneNumber: String
-		jobTitle: String
-		name: ViasName
-		personalData: ViasPersonalData
-		phoneNumber: ViasPhoneNumber
-		signatoryCode: String
-		signatoryReference: String
-		webAddress: String
+	type Category {
+		id: Int
+		name: String
 	}
 
 
