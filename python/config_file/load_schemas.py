@@ -89,14 +89,14 @@ def write_schemas_string(open_api: OpenAPI, oas: dict) -> str:
 
                 if attribute.type == 'array':
                     if attribute.required:
-                        schemas += '\t\t' + attribute.name + ': [' + parse_type_oas_graphql(attribute.items_type) + ']!\n'
+                        schemas += '\t\t' + attribute.name + ': [' + parse_type_oas_graphql(attribute.items_type, True) + ']!\n'
                     else:
-                        schemas += '\t\t' + attribute.name + ': [' + parse_type_oas_graphql(attribute.items_type) + ']\n'
+                        schemas += '\t\t' + attribute.name + ': [' + parse_type_oas_graphql(attribute.items_type, True) + ']\n'
                 else:
                     if attribute.required:
-                        schemas += '\t\t' + attribute.name + ': ' + parse_type_oas_graphql(attribute.type) + '!\n'
+                        schemas += '\t\t' + attribute.name + ': ' + parse_type_oas_graphql(attribute.type, True) + '!\n'
                     else:
-                        schemas += '\t\t' + attribute.name + ': ' + parse_type_oas_graphql(attribute.type) + '\n'
+                        schemas += '\t\t' + attribute.name + ': ' + parse_type_oas_graphql(attribute.type, True) + '\n'
 
             schemas += '\t}\n\n'
 

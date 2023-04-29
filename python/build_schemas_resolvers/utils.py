@@ -1,3 +1,7 @@
+import os
+import shutil
+
+
 def parse_type(response: str):
     if response.__contains__('['):
         type = 'array'
@@ -13,3 +17,9 @@ def parse_type(response: str):
         type = response
 
     return type
+
+
+def copy_dir(src, dst):
+    if os.path.exists(dst):
+        shutil.rmtree(dst)
+    shutil.copytree(src, dst)

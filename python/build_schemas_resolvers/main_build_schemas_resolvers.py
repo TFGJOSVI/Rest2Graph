@@ -1,13 +1,20 @@
 from build_schemas_resolvers.create_open_api import create_open_api
 from build_schemas_resolvers.read_schemas_config_file import read_schemas
 from oas_analysis.read_open_api import read_open_api
+from build_schemas_resolvers.utils import copy_dir
+from python.paths import *
+from build_schemas_resolvers.build_resolvers import *
+from build_schemas_resolvers.write_resolvers import write_resolvers
 
 FILE_PATH = '../config_file/copies_templates/copy.txt'
 
 if __name__ == '__main__':
-    schemas = read_schemas(FILE_PATH)
-    for schema in schemas:
-        print(schema)
+
+    # copy_dir('./source_code_base/sourceCode', './source_code_return/sourceCode')
+
+    # schemas = read_schemas(FILE_PATH)
+    # for schema in schemas:
+    #     print(schema)
     # oas = read_open_api(f'../tests/tests_set/pet_clinic.yaml')
     # for query in oas.queries:
     #     query.description = None
@@ -23,5 +30,14 @@ if __name__ == '__main__':
     # print(oas)
 
     # print(oas==open_api)
+
+    oas = create_open_api(FILE_PATH)
+
+
+    resolver = build_resolvers(oas)
+
+    write_resolvers(oas)
+
+
 
 

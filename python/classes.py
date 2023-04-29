@@ -197,17 +197,19 @@ class OpenAPI:
     queries: list[Query]
     mutations: list[Mutation]
     servers: list[str]
+    schemas: list[Schema]
 
     def __eq__(self, other):
         return (
             isinstance(other, OpenAPI) and
             self.queries == other.queries and
             self.mutations == other.mutations and
-            self.servers == other.servers
+            self.servers == other.servers and
+            self.schemas == other.schemas
         )
 
     def __hash__(self):
-        return hash((self.queries, self.mutations, self.servers))
+        return hash((self.queries, self.mutations, self.servers, self.schemas))
 
 
 

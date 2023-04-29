@@ -1,3 +1,5 @@
+import re
+
 from build_schemas_resolvers.utils import parse_type
 from classes import Attribute, Component, Schema
 
@@ -57,6 +59,35 @@ def read_schemas(file_path: str) -> list[str]:
                 component = Component(name = name_component, attributes = atributes)
                 schema = Schema(type = type_schema, component = component)
                 schemas.append(schema)
+            elif schema.startswith('\tinput'):
+                name_component = first_line.split('input')[1].strip().replace('{', '').strip()
+                name_component = name_component.replace('Input', '')
+                type_schema = parse_type(name_component)
+                atributes = []
+                for line in schema.splitlines():
+                    if line.startswith('\t\t'):
+                        name = line.split(':')[0].strip()
+
+                        type = line.split(':')[1].strip()
+                        items_type = None
+                        required = False
+
+                        if type.__contains__('!'):
+                            required = True
+                            type = type.replace('!', '').strip()
+
+                        if type.__contains__('['):
+                            items_type = parse_type(type.split('[')[1].split(']')[0])
+                            type = 'array'
+                        else:
+                            type = parse_type(type)
+
+                        atributes.append(Attribute(name=name, type=type, items_type=items_type, required=required))
+
+                component = Component(name=name_component, attributes=atributes)
+                schema = Schema(type=type_schema, component=component)
+                schemas.append(schema)
+
     return schemas
 
 def search_schema(file_path: str, component_name:str) -> Schema:

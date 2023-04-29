@@ -94,6 +94,25 @@ mutations:
 
 
 types:
+	type Pet {
+		id: Int
+		name: String!
+		category: Category
+		photoUrls: [String]!
+		tags: [Tag]
+		status: String
+	}
+
+	type ObjectObject {
+		additionalProperties: Int
+	}
+
+	type ApiResponse {
+		code: Int
+		type: String
+		message: String
+	}
+
 	type Order {
 		id: Int
 		petId: Int
@@ -114,25 +133,6 @@ types:
 		userStatus: Int
 	}
 
-	type Pet {
-		id: Int
-		name: String!
-		category: Category
-		photoUrls: [String]!
-		tags: [Tag]
-		status: String
-	}
-
-	type ObjectObject {
-		additionalProperties: Int
-	}
-
-	type ApiResponse {
-		code: Int
-		type: String
-		message: String
-	}
-
 	input InputPet {
 		id: Int
 		name: String!
@@ -140,15 +140,6 @@ types:
 		photoUrls: [String]!
 		tags: [Tag]
 		status: String
-	}
-
-	input InputOrder {
-		id: Int
-		petId: Int
-		quantity: Int
-		shipDate: String
-		status: String
-		complete: Boolean
 	}
 
 	input InputUser {
@@ -162,12 +153,21 @@ types:
 		userStatus: Int
 	}
 
-	type Tag {
+	input InputOrder {
+		id: Int
+		petId: Int
+		quantity: Int
+		shipDate: String
+		status: String
+		complete: Boolean
+	}
+
+	type Category {
 		id: Int
 		name: String
 	}
 
-	type Category {
+	type Tag {
 		id: Int
 		name: String
 	}
