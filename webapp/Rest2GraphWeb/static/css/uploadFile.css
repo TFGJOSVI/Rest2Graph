@@ -1,0 +1,65 @@
+.list-container {
+  background-color: #FFFFFF;
+  border: 5px solid #E10098;
+  border-radius: 10px;
+  margin-top: 10px;
+  width: 1200px;
+  height: auto;
+}
+
+.form-check{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom-color: #E10098;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.form-check-input:checked {
+    background-color: #E10098 !important;
+    border-color: #E10098 !important;
+}
+
+.form-check-label{
+    font-weight: bold;
+
+}
+
+.server-title{
+    margin-top: 20px;
+    color: #E10098;
+    font-family: Oswald;
+    font-size: 31px;
+    line-height: 40px;
+    width: 1000px;
+    text-align: left;
+}
+
+.method-info{
+    width: 40px;
+    height: 40px;
+}
+
+
+
+.edit-btn{
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+    width: 30px;
+    height: 30px;
+    align-content: center;
+
+}
+
+.img-edit{
+    width: 29px;
+    height: 29px;
+    float: right;
+}
+
+.method{
+    padding-left: 15px;
+}

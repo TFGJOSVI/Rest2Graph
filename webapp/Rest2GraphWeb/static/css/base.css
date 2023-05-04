@@ -1,0 +1,192 @@
+.container-fluid{
+    background-color: #E10098;
+    width: 1440px;
+    height: 70px;
+    padding: 4px;
+}
+
+.nav-log{
+    border-radius: 42px;
+    width: 63px;
+    height: 62px;
+    padding: 4px;
+
+}
+
+.title {
+  color: #E10098;
+  font-family: Oswald;
+  font-size: 50px;
+  font-style: italic;
+  line-height: 0;
+  text-align: center;
+    padding-top: 150px;
+    padding-bottom: 80px;
+}
+
+.page-logo{
+    border-radius: 42px;
+    width: 200px;
+    height: 200px;
+    margin-left: 650px;
+    position: center;
+}
+
+.main-button{
+    background-color: #FFFFFF;
+    border: 3px solid #E10098;
+    border-radius: 10px;
+    width: 250px;
+    height: 50px;
+    margin-left: 625px;
+    color: #E10098;
+    font-style: italic;
+    font-family: Oswald;
+    font-size: 31px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.button-content{
+    color: #E10098;
+
+}
+
+
+/* MODAL */
+
+.publish-complaint-button{
+    padding: 10px 30px;
+    margin-top: 20px;
+    border-radius: 15px;
+    background: #E10098;
+}
+
+.publish-complaint-button:hover{
+    background: linear-gradient(to bottom, #E10098, #FFFFFF);
+}
+
+#opinion-input{
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+}
+
+.publish-opinion-button{
+    padding: 10px 30px;
+    margin-top: 20px;
+    border-radius: 15px;
+    background: #E10098;
+}
+
+.publish-opinion-button:hover{
+    background: linear-gradient(to bottom, #E10098, #FFFFFF);
+}
+
+#complaint-title, #opinion-title{
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width: 1100px) {
+
+    .new-complaint-button{
+        width: 20%;
+    }
+    .new-opinion-button{
+        width: 20%;
+    }
+
+    #buttons-section{
+        padding: 20px 10%;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+
+    .new-complaint-button{
+        width: 40%;
+    }
+    .opinion{
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .new-complaint-button{
+        width: 100%;
+    }
+
+    .new-opinion-button{
+        width: 100%;
+    }
+}
+
+.modal-content{
+    background-color: #FFFFFF;
+    border: 5px solid #E10098;
+    border-radius: 10px;
+    text-align: center;
+
+}
+
+.alert-light{
+    text-align: center;
+}
+
+.modal-title{
+    color: #E10098;
+    font-family: Oswald;
+    font-size: 40px;
+    line-height: 52px;
+    text-align: center !important;
+}
+
+.upload-button{
+
+    background-color: #E10098;
+    border: 5px solid #E10098;
+    border-radius: 10px;
+    width: 200px;
+    height: 44px;
+    color: #FFFFFF;
+    font-style: italic;
+    font-family: Oswald;
+    font-size: 21px;
+    line-height: 30px;
+    text-align: center;
+
+}
+
+.input-group{
+    background-color: #FFFFFF;
+    border: 3px solid #E10098;
+    border-radius: 10px;
+    width: 250px;
+    height: 43px;
+    color: #E10098;
+    font-style: italic;
+    font-family: Oswald;
+    font-size: 31px;
+    line-height: 40px;
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.second-option{
+    margin-bottom: 10px;
+    font-family: Oswald;
+    font-style: italic;
+    font-size: 21px;
+    line-height: 30px;
+    text-align: center;
+
+}
+
+.modal-header{
+    text-align: center;
+}
+
+
+
+
