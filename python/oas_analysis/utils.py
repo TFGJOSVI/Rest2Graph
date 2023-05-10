@@ -50,6 +50,7 @@ def load_oas(path: str):
         _file = yaml2json(path)
         _file = json.loads(_file)
     else:
+        print(path)
         raise ValueError('File format not supported')
 
     return _file

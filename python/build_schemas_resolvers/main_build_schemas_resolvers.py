@@ -5,11 +5,11 @@ from build_schemas_resolvers.utils import copy_dir
 from python.paths import *
 from build_schemas_resolvers.build_resolvers import *
 from build_schemas_resolvers.write_resolvers import write_resolvers
+from python.build_schemas_resolvers.utils import zip_directory
 
-FILE_PATH = '../config_file/copies_templates/copy.txt'
+FILE_PATH = '../tests/tests_set/pet_clinic.yaml'
 
 if __name__ == '__main__':
-
     # copy_dir('./source_code_base/sourceCode', './source_code_return/sourceCode')
 
     # schemas = read_schemas(FILE_PATH)
@@ -33,11 +33,8 @@ if __name__ == '__main__':
 
     oas = create_open_api(FILE_PATH)
 
-
     resolver = build_resolvers(oas)
 
     write_resolvers(oas)
 
-
-
-
+    zip_directory(SOURCE_CODE_BASE_PATH, SOURCE_CODE_RETURN_ZIP)

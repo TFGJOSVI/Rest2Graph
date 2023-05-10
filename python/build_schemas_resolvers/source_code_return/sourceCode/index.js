@@ -7,14 +7,8 @@ import gql from 'graphql-tag';
 
 const typeDefs = gql`#graphql
 
-	type String {
-		value: String!
-	}
-
-	type ApiResponse {
-		code: Int
-		type: String
-		message: String
+	type ObjectObject {
+		additionalProperties: Int
 	}
 
 	type Order {
@@ -24,6 +18,12 @@ const typeDefs = gql`#graphql
 		shipDate: String
 		status: String
 		complete: Boolean
+	}
+
+	type ApiResponse {
+		code: Int
+		type: String
+		message: String
 	}
 
 	type User {
@@ -37,8 +37,8 @@ const typeDefs = gql`#graphql
 		userStatus: Int
 	}
 
-	type ObjectObject {
-		additionalProperties: Int
+	type String {
+		value: String!
 	}
 
 	type Pet {
@@ -50,8 +50,13 @@ const typeDefs = gql`#graphql
 		status: String
 	}
 
-	input InputString {
-		value: String!
+	input InputOrder {
+		id: Int
+		petId: Int
+		quantity: Int
+		shipDate: String
+		status: String
+		complete: Boolean
 	}
 
 	input InputUser {
@@ -65,13 +70,8 @@ const typeDefs = gql`#graphql
 		userStatus: Int
 	}
 
-	input InputOrder {
-		id: Int
-		petId: Int
-		quantity: Int
-		shipDate: String
-		status: String
-		complete: Boolean
+	input InputString {
+		value: String!
 	}
 
 	input InputPet {
@@ -85,6 +85,15 @@ const typeDefs = gql`#graphql
 
   
 
+	type Pet {
+		id: Int
+		name: String!
+		category: InputCategory
+		photoUrls: [String]!
+		tags: [InputTag]
+		status: String
+	}
+
 	type Category {
 		id: Int
 		name: String
@@ -93,6 +102,15 @@ const typeDefs = gql`#graphql
 	type Tag {
 		id: Int
 		name: String
+	}
+
+	input InputPet {
+		id: Int
+		name: String!
+		category: InputInputCategory
+		photoUrls: [String]!
+		tags: [InputInputTag]
+		status: String
 	}
 
 	input InputCategory {
@@ -201,29 +219,33 @@ async function get(url) {
 }
 
 
+
 async function post(url, data) {
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data.input)
-  });
-  const result = await response.json();
-  console.log(result);
-  return result;
+
+    let result;
+
+    await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data.input) ? data.input : '',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            result = data;
+        });
+
+    return result;
+
 }
 
-
-
-// async function post(url, data) {
+// async function put(url, data) {
 //
 //     let result;
 //
-// 	console.log(JSON.stringify(data.input));
-//
 //     await fetch(url, {
-//         method: 'POST',
+//         method: 'PUT',
 //         body: JSON.stringify(data.input) ? data.input : '',
 //         headers: {
 //             'Content-Type': 'application/json',
