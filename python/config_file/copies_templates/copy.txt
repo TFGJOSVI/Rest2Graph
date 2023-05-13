@@ -1,175 +1,122 @@
 Customize your GraphQl API
 
 servers:
-	- https://petstore3.swagger.io/api/v3
+	- http://localhost:8000
+	- http://127.0.0.0:8080
 
 
 queries:
 
-	- findPetsByStatus(): [Pet]
-		- url: GET /pet/findByStatus
-		- query_parameters:
-			- status: string
-
-	- findPetsByTags(): [Pet]
-		- url: GET /pet/findByTags
-		- query_parameters:
-			- tags: array[string]
-
-	- getPetById(petId: Int!): Pet
-		- url: GET /pet/{petId}
-
-	- getInventory: ObjectObject
-		- url: GET /store/inventory
+	- getDirectores: [Director]
+		- url: GET /directores
 
 
-	- getOrderById(orderId: Int!): Order
-		- url: GET /store/order/{orderId}
+	- getDirectoresById(id: Int!): Director
+		- url: GET /directores/{id}
 
-	- loginUser(): String
-		- url: GET /user/login
-		- query_parameters:
-			- username: string
-			- password: string
-
-	- logoutUser: None
-		- url: GET /user/logout
+	- getCategorias: [Categoria]
+		- url: GET /categorias
 
 
-	- getUserByName(username: String!): User
-		- url: GET /user/{username}
+	- getCategoriasById(id: Int!): Categoria
+		- url: GET /categorias/{id}
+
+	- getPeliculas: [Pelicula]
+		- url: GET /peliculas
+
+
+	- getPeliculasById(id: Int!): Pelicula
+		- url: GET /peliculas/{id}
+
+	- getPeliculasCategoriaById(id: Int!): [Pelicula]
+		- url: GET /peliculas/categoria/{id}
+
+	- getPeliculasDirectorById(id: Int!): [Pelicula]
+		- url: GET /peliculas/director/{id}
 
 
 mutations:
 
-	- updatePet: Pet
-		- url: PUT /pet
-		- request_body: InputPet!
+	- postDirectores: Director
+		- url: POST /directores
+		- request_body: InputDirector!
 
 
-	- addPet: Pet
-		- url: POST /pet
-		- request_body: InputPet!
+	- putDirectoresById(id: Int!): Director
+		- url: PUT /directores/{id}
+		- request_body: InputDirector!
+
+	- deleteDirectoresById(id: Int!): Director
+		- url: DELETE /directores/{id}
+
+	- postCategorias: Categoria
+		- url: POST /categorias
+		- request_body: InputCategoria!
 
 
-	- updatePetWithForm(petId: Int!): None
-		- url: POST /pet/{petId}
-		- query_parameters:
-			- name: string
-			- status: string
+	- putCategoriasById(id: Int!): Categoria
+		- url: PUT /categorias/{id}
+		- request_body: InputCategoria!
 
-	- deletePet(api_key: String, petId: Int!): None
-		- url: DELETE /pet/{petId}
+	- deleteCategoriasById(id: Int!): Categoria
+		- url: DELETE /categorias/{id}
 
-	- uploadFile(petId: Int!): ApiResponse
-		- url: POST /pet/{petId}/uploadImage
-		- request_body: String
-		- query_parameters:
-			- additionalMetadata: string
-
-	- placeOrder: Order
-		- url: POST /store/order
-		- request_body: InputOrder
+	- postPeliculas: Pelicula
+		- url: POST /peliculas
+		- request_body: InputPelicula!
 
 
-	- deleteOrder(orderId: Int!): None
-		- url: DELETE /store/order/{orderId}
+	- putPeliculasById(id: Int!): Pelicula
+		- url: PUT /peliculas/{id}
+		- request_body: InputPelicula!
 
-	- createUser: User
-		- url: POST /user
-		- request_body: InputUser
+	- deletePeliculasById(id: Int!): Pelicula
+		- url: DELETE /peliculas/{id}
 
-
-	- createUsersWithListInput: User
-		- url: POST /user/createWithList
-		- request_body: [User]
-
-
-	- updateUser(username: String!): None
-		- url: PUT /user/{username}
-		- request_body: InputUser
-
-	- deleteUser(username: String!): None
-		- url: DELETE /user/{username}
+	- deletePeliculasByIdCategoriaByCat(id: Int!, cat: Int!): Pelicula
+		- url: DELETE /peliculas/{id}/categoria/{cat}
 
 
 types:
-	type Order {
+	type Categoria {
 		id: Int
-		petId: Int
-		quantity: Int
-		shipDate: String
-		status: String
-		complete: Boolean
+		nombre: String
 	}
 
-	type User {
+	type Pelicula {
 		id: Int
-		username: String
-		firstName: String
-		lastName: String
-		email: String
-		password: String
-		phone: String
-		userStatus: Int
+		nombre: String
+		descripcion: String
+		anyo: Int
+		director: Int
+		categoria: Int
 	}
 
-	type ObjectObject {
-		additionalProperties: Int
-	}
-
-	type Pet {
+	type Director {
 		id: Int
-		name: String!
-		category: Category
-		photoUrls: [String]!
-		tags: [Tag]
-		status: String
+		nombre: String
+		apellido: String
+		edad: Int
 	}
 
-	type ApiResponse {
-		code: Int
-		type: String
-		message: String
-	}
-
-	input InputOrder {
+	input InputCategoria {
 		id: Int
-		petId: Int
-		quantity: Int
-		shipDate: String
-		status: String
-		complete: Boolean
+		nombre: String
 	}
 
-	input InputPet {
+	input InputPelicula {
 		id: Int
-		name: String!
-		category: InputCategory
-		photoUrls: [String]!
-		tags: [InputTag]
-		status: String
+		nombre: String
+		descripcion: String
+		anyo: Int
+		director: Int
+		categoria: Int
 	}
 
-	input InputUser {
+	input InputDirector {
 		id: Int
-		username: String
-		firstName: String
-		lastName: String
-		email: String
-		password: String
-		phone: String
-		userStatus: Int
+		nombre: String
+		apellido: String
+		edad: Int
 	}
-
-	type Category {
-		id: Int
-		name: String
-	}
-
-	type Tag {
-		id: Int
-		name: String
-	}
-
 

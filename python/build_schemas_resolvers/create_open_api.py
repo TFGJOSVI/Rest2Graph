@@ -19,3 +19,12 @@ def create_open_api(oas_path:str) -> OpenAPI:
 
     return OpenAPI(mutations=mutations, queries=queries, servers=servers, schemas=schemas)
 
+def create_open_api_not_default_path(dst_path: str) -> OpenAPI:
+
+    mutations = read_mutations_config_file(dst_path)
+    queries = read_queires_config_file(dst_path)
+    servers = read_servers_config_file(dst_path)
+    schemas = read_schemas(dst_path)
+
+    return OpenAPI(mutations=mutations, queries=queries, servers=servers, schemas=schemas)
+

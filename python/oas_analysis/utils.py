@@ -42,6 +42,7 @@ def load_oas(path: str):
     """
     # Check if path exists
     if not os.path.exists(path):
+        print(path)
         raise ValueError('Path does not exist')
 
     if path.endswith('.json'):

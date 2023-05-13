@@ -7,165 +7,91 @@ import gql from 'graphql-tag';
 
 const typeDefs = gql`#graphql
 
-	type ObjectObject {
-		additionalProperties: Int
-	}
-
-	type Order {
+	type Categoria {
 		id: Int
-		petId: Int
-		quantity: Int
-		shipDate: String
-		status: String
-		complete: Boolean
+		nombre: String
 	}
 
-	type ApiResponse {
-		code: Int
-		type: String
-		message: String
-	}
-
-	type User {
+	type Director {
 		id: Int
-		username: String
-		firstName: String
-		lastName: String
-		email: String
-		password: String
-		phone: String
-		userStatus: Int
+		nombre: String
+		apellido: String
+		edad: Int
 	}
 
-	type String {
-		value: String!
-	}
-
-	type Pet {
+	type Pelicula {
 		id: Int
-		name: String!
-		category: Category
-		photoUrls: [String]!
-		tags: [Tag]
-		status: String
+		nombre: String
+		descripcion: String
+		anyo: Int
+		director: Int
+		categoria: Int
 	}
 
-	input InputOrder {
+	input InputCategoria {
 		id: Int
-		petId: Int
-		quantity: Int
-		shipDate: String
-		status: String
-		complete: Boolean
+		nombre: String
 	}
 
-	input InputUser {
+	input InputDirector {
 		id: Int
-		username: String
-		firstName: String
-		lastName: String
-		email: String
-		password: String
-		phone: String
-		userStatus: Int
+		nombre: String
+		apellido: String
+		edad: Int
 	}
 
-	input InputString {
-		value: String!
-	}
-
-	input InputPet {
+	input InputPelicula {
 		id: Int
-		name: String!
-		category: InputCategory
-		photoUrls: [String]!
-		tags: [InputTag]
-		status: String
+		nombre: String
+		descripcion: String
+		anyo: Int
+		director: Int
+		categoria: Int
 	}
 
   
 
-	type Pet {
-		id: Int
-		name: String!
-		category: InputCategory
-		photoUrls: [String]!
-		tags: [InputTag]
-		status: String
-	}
 
-	type Category {
-		id: Int
-		name: String
-	}
-
-	type Tag {
-		id: Int
-		name: String
-	}
-
-	input InputPet {
-		id: Int
-		name: String!
-		category: InputInputCategory
-		photoUrls: [String]!
-		tags: [InputInputTag]
-		status: String
-	}
-
-	input InputCategory {
-		id: Int
-		name: String
-	}
-
-	input InputTag {
-		id: Int
-		name: String
-	}
-
-  
     
 type Query {
-		 findPetsByStatus(status: String): [Pet],
+		 getDirectores: [Director],
 
-		 findPetsByTags(tags: [String]): [Pet],
+		 getDirectoresById(id: Int!): Director,
 
-		 getPetById(petId: Int!): Pet,
+		 getCategorias: [Categoria],
 
-		 getInventory: ObjectObject,
+		 getCategoriasById(id: Int!): Categoria,
 
-		 getOrderById(orderId: Int!): Order,
+		 getPeliculas: [Pelicula],
 
-		 loginUser(username: String, password: String): String,
+		 getPeliculasById(id: Int!): Pelicula,
 
-		 logoutUser: String,
+		 getPeliculasCategoriaById(id: Int!): [Pelicula],
 
-		 getUserByName(username: String!): User,
+		 getPeliculasDirectorById(id: Int!): [Pelicula],
 
 }
 
 type Mutation {
-		 updatePet(input: InputPet): Pet,
+		 postDirectores(input: InputDirector): Director,
 
-		 addPet(input: InputPet): Pet,
+		 putDirectoresById(id: Int!, input: InputDirector): Director,
 
-		 updatePetWithForm(petId: Int!, name: String, status: String): String,
+		 deleteDirectoresById(id: Int!): Director,
 
-		 deletePet(api_key: String, petId: Int!): String,
+		 postCategorias(input: InputCategoria): Categoria,
 
-		 uploadFile(petId: Int!, additionalMetadata: String, input: InputString): ApiResponse,
+		 putCategoriasById(id: Int!, input: InputCategoria): Categoria,
 
-		 placeOrder(input: InputOrder): Order,
+		 deleteCategoriasById(id: Int!): Categoria,
 
-		 deleteOrder(orderId: Int!): String,
+		 postPeliculas(input: InputPelicula): Pelicula,
 
-		 createUser(input: InputUser): User,
+		 putPeliculasById(id: Int!, input: InputPelicula): Pelicula,
 
-		 createUsersWithListInput(input: [InputUser]): User,
+		 deletePeliculasById(id: Int!): Pelicula,
 
-		 updateUser(username: String!, input: InputUser): String,
-
-		 deleteUser(username: String!): String,
+		 deletePeliculasByIdCategoriaByCat(id: Int!, cat: Int!): Pelicula,
 
 }
 
@@ -173,28 +99,27 @@ type Mutation {
 
 const resolvers = {
     Query: {
-	 findPetsByStatus: (root, args) => get(`https://petstore3.swagger.io/api/v3/pet/findByStatus?${'status='+ args.status ? args.status : ''}`),
-	 findPetsByTags: (root, args) => get(`https://petstore3.swagger.io/api/v3/pet/findByTags?${'tags='+ args.tags ? args.tags : ''}`),
-	 getPetById: (root, args) => get(`https://petstore3.swagger.io/api/v3/pet/${args.petId}?`),
-	 getInventory: (root, args) => get(`https://petstore3.swagger.io/api/v3/store/inventory?`),
-	 getOrderById: (root, args) => get(`https://petstore3.swagger.io/api/v3/store/order/${args.orderId}?`),
-	 loginUser: (root, args) => get(`https://petstore3.swagger.io/api/v3/user/login?${'username='+ args.username ? args.username : ''} +'&'+${'password='+ args.password ? args.password : ''}`),
-	 logoutUser: (root, args) => get(`https://petstore3.swagger.io/api/v3/user/logout?`),
-	 getUserByName: (root, args) => get(`https://petstore3.swagger.io/api/v3/user/${args.username}?`),
+	 getDirectores: (root, args) => get(`http://localhost:8000/directores?`),
+	 getDirectoresById: (root, args) => get(`http://localhost:8000/directores/${args.id}?`),
+	 getCategorias: (root, args) => get(`http://localhost:8000/categorias?`),
+	 getCategoriasById: (root, args) => get(`http://localhost:8000/categorias/${args.id}?`),
+	 getPeliculas: (root, args) => get(`http://localhost:8000/peliculas?`),
+	 getPeliculasById: (root, args) => get(`http://localhost:8000/peliculas/${args.id}?`),
+	 getPeliculasCategoriaById: (root, args) => get(`http://localhost:8000/peliculas/categoria/${args.id}?`),
+	 getPeliculasDirectorById: (root, args) => get(`http://localhost:8000/peliculas/director/${args.id}?`),
 
     },
     Mutation: {
-	 updatePet: (root, args) => put(`https://petstore3.swagger.io/api/v3/pet?`,args),
-	 addPet: (root, args) => post(`https://petstore3.swagger.io/api/v3/pet?`,args),
-	 updatePetWithForm: (root, args) => post(`https://petstore3.swagger.io/api/v3/pet/${args.petId}? +'&'+${'name='+ args.name ? args.name : ''} +'&'+${'status='+ args.status ? args.status : ''}`,args),
-	 deletePet: (root, args) => deleteData(`https://petstore3.swagger.io/api/v3/pet/${args.petId}? +'&'+`,args),
-	 uploadFile: (root, args) => post(`https://petstore3.swagger.io/api/v3/pet/${args.petId}/uploadImage? +'&'+${'additionalMetadata='+ args.additionalMetadata ? args.additionalMetadata : ''}`,args),
-	 placeOrder: (root, args) => post(`https://petstore3.swagger.io/api/v3/store/order?`,args),
-	 deleteOrder: (root, args) => deleteData(`https://petstore3.swagger.io/api/v3/store/order/${args.orderId}?`,args),
-	 createUser: (root, args) => post(`https://petstore3.swagger.io/api/v3/user?`,args),
-	 createUsersWithListInput: (root, args) => post(`https://petstore3.swagger.io/api/v3/user/createWithList?`,args),
-	 updateUser: (root, args) => put(`https://petstore3.swagger.io/api/v3/user/${args.username}?`,args),
-	 deleteUser: (root, args) => deleteData(`https://petstore3.swagger.io/api/v3/user/${args.username}?`,args),
+	 postDirectores: (root, args) => post(`http://localhost:8000/directores?`,args),
+	 putDirectoresById: (root, args) => put(`http://localhost:8000/directores/${args.id}?`,args),
+	 deleteDirectoresById: (root, args) => deleteData(`http://localhost:8000/directores/${args.id}?`,args),
+	 postCategorias: (root, args) => post(`http://localhost:8000/categorias?`,args),
+	 putCategoriasById: (root, args) => put(`http://localhost:8000/categorias/${args.id}?`,args),
+	 deleteCategoriasById: (root, args) => deleteData(`http://localhost:8000/categorias/${args.id}?`,args),
+	 postPeliculas: (root, args) => post(`http://localhost:8000/peliculas?`,args),
+	 putPeliculasById: (root, args) => put(`http://localhost:8000/peliculas/${args.id}?`,args),
+	 deletePeliculasById: (root, args) => deleteData(`http://localhost:8000/peliculas/${args.id}?`,args),
+	 deletePeliculasByIdCategoriaByCat: (root, args) => deleteData(`http://localhost:8000/peliculas/${args.id}/categoria/${args.cat}? +'&'+`,args),
 
     }
 };
@@ -280,7 +205,7 @@ async function put(url, data) {
 
 }
 
-async function deleteData(url) {
+async function deleteData(url, args) {
 
     let result;
 

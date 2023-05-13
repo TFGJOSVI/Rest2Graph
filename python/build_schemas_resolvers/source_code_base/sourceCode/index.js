@@ -107,7 +107,7 @@ async function put(url, data) {
 
 }
 
-async function deleteData(url) {
+async function deleteData(url, args) {
 
     let result;
 
