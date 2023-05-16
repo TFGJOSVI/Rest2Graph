@@ -26,7 +26,7 @@ class TestConfigFile:
             'name': 'authentiq_team.yaml',
             'servers': '\t- https://6-dot-authentiqio.appspot.com\n',
             'schemas': '\ttype JWT {\n\t\texp: Int\n\t\tfield: String\n\t\tsub: String\n\t}',
-            'queries': '\t- key_retrieve(PK: String!) : JWT\n\t\t- url: GET /key/{PK}',
+            'queries':  '\t- key_retrieve(PK: String!): JWT\n\t\t- url: GET /key/{PK}\n',
             'mutations': '\t- key_register: ObjectObject\n\t\t- url: POST /key\n\t\t- request_body: InputAuthentiqID'
 
         }
@@ -35,7 +35,7 @@ class TestConfigFile:
             'name': 'configuration_API.yaml',
             'servers': '\t- https://balanceplatform-api-test.adyen.com/bcl/v2\n',
             'schemas': '\ttype PaginatedBalanceAccountsResponse {\n\t\tbalanceAccounts: [BalanceAccount]!\n\t\thasNext: Boolean!\n\t\thasPrevious: Boolean!\n\t}',
-            'queries': '\t- get-accountHolders-id(id: String!) : AccountHolder\n\t\t- url: GET /accountHolders/{id}',
+            'queries': '\t- get-accountHolders-id(id: String!): AccountHolder\n\t\t- url: GET /accountHolders/{id}',
             'mutations': '\t- post-accountHolders: AccountHolder\n\t\t- url: POST /accountHolders\n\t\t- request_body: InputAccountHolderInfo'
         }
 
@@ -51,7 +51,7 @@ class TestConfigFile:
             'name': 'pet_clinic.yaml',
             'servers': '\t- https://petstore3.swagger.io/api/v3\n',
             'schemas': '\ttype Pet {\n\t\tid: Int\n\t\tname: String!\n\t\tcategory: Category\n\t\tphotoUrls: [String]!\n\t\ttags: [Tag]\n\t\tstatus: String\n\t}',
-            'queries': '\t- findPetsByStatus(status: String) : [Pet]\n\t\t- url: GET /pet/findByStatus',
+            'queries': '\t- findPetsByStatus(): [Pet]\n\t\t- url: GET /pet/findByStatus\n\t\t- query_parameters:\n\t\t\t- status: string\n',
             'mutations': '\t- updatePet: Pet\n\t\t- url: PUT /pet\n\t\t- request_body: InputPet'
         }
 

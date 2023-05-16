@@ -186,3 +186,37 @@
     font-size: 20px;
 
 }
+
+.required-atribute{
+    margin-left: 54px;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.required{
+    background-color: #FFFFFF !important;
+    border-color: #E10098 !important;
+    border-radius: 30% !important;
+    height: 13px !important ;
+    width: 13px !important;
+}
+
+
+.required:checked  {
+    background-color: #E10098 !important;
+    border-color: #E10098 !important;
+    border-radius: 30% !important;
+    height: 13px !important;
+    width: 13px !important;
+}
+
+.required-label{
+    font-size: 13px;
+    vertical-align: middle !important;
+    padding-bottom: 8px;
+}
+
+.required-atribute input[type="checkbox"] {
+    vertical-align: middle !important;
+}
