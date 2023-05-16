@@ -43,7 +43,7 @@ def replace(file_path: str, new_file_path: Union[str, None], pattern: str, subst
     move(abs_path, file_path)
 
 
-def parse_type_oas_graphql(type_oas: str) -> str:
+def parse_type_oas_graphql(type_oas: str, input: bool = False) -> str:
 
     if type_oas == 'string' or type_oas == 'String':
         return 'String'
@@ -54,7 +54,20 @@ def parse_type_oas_graphql(type_oas: str) -> str:
     elif type_oas == 'boolean' or type_oas == 'Boolean':
         return 'Boolean'
     else:
-        return type_oas
+
+        if type_oas.replace("[","").replace("]","") not in ['string', 'integer', 'number', 'boolean', 'String', 'Integer', 'Number', 'Boolean']:
+
+            if input:
+
+                if '[' in type_oas:
+                    return '['+ 'Input' + type_oas.replace('[', '').replace(']', '') + ']'
+
+                return 'Input' + type_oas
+            else:
+                return type_oas
+        else:
+            return type_oas
+
 
 def parse_parameters(parameters: list) -> str:
     string_parameters = ''
