@@ -38,4 +38,4 @@ def read_open_api(oas_path: str) -> OpenAPI:
     methods = read_methods(oas)
     queries = methods['Query']
     mutations = methods['Mutation']
-    return OpenAPI(servers=servers, queries=queries, mutations=mutations)
+    return OpenAPI(servers=servers, queries=queries, mutations=mutations, schemas=None)
