@@ -3,7 +3,7 @@ from build_schemas_resolvers.utils import parse_type
 from classes import Parameter, Response, Mutation, RequestBody
 
 
-def read_mutations_config_file(file_path: str) -> list:
+def read_mutations_config_file(file_path: str) -> list[Mutation]:
     mutations = []
     with open(file_path, 'r') as file:
 
