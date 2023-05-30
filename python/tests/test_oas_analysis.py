@@ -1,4 +1,9 @@
 import os
+import sys
+
+current_directory = os.getcwd()
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
 
 from python.oas_analysis.read_open_api import read_open_api as read_api
 from python.paths import TESTS_SET_PATH

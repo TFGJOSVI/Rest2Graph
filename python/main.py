@@ -16,9 +16,9 @@ from python.config_file.create_config_file import create_config_file
 
 @click.command()
 @click.pass_context
-@click.option('--oas_path', default=None, help='Path to the OpenAPI file.')
-@click.option('--destination_path', default=None, help='Path to the destination folder.')
-@click.option('--config_file', default=False, is_flag=True, help='If not provided, a config file not will be created.')
+@click.option('--oas-path', default=None, help='Path to the OpenAPI file.')
+@click.option('--destination-path', default=None, help='Path to the destination folder.')
+@click.option('--config-file', default=False, is_flag=True, help='If not provided, a config file not will be created.')
 def build_graph(ctx, oas_path: str, destination_path: str, config_file: bool):
     if not oas_path:
         click.echo('Please provide a path to the OpenAPI file.')
@@ -43,7 +43,6 @@ def build_graph(ctx, oas_path: str, destination_path: str, config_file: bool):
             os.remove(COPIES_TEMPLATE_PATH)
             
         create_config_file(oas_path, COPIES_TEMPLATE_PATH)
-        time.sleep(5)
         click.edit(filename=COPIES_TEMPLATE_PATH)
         create_source_code_not_default_path(COPIES_TEMPLATE_PATH)
         shutil.copy(SOURCE_CODE_RETURN_ZIP, destination_path)

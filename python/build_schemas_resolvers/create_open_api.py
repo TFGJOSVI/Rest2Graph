@@ -3,7 +3,7 @@ from python.build_schemas_resolvers.read_mutations_config_file import read_mutat
 from python.build_schemas_resolvers.read_quieres_config_file import read_queires_config_file
 from python.build_schemas_resolvers.read_servers_config_file import read_servers_config_file
 from python.build_schemas_resolvers.read_schemas_config_file import read_schemas
-from classes import OpenAPI
+from python.classes import OpenAPI
 from python.paths import COPIES_TEMPLATE_PATH as file_path
 
 

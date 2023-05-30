@@ -21,7 +21,7 @@ def parse_type(response: str) -> str:
 
 def copy_dir(src: str, dst: str) -> None:
     if os.path.exists(dst):
-        shutil.rmtree(dst)
+        shutil.rmtree(dst,  ignore_errors=True)
     shutil.copytree(src, dst)
 
 

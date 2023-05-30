@@ -1,7 +1,7 @@
 import re
 
-from build_schemas_resolvers.utils import parse_type
-from classes import Attribute, Component, Schema
+from python.build_schemas_resolvers.utils import parse_type
+from python.classes import Attribute, Component, Schema
 
 
 STRING_COMPONENT_OBJECT = Component('String', [Attribute('value', 'string', True)])

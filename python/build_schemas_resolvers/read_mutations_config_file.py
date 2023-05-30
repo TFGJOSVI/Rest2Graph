@@ -1,6 +1,6 @@
-from build_schemas_resolvers.read_schemas_config_file import search_schema
-from build_schemas_resolvers.utils import parse_type
-from classes import Parameter, Response, Mutation, RequestBody
+from python.build_schemas_resolvers.read_schemas_config_file import search_schema
+from python.build_schemas_resolvers.utils import parse_type
+from python.classes import Parameter, Response, Mutation, RequestBody
 
 
 def read_mutations_config_file(file_path: str) -> list[Mutation]:
