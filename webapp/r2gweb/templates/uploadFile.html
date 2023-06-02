@@ -43,151 +43,316 @@
         <div class="list-container">
             <form id="form-servers">
 
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="url" id="server1" checked>
-                  <label class="form-check-label" for="server1"> https://localhost:8000 </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="url" id="server2" checked>
-                  <label class="form-check-label" for="server2"> https://localhost:8000 </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="url" id="server3" checked>
-                  <label class="form-check-label" for="server3"> https://localhost:8000 </label>
-                </div>
+                {% for server in OpenAPI.servers %}
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="url" id="server1" checked>
+                      <label class="form-check-label" for="server1"> {{server}}</label>
+                    </div>
+                {% endfor %}
             </form>
-
         </div>
 
          <div class="server-title">
             <h1>Métodos GET</h1>
         </div>
-        <div >
+
+        <div>
             <form>
                 <div id="form-gets" class="list-container">
                     <!--Aquí se empieza de cada método-->
-                    <div class="form-check d-flex justify-content-center align-items-center">
-                      <input class="form-check-input" type="checkbox" name="" id="get1" checked>
-                      <label class="form-check-label name-method w-100" for="get1">
-                        <div class="mehtod-info d-flex justify-content-between align-items-center">
-                            <div class="method">GetPeliculas</div>
-                            <div class="url"> /peliculas</div>
-                            <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#edit-modal">
-                                <img class="img-edit" src="/static/images/icons8-editar-64.png">
-                            </button>
-                            <div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="edit-modal" aria-hidden="true">
-                              <div class="modal-dialog modal-dialog-centered modal-xl">
-                                <div class="modal-content">
-
-                                  <div class="modal-body" id="edit-modal-body">
-                                      <div class="container">
-                                          <div class="container text-center">
-                                              <div class="row type-information">
-                                                <div class="col">
-                                                    <h1 class="modal-edit-title">TypeDirector</h1>
-                                                    <div class="form-atributes ">
-                                                        <form class="atributes">
-                                                            <!---Aqí se renderiza cada atributo del componente-->
-                                                            <div class="atribute">
-                                                                <div class="atribute-checkbox-select d-flex justify-content-between align-items-center">
-                                                                    <div class="checkbox-atribute">
-                                                                        <input class="form-check-input type-atribute" type="checkbox" name="" id="atribute1" checked>
-                                                                        <label class="form-check-label" for="atribute1">id</label>
-                                                                    </div>
-                                                                    <div class="form-floating-type">
-                                                                      <select class="form-select" id="select-atribute1" aria-label="Floating label select example">
-                                                                        <option value="" selected>ID</option>
-                                                                        <option value="">INT</option>
-                                                                        <option value="">BOOLEAN</option>
-                                                                        <option value="">FLOAT</option>
-                                                                        <option value="">STRING</option>
-                                                                      </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="required-atribute ">
-                                                                    <input class="form-check-input required" type="checkbox" name="" id="required-atribute1">
-                                                                    <label class="form-check-label required-label" id="required-label-atribute1" for="required-atribute1">Obligatorio</label>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="atribute">
-                                                                <div class="atribute-checkbox-select d-flex justify-content-between align-items-center">
-                                                                    <div class="checkbox-atribute">
-                                                                        <input class="form-check-input type-atribute" type="checkbox" name="" id="atribute2" checked>
-                                                                        <label class="form-check-label" for="atribute2">name</label>
-                                                                    </div>
-                                                                    <div class="form-floating-type">
-                                                                      <select class="form-select" id="select-atribute2" aria-label="Floating label select example">
-                                                                        <option value="">ID</option>
-                                                                        <option value="">INT</option>
-                                                                        <option value="">BOOLEAN</option>
-                                                                        <option value="">FLOAT</option>
-                                                                        <option value="" selected>STRING</option>
-                                                                      </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="required-atribute ">
-                                                                    <input class="form-check-input required" type="checkbox" name="" id="required-atribute2">
-                                                                    <label class="form-check-label required-label" id="required-label-atribute2" for="required-atribute2">Obligatorio</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="atribute">
-                                                                <div class="atribute-checkbox-select d-flex justify-content-between align-items-center">
-                                                                    <div class="checkbox-atribute">
-                                                                        <input class="form-check-input type-atribute" type="checkbox" name="" id="atribute3">
-                                                                        <label class="form-check-label" for="atribute3">apellidos</label>
-                                                                    </div>
-                                                                    <div class="form-floating-type">
-                                                                      <select class="form-select" id="select-atribute3" aria-label="Floating label select example">
-                                                                        <option value="">ID</option>
-                                                                        <option value="">INT</option>
-                                                                        <option value="">BOOLEAN</option>
-                                                                        <option value="">FLOAT</option>
-                                                                        <option value="" selected>STRING</option>
-                                                                      </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="required-atribute ">
-                                                                    <input class="form-check-input required" type="checkbox" name="" id="required-atribute3">
-                                                                    <label class="form-check-label required-label" id="required-label-atribute3" for="required-atribute3">Obligatorio</label>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="input-text-method-info">
-                                                        <input type="text" class="form-control" id="floatingInput" placeholder="" value="GetDirectores: /directores">
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                  <div class="form-floating">
-                                                      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" disabled></textarea>
-                                                      <label for="floatingTextarea"></label>
-                                                  </div>
-                                                </div>
+                    {% for query in OpenAPI.queries %}
+                        <div class="form-check d-flex justify-content-center align-items-center">
+                          <input class="form-check-input" type="checkbox" name="" id="get1" checked>
+                          <label class="form-check-label name-method w-100" for="get1">
+                            <div class="mehtod-info d-flex justify-content-between align-items-center">
+                                <div class="method">{{query.name}}</div>
+                                <div class="url"> {{query.url}}</div>
+                                <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#get-edit-modal-{{loop.index}}">
+                                    <img class="img-edit" src="/static/images/icons8-editar-64.png">
+                                </button>
+                                <div class="modal fade" id="get-edit-modal-{{loop.index}}" tabindex="-1" aria-labelledby="edit-modal" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                      <div class="modal-body" id="get-edit-modal-{{loop.index}}-body">
+                                          <h1 class="modal-edit-title">Cambie las propiedades del método:</h1>
+                                          <form>
+                                              <div class="input-text-method-info">
+                                                  <label class="title-text" for="deletes-method-name-{{loop.index}}">Nombre del método:</label>
+                                                  <input type="text" class="form-control schema-name" id="gets-method-name-{{loop.index}}" placeholder="" value="{{query.name}}">
                                               </div>
-                                              <div class="row" style="text-align: center !important;">
+                                              <div class="input-text-method-info">
+                                                  <label class="title-text" for="deletes-method-url-{{loop.index}}">URL del método:</label>
+                                                  <input type="text" class="form-control schema-name" id="gets-method-url-{{loop.index}}" placeholder="" value="{{query.url}}">
+                                              </div>
+                                              <div class="row" style="text-align: center !important; margin-top: 20px;">
                                                   <div class="col">
                                                       <button class="save-button" type="submit">Guardar</button>
                                                   </div>
                                               </div>
-                                            </div>
+                                          </form>
                                       </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
                             </div>
+                          </label>
                         </div>
-                      </label>
-                    </div>
+                    {% endfor %}
+
+                </div>
+                <div class="server-title">
+                    <h1>Métodos POST</h1>
+                </div>
+                <div id="form-post" class="list-container">
+                    <!--Aquí se empieza de cada método-->
+                    {% for post in posts %}
+                        <div class="form-check d-flex justify-content-center align-items-center">
+                          <input class="form-check-input" type="checkbox" name="" id="post1" checked>
+                          <label class="form-check-label name-method w-100" for="get1">
+                            <div class="mehtod-info d-flex justify-content-between align-items-center">
+                                <div class="method">{{post.name}}</div>
+                                <div class="url"> {{post.url}}</div>
+                                <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#post-edit-modal-{{loop.index}}">
+                                    <img class="img-edit" src="/static/images/icons8-editar-64.png">
+                                </button>
+                                <div class="modal fade" id="post-edit-modal-{{loop.index}}" tabindex="-1" aria-labelledby="edit-modal" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                      <div class="modal-body" id="post-edit-modal-{{loop.index}}-body">
+                                          <h1 class="modal-edit-title">Cambie las propiedades del método:</h1>
+                                          <form>
+                                              <div class="input-text-method-info">
+                                                  <label class="title-text" for="deletes-method-name-{{loop.index}}">Nombre del método:</label>
+                                                  <input type="text" class="form-control schema-name" id="posts-method-name-{{loop.index}}" placeholder="" value="{{post.name}}">
+                                              </div>
+                                              <div class="input-text-method-info">
+                                                  <label class="title-text" for="deletes-method-url-{{loop.index}}">URL del método:</label>
+                                                  <input type="text" class="form-control schema-name" id="posts-method-url-{{loop.index}}" placeholder="" value="{{post.url}}">
+                                              </div>
+                                              <div class="row" style="text-align: center !important; margin-top: 20px;">
+                                                  <div class="col">
+                                                      <button class="save-button" type="submit">Guardar</button>
+                                                  </div>
+                                              </div>
+                                          </form>
+                                          <div class="container">
+
+                                          </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="server-title">
+                    <h1>Métodos PUTS</h1>
+                </div>
+                <div id="form-puts" class="list-container">
+                    <!--Aquí se empieza de cada método-->
+                    {% for put in puts %}
+                        <div class="form-check d-flex justify-content-center align-items-center">
+                          <input class="form-check-input" type="checkbox" name="" id="put1" checked>
+                          <label class="form-check-label name-method w-100" for="get1">
+                            <div class="mehtod-info d-flex justify-content-between align-items-center">
+                                <div class="method">{{put.name}}</div>
+                                <div class="url"> {{put.url}}</div>
+                                <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#puts-edit-modal-{{loop.index}}">
+                                    <img class="img-edit" src="/static/images/icons8-editar-64.png">
+                                </button>
+                                <div class="modal fade" id="puts-edit-modal-{{loop.index}}" tabindex="-1" aria-labelledby="edit-modal" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                      <div class="modal-body" id="puts-edit-modal-{{loop.index}}-body">
+                                          <h1 class="modal-edit-title">Cambie las propiedades del método:</h1>
+                                          <form>
+                                              <div class="input-text-method-info">
+                                                  <label class="title-text" for="deletes-method-name-{{loop.index}}">Nombre del método:</label>
+                                                  <input type="text" class="form-control schema-name" id="puts-method-name-{{loop.index}}" placeholder="" value="{{put.name}}">
+                                              </div>
+                                              <div class="input-text-method-info">
+                                                  <label class="title-text" for="deletes-method-url-{{loop.index}}">URL del método:</label>
+                                                  <input type="text" class="form-control schema-name" id="puts-method-url-{{loop.index}}" placeholder="" value="{{put.url}}">
+                                              </div>
+                                              <div class="row" style="text-align: center !important; margin-top: 20px;">
+                                                  <div class="col">
+                                                      <button class="save-button" type="submit">Guardar</button>
+                                                  </div>
+                                              </div>
+                                          </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="server-title">
+                    <h1>Métodos DELETES</h1>
+                </div>
+                <div id="form-deletes" class="list-container">
+                    <!--Aquí se empieza de cada método-->
+                    {% for delete in deletes %}
+                        <div class="form-check d-flex justify-content-center align-items-center">
+                          <input class="form-check-input" type="checkbox" name="" id="delete1" checked>
+                          <label class="form-check-label name-method w-100" for="get1">
+                            <div class="mehtod-info d-flex justify-content-between align-items-center">
+                                <div class="method">{{delete.name}}</div>
+                                <div class="url"> {{delete.url}}</div>
+                                <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#deletes-edit-modal-{{loop.index}}">
+                                    <img class="img-edit" src="/static/images/icons8-editar-64.png">
+                                </button>
+                                <div class="modal fade" id="deletes-edit-modal-{{loop.index}}" tabindex="-1" aria-labelledby="edit-modal" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                      <div class="modal-body" id="deletes-edit-modal-{{loop.index}}-body">
+                                          <h1 class="modal-edit-title">Cambie las propiedades del método:</h1>
+                                          <form>
+                                              <div class="input-text-method-info">
+                                                  <label class="title-text" for="deletes-method-name-{{loop.index}}">Nombre del método:</label>
+                                                  <input type="text" class="form-control schema-name" id="deletes-method-name-{{loop.index}}" placeholder="" value="{{delete.name}}">
+                                              </div>
+                                              <div class="input-text-method-info">
+                                                  <label class="title-text" for="deletes-method-url-{{loop.index}}">URL del método:</label>
+                                                  <input type="text" class="form-control schema-name" id="deletes-method-url-{{loop.index}}" placeholder="" value="{{delete.url}}">
+                                              </div>
+                                              <div class="row" style="text-align: center !important; margin-top: 20px;">
+                                                  <div class="col">
+                                                      <button class="save-button" type="submit">Guardar</button>
+                                                  </div>
+                                              </div>
+                                          </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </label>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="server-title">
+                    <h1>Schemas</h1>
+                </div>
+                <div id="form-schemas" class="list-container">
+                    <!--Aquí se empieza de cada método-->
+                    {% for schema in schemas %}
+                        {% set parent_index = loop.index %}
+                        <div class="form-check d-flex justify-content-center align-items-center">
+                          <input class="form-check-input" type="checkbox" name="" id="schema{{parent_index}}" checked>
+                          <label class="form-check-label name-method w-100" for="schema{{parent_index}}">
+                            <div class="mehtod-info d-flex justify-content-between align-items-center">
+                                <div class="method">{{schema.name}}</div>
+                                <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#edit-modal-schema-{{ parent_index }}">
+                                    <img class="img-edit" src="/static/images/icons8-editar-64.png">
+                                </button>
+                                <div class="modal modal-schemas fade" id="edit-modal-schema-{{ parent_index }}" tabindex="-1" aria-labelledby="edit-modal" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered modal-xl">
+                                    <div class="modal-content">
+                                      <div class="modal-body" id="edit-modal-body-schema-{{ parent_index }}">
+                                          <div class="container">
+                                              <div class="container text-center">
+                                                  <div class="row type-information">
+                                                    <div class="col">
+                                                        <h1 class="modal-edit-title">Type{{schema.name}}</h1>
+                                                        <div class="form-atributes ">
+                                                            <form class="atributes">
+                                                                <!---Aquí se renderiza cada atributo del componente-->
+                                                                {% for atribute in schema.attributes %}
+                                                                    <div class="atribute">
+                                                                    <div class="atribute-checkbox-select d-flex justify-content-between align-items-center">
+                                                                        <div class="checkbox-atribute">
+                                                                            <input class="form-check-input type-atribute" type="checkbox" name="" id="schema-{{ parent_index }}-atribute{{loop.index}}" checked>
+                                                                            <label class="form-check-label" for="schema-{{ parent_index }}-atribute{{loop.index}}">{{atribute.name}}</label>
+                                                                        </div>
+                                                                        <div class="form-floating-type">
+                                                                          <select class="form-select" id="select-schema-{{ parent_index }}-atribute{{loop.index}}" aria-label="Floating label select example">
+                                                                            {% if atribute.type == 'integer' %}
+                                                                                <option value="" selected>integer</option>
+                                                                                <option value="">boolean</option>
+                                                                                <option value="">float</option>
+                                                                                <option value="">string</option>
+                                                                              {% elif atribute.type == 'boolean' %}
+                                                                                <option value="">integer</option>
+                                                                                <option value="" selected>boolean</option>
+                                                                                <option value="">float</option>
+                                                                                <option value="">string</option>
+                                                                              {% elif atribute.type == 'float' %}
+                                                                                <option value="">integer</option>
+                                                                                <option value="">boolean</option>
+                                                                                <option value="" selected>float</option>
+                                                                                <option value="">string</option>
+                                                                              {% elif atribute.type == 'string' %}
+                                                                                <option value="">integer</option>
+                                                                                <option value="">boolean</option>
+                                                                                <option value="">float</option>
+                                                                                <option value="" selected>string</option>
+                                                                              {% elif atribute.type == 'array' %}
+                                                                                <option value="">integer</option>
+                                                                                <option value="">boolean</option>
+                                                                                <option value="">float</option>
+                                                                                <option value="">string</option>
+                                                                                <option value="" selected>array[{{atribute.items_type}}]</option>
+                                                                              {% else %}
+                                                                                <option value="" selected>{{atribute.type}}</option>
+                                                                                <option value="">integer</option>
+                                                                                <option value="">boolean</option>
+                                                                                <option value="">float</option>
+                                                                                <option value="">string</option>
+                                                                              {% endif %}
+                                                                          </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="required-atribute ">
+                                                                        {% if atribute.required %}
+                                                                            <input class="form-check-input required" type="checkbox" name="" id="required-schema-{{ parent_index }}-atribute{{loop.index}}" checked>
+                                                                            <label class="form-check-label required-label" id="required-label-schema-{{ parent_index }}-atribute{{loop.index}}" for="required-atribute1">Obligatorio</label>
+                                                                        {% else %}
+                                                                            <input class="form-check-input required" type="checkbox" name="" id="required-schema-{{ parent_index }}-atribute{{loop.index}}">
+                                                                            <label class="form-check-label required-label" id="required-label-schema-{{ parent_index }}-atribute{{loop.index}}" for="required-atribute1">Obligatorio</label>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </div>
+                                                                {% endfor %}
+                                                            </form>
+                                                        </div>
+                                                        <div class="input-text-method-info">
+                                                            <input type="text" class="form-control schema-name" id="floatingInput-schema-{{ parent_index }}" placeholder="" value="{{schema.name}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                      <div class="form-floating">
+                                                          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea-schema-{{ parent_index }}" disabled></textarea>
+                                                          <label for="floatingTextarea-schema-{{ parent_index }}"></label>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row" style="text-align: center !important;">
+                                                      <div class="col">
+                                                          <button class="save-button" type="submit">Guardar</button>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </label>
+                        </div>
+                    {% endfor %}
                 </div>
                 <div class="div-build-button" id="build-get">
                     <button class="build-button" type="submit">Construir</button>
                 </div>
             </form>
         </div>
-
-
-
     </div>
 
 </body>

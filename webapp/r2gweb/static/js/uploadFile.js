@@ -3,30 +3,35 @@
 function updloadTypeObject() {
     const checkboxes = document.querySelectorAll('.type-atribute');
     const selects = document.querySelectorAll('.form-select');
-    const textarea = document.getElementById('floatingTextarea');
-    const textareatitle = document.querySelector('.modal-edit-title').textContent;
+    const textareas = document.querySelectorAll('textarea');
+    const textareatitles = document.querySelectorAll('.modal-edit-title');
     const required = document.querySelectorAll('.required');
+    const schemanames = document.querySelectorAll('.schema-name');
 
-    checkboxes.forEach(checkbox => {
+
+
+    checkboxes.forEach((checkbox) => {
         checkbox.addEventListener('change', () => {
-            const checkedCheckboxes = document.querySelectorAll('.type-atribute:checked');
-            const attributes = [];
-            attributes.push(textareatitle + '{');
+            const modal = checkbox.closest('.modal');
+            const textarea = modal.querySelector('textarea');
+            const textareatitle = modal.querySelector('.modal-edit-title').textContent;
+            const checkedCheckboxes = modal.querySelectorAll('.type-atribute:checked');
+            const schemaname = modal.querySelector('.schema-name').value;
 
-            checkboxes.forEach(checkbox => {
-                const select = document.querySelector(`#select-${checkbox.id}`);
+            const attributes = [];
+            attributes.push('Type'+ schemaname + '{');
+
+            const modalcheckboxes = modal.querySelectorAll('.type-atribute');
+
+            modalcheckboxes.forEach((checkbox) => {
+                const select = modal.querySelector(`#select-${checkbox.id}`);
                 const type = select.options[select.selectedIndex].textContent;
-                const req = document.querySelector(`#required-${checkbox.id}`);
-                const reqLabel = document.querySelector(`#required-label-${checkbox.id}`);
+                const req = modal.querySelector(`#required-${checkbox.id}`);
+                const reqLabel = modal.querySelector(`#required-label-${checkbox.id}`);
 
                 if (checkbox.checked) {
-                    if (type == 'ID') {
-                        req.style.display = 'none';
-                        reqLabel.style.display = 'none';
-                    } else {
-                        req.style.display = 'block';
-                        reqLabel.style.display = 'block';
-                    }
+                    req.style.display = 'block';
+                    reqLabel.style.display = 'block';
                     select.style.display = 'block';
                     select.parentNode.style.display = 'block';
                 } else {
@@ -37,205 +42,157 @@ function updloadTypeObject() {
                 }
             });
 
-            checkedCheckboxes.forEach(checked => {
-                const label = document.querySelector(`[for="${checked.id}"]`).textContent;
-                const select = document.querySelector(`#select-${checked.id}`);
-                const type = select.options[select.selectedIndex].textContent;
-                const required = document.querySelector(`#required-${checked.id}`);
-                const reqLabel = document.querySelector(`#required-label-${checked.id}`);
+            checkedCheckboxes.forEach((checked) => {
+              const label = modal.querySelector(`[for="${checked.id}"]`).textContent;
+              const select = modal.querySelector(`#select-${checked.id}`);
+              const type = select.options[select.selectedIndex].textContent;
+              const req = modal.querySelector(`#required-${checked.id}`);
 
-                if(type == 'ID'){
-                    required.checked = true;
-                }else{
-                    required.checked = false;
-                }
+              if (type == 'ID') {
+                req.checked = true;
+              } else {
+                req.checked = false;
+              }
 
-                if (required.checked) {
-                    attributes.push(`\t${label}: ${type}!`);
-                } else {
-                    attributes.push(`\t${label}: ${type}`);
-                }
-
+              if (req.checked) {
+                attributes.push(`\t${label}: ${type}!`);
+              } else {
+                attributes.push(`\t${label}: ${type}`);
+              }
             });
-
 
             attributes.push('}');
             textarea.value = attributes.join('\n');
         });
     });
 
-    selects.forEach(select => {
+    selects.forEach((select) => {
         select.addEventListener('change', () => {
-            const checkedCheckboxes = document.querySelectorAll('.type-atribute:checked');
+            const modal = select.closest('.modal');
+            const textarea = modal.querySelector('textarea');
+            const textareatitle = modal.querySelector('.modal-edit-title').textContent;
+            const checkedCheckboxes = modal.querySelectorAll('.type-atribute:checked');
+            const schemaname = modal.querySelector('.schema-name').value;
+
             const attributes = [];
-            attributes.push(textareatitle + '{');
+            attributes.push('Type'+ schemaname + '{');
 
-            checkboxes.forEach(checkbox => {
-                const select = document.querySelector(`#select-${checkbox.id}`);
-                const type = select.options[select.selectedIndex].textContent;
-                const req = document.querySelector(`#required-${checkbox.id}`);
-                const reqLabel = document.querySelector(`#required-label-${checkbox.id}`);
+            checkedCheckboxes.forEach((checked) => {
+              const label = modal.querySelector(`[for="${checked.id}"]`).textContent;
+              const select = modal.querySelector(`#select-${checked.id}`);
+              const type = select.options[select.selectedIndex].textContent;
+              const req = modal.querySelector(`#required-${checked.id}`);
 
-                if (checkbox.checked) {
-                    if (type == 'ID') {
-                        req.style.display = 'none';
-                        reqLabel.style.display = 'none';
-                    } else {
-                        req.style.display = 'block';
-                        reqLabel.style.display = 'block';
-                    }
-                    select.style.display = 'block';
-                    select.parentNode.style.display = 'block';
-                } else {
-                    req.style.display = 'none';
-                    reqLabel.style.display = 'none';
-                    select.style.display = 'none';
-                    select.parentNode.style.display = 'none';
-                }
+              if (req.checked) {
+                attributes.push(`\t${label}: ${type}!`);
+              } else {
+                attributes.push(`\t${label}: ${type}`);
+              }
             });
 
-
-            checkedCheckboxes.forEach(checked => {
-                const label = document.querySelector(`[for="${checked.id}"]`).textContent;
-                const select = document.querySelector(`#select-${checked.id}`);
-                const type = select.options[select.selectedIndex].textContent;
-                const required = document.querySelector(`#required-${checked.id}`);
-                const reqLabel = document.querySelector(`#required-label-${checked.id}`);
-
-                if(type == 'ID'){
-                        required.checked = true;
-                }else{
-                    required.checked = false;
-                }
-
-                if (required.checked) {
-                    attributes.push(`\t${label}: ${type}!`);
-                } else {
-                    attributes.push(`\t${label}: ${type}`);
-                }
-
-            });
             attributes.push('}');
             textarea.value = attributes.join('\n');
         });
-
-        required.forEach(req => {
-            req.addEventListener('change', () => {
-                const checkedCheckboxes = document.querySelectorAll('.type-atribute:checked');
-                const attributes = [];
-                attributes.push(textareatitle + '{');
-
-                checkboxes.forEach(checkbox => {
-                    const select = document.querySelector(`#select-${checkbox.id}`);
-                    const type = select.options[select.selectedIndex].textContent;
-                    const req = document.querySelector(`#required-${checkbox.id}`);
-                    const reqLabel = document.querySelector(`#required-label-${checkbox.id}`);
-
-                    if (checkbox.checked) {
-                        if (type == 'ID') {
-                            req.style.display = 'none';
-                            reqLabel.style.display = 'none';
-                        } else {
-                            req.style.display = 'block';
-                            reqLabel.style.display = 'block';
-                        }
-                        select.style.display = 'block';
-                        select.parentNode.style.display = 'block';
-                    } else {
-                        req.style.display = 'none';
-                        reqLabel.style.display = 'none';
-                        select.style.display = 'none';
-                        select.parentNode.style.display = 'none';
-                    }
-                });
-
-                checkedCheckboxes.forEach(checked => {
-                    const label = document.querySelector(`[for="${checked.id}"]`).textContent;
-                    const select = document.querySelector(`#select-${checked.id}`);
-                    const type = select.options[select.selectedIndex].textContent;
-                    const required = document.querySelector(`#required-${checked.id}`);
-                    const reqLabel = document.querySelector(`#required-label-${checked.id}`);
-
-                    if(type == 'ID'){
-                        required.checked = true;
-                    }
-
-                    if (required.checked) {
-                        attributes.push(`\t${label}: ${type}!`);
-
-                    } else {
-                        attributes.push(`\t${label}: ${type}`);
-                    }
-
-                });
-                attributes.push('}');
-                textarea.value = attributes.join('\n');
-
-            });
-        });
-
-
     });
+
+    required.forEach((req) => {
+        req.addEventListener('change', () => {
+            const modal = req.closest('.modal');
+            const textarea = modal.querySelector('textarea');
+            const textareatitle = modal.querySelector('.modal-edit-title').textContent;
+            const checkedCheckboxes = modal.querySelectorAll('.type-atribute:checked');
+            const schemaname = modal.querySelector('.schema-name').value;
+
+            const attributes = [];
+            attributes.push('Type'+ schemaname + '{');
+
+            checkedCheckboxes.forEach((checked) => {
+              const label = modal.querySelector(`[for="${checked.id}"]`).textContent;
+              const select = modal.querySelector(`#select-${checked.id}`);
+              const type = select.options[select.selectedIndex].textContent;
+              const req = modal.querySelector(`#required-${checked.id}`);
+
+              if (req.checked) {
+                attributes.push(`\t${label}: ${type}!`);
+              } else {
+                attributes.push(`\t${label}: ${type}`);
+              }
+            });
+
+            attributes.push('}');
+            textarea.value = attributes.join('\n');
+        });
+    });
+
+    schemanames.forEach((schemaname) => {
+        schemaname.addEventListener('input', () => {
+            const modal = schemaname.closest('.modal');
+            const textarea = modal.querySelector('textarea');
+            const textareatitle = modal.querySelector('.modal-edit-title').textContent;
+            const checkedCheckboxes = modal.querySelectorAll('.type-atribute:checked');
+
+            const attributes = [];
+            attributes.push('Type'+ schemaname.value + '{');
+
+            checkedCheckboxes.forEach((checked) => {
+              const label = modal.querySelector(`[for="${checked.id}"]`).textContent;
+              const select = modal.querySelector(`#select-${checked.id}`);
+              const type = select.options[select.selectedIndex].textContent;
+              const req = modal.querySelector(`#required-${checked.id}`);
+
+              if (req.checked) {
+                attributes.push(`\t${label}: ${type}!`);
+              } else {
+                attributes.push(`\t${label}: ${type}`);
+              }
+            });
+
+            attributes.push('}');
+            textarea.value = attributes.join('\n');
+        });
+    });
+
+
 }
+
+
+
 
 // Esta función carga inicalmente en el textarea el tipo de objeto con sus atributos seleccionados
-function loadTypeObject(){
-    const checkboxes = document.querySelectorAll('.type-atribute');
-    const selects = document.querySelectorAll('.form-select');
-    const textarea = document.getElementById('floatingTextarea');
-    const textareatitle = document.querySelector('.modal-edit-title').textContent;
-    const required = document.querySelectorAll('.required');
+function loadTypeObject() {
+  const modals = document.querySelectorAll('.modal-schemas');
+  modals.forEach((modal) => {
+    const textarea = modal.querySelector('textarea');
+    const textareatitle = modal.querySelector('.modal-edit-title').textContent;
+    const checkboxes = modal.querySelectorAll('.type-atribute:checked');
+    const selects = modal.querySelectorAll('.form-select');
+    const required = modal.querySelectorAll('.required');
+    const schemaname = modal.querySelector('.schema-name').value;
 
-    const checkedCheckboxes = document.querySelectorAll('.type-atribute:checked');
+
+
     const attributes = [];
-    attributes.push(textareatitle+'{');
+    attributes.push('Type'+ schemaname + '{');
 
-    checkboxes.forEach(checkbox => {
-        const select = document.querySelector(`#select-${checkbox.id}`);
-        const type = select.options[select.selectedIndex].textContent;
-        const req = document.querySelector(`#required-${checkbox.id}`);
-        const reqLabel = document.querySelector(`#required-label-${checkbox.id}`);
-
-        if (checkbox.checked) {
-            if(type == 'ID'){
-                req.style.display = 'none';
-                reqLabel.style.display = 'none';
-            }else{
-                req.style.display = 'block';
-                reqLabel.style.display = 'block';
-            }
-            select.style.display = 'block';
-            select.parentNode.style.display = 'block';
-        } else {
-            req.style.display = 'none';
-            reqLabel.style.display = 'none';
-            select.style.display = 'none';
-            select.parentNode.style.display = 'none';
-        }
-    });
-
-    checkedCheckboxes.forEach(checked => {
-      const label = document.querySelector(`[for="${checked.id}"]`).textContent;
-      const select = document.querySelector(`#select-${checked.id}`);
+    const index = 1;
+    checkboxes.forEach((checkbox) => {
+      const label = modal.querySelector(`[for="${checkbox.id}"]`).textContent;
+      const select = modal.querySelector(`#select-${checkbox.id}`);
       const type = select.options[select.selectedIndex].textContent;
-      const req = document.querySelector(`#required-${checked.id}`);
+      const req = modal.querySelector(`#required-${checkbox.id}`);
 
-        if(type == 'ID'){
-            req.checked = true;
-        }
-
-        if (req.checked) {
-            attributes.push(`\t${label}: ${type}!`);
-        } else {
-            attributes.push(`\t${label}: ${type}`);
-        }
-
-
+      if (req.checked) {
+        attributes.push(`\t${label}: ${type}!`);
+      } else {
+        attributes.push(`\t${label}: ${type}`);
+      }
     });
+
     attributes.push('}');
     textarea.value = attributes.join('\n');
-
+  });
 }
+
 
 
 

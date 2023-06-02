@@ -49,8 +49,28 @@ def uplodad_file():
 
         OpenAPI = read_open_api(ruta_archivo)
 
-        print(OpenAPI)
+        print(OpenAPI.servers)
 
-    return render_template("uploadFile.html")
+        posts = [post for post in OpenAPI.mutations if post.type == "post"]
+        puts = [put for put in OpenAPI.mutations if put.type == "put"]
+        deletes = [delete for delete in OpenAPI.mutations if delete.type == "delete"]
+
+        components = set()
+        for query in OpenAPI.queries:
+            if query.response:
+                components.add(query.response.schema.component)
+        for mutation in OpenAPI.mutations:
+            if mutation.request:
+                components.add(mutation.request.schema.component)
+            if mutation.response:
+                components.add(mutation.response.schema.component)
+
+        print(components)
+
+
+    return render_template("uploadFile.html", OpenAPI=OpenAPI, posts=posts, puts=puts, deletes=deletes, schemas=components)
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
 

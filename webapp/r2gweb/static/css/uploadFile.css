@@ -220,3 +220,15 @@
 .required-atribute input[type="checkbox"] {
     vertical-align: middle !important;
 }
+
+.title-text{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #E10098;
+    font-family: Oswald;
+    font-size: 15px;
+    line-height: 40px;
+    width: 1000px;
+    text-align: left;
+
+}
