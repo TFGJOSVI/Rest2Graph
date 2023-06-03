@@ -1,13 +1,17 @@
 from python.classes import OpenAPI
 from python.config_file.utils import parse_schema, parse_parameters, replace, parse_parameters_query
 
-FILE_PATH = 'templates/config_template_v1.txt'
-
-
-
-
 
 def load_mutations(open_api: OpenAPI) -> str:
+
+    """
+    Load the mutations from the OpenAPI specification.
+
+    :param open_api:
+        An OpenAPI instance where includes the servers, queries and mutations.
+    :return:
+        A string containing the mutations.
+    """
 
     mutations = open_api.mutations
 

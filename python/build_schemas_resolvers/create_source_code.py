@@ -6,12 +6,31 @@ from python.build_schemas_resolvers.utils import zip_directory
 
 
 def create_source_code(oas_path: str) -> None:
+
+    """
+    Create the source code of the project.
+
+    :param oas_path:
+        The path of the open api file.
+    :return:
+        None
+    """
+
     open_api = create_open_api(oas_path)
     write_resolvers(open_api)
     zip_directory(SOURCE_CODE_RETURN_PATH, SOURCE_CODE_RETURN_ZIP)
 
-
 def create_source_code_not_default_path(dst_path: str) -> None:
+
+    """
+    Create the source code of the project with a config file path.
+
+    :param dst_path:
+        The path of the config file.
+    :return:
+        None
+    """
+
     open_api = create_open_api_not_default_path(dst_path)
     write_resolvers(open_api)
     zip_directory(SOURCE_CODE_RETURN_PATH, SOURCE_CODE_RETURN_ZIP)

@@ -1,0 +1,174 @@
+Customize your GraphQl API
+
+servers:
+	- https://petstore3.swagger.io/api/v3
+
+
+queries:
+
+	- findPetsByStatus(): [Pet]
+		- url: GET /pet/findByStatus
+		- query_parameters:
+			- status: string
+
+	- findPetsByTags(): [Pet]
+		- url: GET /pet/findByTags
+		- query_parameters:
+			- tags: array[string]
+
+	- getPetById(petId: Int!): Pet
+		- url: GET /pet/{petId}
+
+	- getInventory: ObjectObject
+		- url: GET /store/inventory
+
+
+	- getOrderById(orderId: Int!): Order
+		- url: GET /store/order/{orderId}
+
+	- loginUser(): String
+		- url: GET /user/login
+		- query_parameters:
+			- username: string
+			- password: string
+
+	- logoutUser: None
+		- url: GET /user/logout
+
+
+	- getUserByName(username: String!): User
+		- url: GET /user/{username}
+
+
+mutations:
+
+	- updatePet: Pet
+		- url: PUT /pet
+		- request_body: InputPet!
+
+
+	- addPet: Pet
+		- url: POST /pet
+		- request_body: InputPet!
+
+
+	- updatePetWithForm(petId: Int!): None
+		- url: POST /pet/{petId}
+		- query_parameters:
+			- name: string
+			- status: string
+
+	- deletePet(api_key: String, petId: Int!): None
+		- url: DELETE /pet/{petId}
+
+	- uploadFile(petId: Int!): ApiResponse
+		- url: POST /pet/{petId}/uploadImage
+		- request_body: String
+		- query_parameters:
+			- additionalMetadata: string
+
+	- placeOrder: Order
+		- url: POST /store/order
+		- request_body: InputOrder
+
+
+	- deleteOrder(orderId: Int!): None
+		- url: DELETE /store/order/{orderId}
+
+	- createUser: User
+		- url: POST /user
+		- request_body: InputUser
+
+
+	- createUsersWithListInput: User
+		- url: POST /user/createWithList
+		- request_body: [User]
+
+
+	- updateUser(username: String!): None
+		- url: PUT /user/{username}
+		- request_body: InputUser
+
+	- deleteUser(username: String!): None
+		- url: DELETE /user/{username}
+
+
+types:
+	type Order {
+		id: Int
+		petId: Int
+		quantity: Int
+		shipDate: String
+		status: String
+		complete: Boolean
+	}
+
+	type Pet {
+		id: Int
+		name: String!
+		category: Category
+		photoUrls: [String]!
+		tags: [Tag]
+		status: String
+	}
+
+	type ObjectObject {
+		additionalProperties: Int
+	}
+
+	type User {
+		id: Int
+		username: String
+		firstName: String
+		lastName: String
+		email: String
+		password: String
+		phone: String
+		userStatus: Int
+	}
+
+	type ApiResponse {
+		code: Int
+		type: String
+		message: String
+	}
+
+	input InputUser {
+		id: Int
+		username: String
+		firstName: String
+		lastName: String
+		email: String
+		password: String
+		phone: String
+		userStatus: Int
+	}
+
+	input InputOrder {
+		id: Int
+		petId: Int
+		quantity: Int
+		shipDate: String
+		status: String
+		complete: Boolean
+	}
+
+	input InputPet {
+		id: Int
+		name: String!
+		category: InputCategory
+		photoUrls: [String]!
+		tags: [InputTag]
+		status: String
+	}
+
+	type Tag {
+		id: Int
+		name: String
+	}
+
+	type Category {
+		id: Int
+		name: String
+	}
+

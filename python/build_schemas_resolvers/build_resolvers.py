@@ -5,6 +5,16 @@ from python.config_file.utils import parse_type_oas_graphql
 
 
 def build_resolvers(open_api: OpenAPI) -> dict:
+
+    """
+    Build resolvers.
+
+    :param open_api:
+        An OpenAPI instance where includes the servers, queries and mutations.
+    :return:
+        A dictionary with the resolvers.
+    """
+
     queries, query_resolver = build_queries(open_api)
     mutations, mutation_resolver = build_mutations(open_api)
 
@@ -19,6 +29,16 @@ def build_resolvers(open_api: OpenAPI) -> dict:
 
 
 def build_queries(open_api: OpenAPI) -> list[str]:
+
+    """
+    Build queries and resolvers queries.
+
+    :param open_api:
+        An OpenAPI instance where includes the servers, queries and mutations.
+    :return:
+        A list of queries  and a list of resolvers.
+    """
+
     result_queries = []
     result_queries_resolvers = []
 
@@ -68,6 +88,16 @@ def build_queries(open_api: OpenAPI) -> list[str]:
 
 
 def build_mutations(open_api: OpenAPI) -> list[str]:
+
+    """
+    Build mutations and resolvers mutations.
+
+    :param open_api:
+        An OpenAPI instance where includes the servers, queries and mutations.
+    :return:
+        A list of mutations and a list of resolvers.
+    """
+
     result_mutations = []
     result_mutations_resolvers = []
 

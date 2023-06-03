@@ -1,10 +1,15 @@
 from python.classes import OpenAPI
-from python.config_file.utils import replace
-
-FILE_PATH = 'templates/config_template_v1.txt'
 
 
 def load_servers(open_api: OpenAPI) -> str:
+
+    """
+    Load the servers from the OpenAPI specification.
+    :param open_api:
+        An OpenAPI instance where includes the servers, queries and mutations.
+    :return:
+        A string containing the servers.
+    """
 
     servers = open_api.servers
 

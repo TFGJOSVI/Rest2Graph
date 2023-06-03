@@ -9,6 +9,18 @@ from python.paths import CONFIG_FILE_TEMPLATE as FILE_PATH
 
 
 def create_config_file(oas_path: str, new_file_path: str) -> None:
+
+    """
+    Create a config file from an OpenAPI specification.
+
+    :param oas_path:
+        The path to the OpenAPI specification.
+    :param new_file_path:
+        The path to the new config file.
+    :return:
+        None
+    """
+
     open_api = read_open_api(oas_path)
     oas = load_oas(oas_path)
 

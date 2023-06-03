@@ -4,6 +4,16 @@ from python.classes import Parameter, Response, Mutation, RequestBody
 
 
 def read_mutations_config_file(file_path: str) -> list[Mutation]:
+
+    """
+    Read the mutations config file and return a list of mutations.
+
+    :param file_path:
+        The path of the config file.
+    :return:
+        A list of mutations.
+    """
+
     mutations = []
     with open(file_path, 'r') as file:
 

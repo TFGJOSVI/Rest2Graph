@@ -4,6 +4,16 @@ from python.classes import Query, Parameter, Response
 
 
 def read_queires_config_file(file_path: str) -> list[Query]:
+
+    """
+    Read the queries config file and return a list of queries.
+
+    :param file_path:
+        The path of the config file.
+    :return:
+        A list of queries.
+    """
+
     queries = []
     with open(file_path, 'r') as file:
 
@@ -74,9 +84,3 @@ def read_queires_config_file(file_path: str) -> list[Query]:
             queries.append(Query(name=name, url=url, parameters=parameters, response=response, description=None))
 
     return queries
-
-
-
-
-
-
