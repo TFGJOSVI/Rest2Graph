@@ -1,6 +1,7 @@
 import os
 import sys
 import tempfile
+import json
 
 current_directory = os.getcwd()
 parent_directory = os.path.dirname(current_directory)
@@ -17,13 +18,10 @@ from python.classes import OpenAPI
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello,fla World!</pcle>"
 
-@app.route("/base")
+@app.route("/")
 def base():
-    return render_template("base.html", p="p")
+    return render_template("base.html")
 
 @app.route('/upload', methods=['GET'])
 def upload():
@@ -49,8 +47,6 @@ def uplodad_file():
 
         OpenAPI = read_open_api(ruta_archivo)
 
-        print(OpenAPI.servers)
-
         posts = [post for post in OpenAPI.mutations if post.type == "post"]
         puts = [put for put in OpenAPI.mutations if put.type == "put"]
         deletes = [delete for delete in OpenAPI.mutations if delete.type == "delete"]
@@ -65,10 +61,15 @@ def uplodad_file():
             if mutation.response:
                 components.add(mutation.response.schema.component)
 
-        print(components)
-
 
     return render_template("uploadFile.html", OpenAPI=OpenAPI, posts=posts, puts=puts, deletes=deletes, schemas=components)
+
+@app.route('/source-code', methods=['POST'])
+def create_source_code():
+    if request.method == 'POST':
+        print(request.data)
+
+    return "Hola"
 
 if __name__ == "__main__":
     app.run(debug=True)

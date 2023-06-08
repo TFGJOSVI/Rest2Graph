@@ -19,42 +19,43 @@
 
 </head>
 <body>
-    <header id="header" style="position: sticky; z-index:100; top: 0; width: 100%">
-        <nav>
-          <div class="container-fluid">
+<header id="header" style="position: sticky; z-index:100; top: 0; width: 100%">
+    <nav>
+        <div class="container-fluid">
             <a class="navbar-brand" href="">
                 <img class="nav-log" src="/static/images/logo.png">
             </a>
-          </div>
-        </nav>
-    </header>
-
-    <div class="container">
-            <h1 class="title">Convierte tu APIRest a GarphQL {{p}}</h1>
         </div>
-        <div>
-            <img class="page-logo" src="/static/images/logo.png">
-        </div>
+    </nav>
+</header>
 
-        <button class="main-button" id="modal-btn" data-bs-toggle="modal" data-bs-target="#file-modal">Seleccionar</button>
+<div class="container">
+    <h1 class="title">Convierte tu APIRest a GarphQL </h1>
+</div>
+<div>
+    <img class="page-logo" src="/static/images/logo.png">
+</div>
 
-        <div class="modal fade" id="file-modal" tabindex="-1" aria-labelledby="file-modal" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title"id="exampleModalLabel">Selecciona el fichero</h1>
-              </div>
-              <div class="modal-body">
+<button class="main-button" id="modal-btn" data-bs-toggle="modal" data-bs-target="#file-modal">Seleccionar</button>
+
+<div class="modal fade" id="file-modal" tabindex="-1" aria-labelledby="file-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel">Selecciona el fichero</h1>
+            </div>
+            <div class="modal-body">
                 <form action="/upload-file" method="POST" id="post-file-form" enctype="multipart/form-data">
                     <div class="input-group">
-                      <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="file">
+                        <input type="file" class="form-control" id="inputGroupFile04"
+                               aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="file">
                     </div>
                     <button class="upload-button" type="submit">Cargar</button>
                 </form>
-              </div>
             </div>
-          </div>
         </div>
+    </div>
+</div>
 
 </body>
 </html>
