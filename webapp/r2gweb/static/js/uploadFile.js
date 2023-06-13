@@ -571,36 +571,69 @@ function sentOpenAPI() {
         });
     });
 
-    fetch('/source-code', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(openAPI)
-    })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Error en la solicitud POST');
-            }
-        })
-        .then(data => {
-            // Se procesa la respuesta del servidor
-            console.log(data);
-        })
-        .catch(error => {
-            // Se maneja cualquier error ocurrido durante la solicitud
-            console.error(error);
+    async function loadSourceCode() {
+
+        var modal = document.getElementById("modal-loader");
+        modal.style.display = "block";
+
+        const response = await fetch('/source-code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(openAPI)
         });
+
+
+        if (response.ok) {
+            document.getElementById("loader-icon").style.display = "none";
+            document.getElementById("loader-text").style.display = "none";
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+
+            let a = document.getElementById("downloak-link")
+            a.style.display = "block";
+            a.href = url;
+            a.download = "source-code.zip";
+            a.textContent = "Descargar código fuente";
+            a.click(() => {window.location.href = '/';})
+            window.location.href = "/";
+        } else {
+            alert("Something went wrong");
+            window.location.href = "/";
+        }
+
+
+        // .then(blob => {
+        //     // Crea un enlace para descargar el archivo ZIP
+        //     const url = window.URL.createObjectURL(blob);
+        //     const link = document.createElement('a');
+        //     link.href = url;
+        //     link.download = 'sourceCode.zip';
+        //
+        //     // Agrega el enlace al documento y haz clic en él para iniciar la descarga
+        //     // document.body.appendChild(link);
+        //     // link.click();
+        //     //
+        //     // // Limpia el enlace después de la descarga
+        //     // link.remove();
+        //     // window.URL.revokeObjectURL(url);
+        // })
+        // .catch(error => {
+        //     // Se maneja cualquier error ocurrido durante la solicitud
+        //     console.error(error);
+        // });
+    }
+
+    loadSourceCode();
 }
 
 
-    function main() {
-        window.addEventListener('load', () => {
-            loadTypeObject();
-            updloadTypeObject();
-        });
-    }
+function main() {
+    window.addEventListener('load', () => {
+        loadTypeObject();
+        updloadTypeObject();
+    });
+}
 
-    document.addEventListener('DOMContentLoaded', main);
+document.addEventListener('DOMContentLoaded', main);

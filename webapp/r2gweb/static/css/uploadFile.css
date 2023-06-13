@@ -1,13 +1,13 @@
 .list-container {
-  background-color: #FFFFFF;
-  border: 5px solid #E10098;
-  border-radius: 10px;
-  margin-top: 10px;
-  width: 1200px;
-  height: auto;
+    background-color: #FFFFFF;
+    border: 5px solid #E10098;
+    border-radius: 10px;
+    margin-top: 10px;
+    width: 1200px;
+    height: auto;
 }
 
-.form-check{
+.form-check {
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 20px;
@@ -25,19 +25,18 @@
 }
 
 
-
-.form-check-input:checked  {
+.form-check-input:checked {
     background-color: #E10098 !important;
     border-color: #E10098 !important;
     border-radius: 50% !important;
 }
 
-.form-check-label{
+.form-check-label {
     font-weight: bold;
 
 }
 
-.server-title{
+.server-title {
     margin-top: 20px;
     color: #E10098;
     font-family: Oswald;
@@ -47,14 +46,13 @@
     text-align: left;
 }
 
-.method-info{
+.method-info {
     width: 40px;
     height: 40px;
 }
 
 
-
-.edit-btn{
+.edit-btn {
     background-color: #FFFFFF;
     border: 1px solid #FFFFFF;
     border-radius: 10px;
@@ -64,25 +62,25 @@
 
 }
 
-.img-edit{
+.img-edit {
     width: 29px;
     height: 29px;
     float: right;
 }
 
-.method{
+.method {
     padding-left: 15px;
 }
 
-.modal-edit-title{
+.modal-edit-title {
     color: #E10098;
-  font-family: Lato;
-  font-size: 30px;
-  line-height: 39px;
-  text-align: left;
+    font-family: Lato;
+    font-size: 30px;
+    line-height: 39px;
+    text-align: left;
 }
 
-.form-floating{
+.form-floating {
     background-color: #FFFFFF;
     border: 5px solid #E10098;
     border-radius: 10px;
@@ -95,12 +93,12 @@
     opacity: 1;
 }
 
-.form-floating>.form-control, .form-floating>.form-control-plaintext, .form-floating>.form-select {
-    height: calc(33.4rem ) !important;
+.form-floating > .form-control, .form-floating > .form-control-plaintext, .form-floating > .form-select {
+    height: calc(33.4rem) !important;
     line-height: 1.25;
 }
 
-.form-atributes{
+.form-atributes {
     text-align: left;
     margin-top: 20px;
     height: 400px;
@@ -112,8 +110,7 @@
 }
 
 
-
-.form-floating-type{
+.form-floating-type {
     background-color: #FFFFFF;
     border: 3px solid #E10098;
     border-radius: 10px;
@@ -122,28 +119,28 @@
 
 }
 
-.checkbox-atribute{
+.checkbox-atribute {
     margin-left: 30px;
 }
 
-.type-atribute{
+.type-atribute {
     margin-left: 10px;
 }
 
-.atribute{
+.atribute {
     margin-top: 20px;
 }
 
-.type-information{
+.type-information {
     margin-bottom: 30px;
 }
 
-.input-text-method-info{
+.input-text-method-info {
     position: relative; /* Establece la posición relativa del contenedor */
     height: 85px;
 }
 
-.container input[type="text"]{
+.container input[type="text"] {
     position: absolute; /* Establece la posición absoluta del input */
     bottom: 0; /* Fija el input en la parte inferior del contenedor */
     margin-top: 10px; /* Agrega un margen superior de 10px */
@@ -154,7 +151,7 @@
 
 }
 
-.save-button{
+.save-button {
     background-color: #E10098;
     border: 3px solid #E10098;
     border-radius: 10px;
@@ -166,7 +163,7 @@
 
 }
 
-.div-build-button{
+.div-build-button {
     margin-top: 50px;
     margin-bottom: 40px;
     justify-content: center;
@@ -174,7 +171,7 @@
 
 }
 
-.build-button{
+.build-button {
     background-color: #E10098;
     border: 3px solid #E10098;
     border-radius: 10px;
@@ -187,23 +184,42 @@
 
 }
 
-.required-atribute{
+a.build-button {
+    display: none;
+    background-color: #E10098;
+    border: 3px solid #E10098;
+    border-radius: 10px;
+    width: 250px !important;
+    height: 40px;
+    color: #FFFFFF;
+    font-style: italic;
+    font-family: Oswald;
+    font-size: 20px;
+    text-decoration: none; /* Quita el subrayado */
+    transition: background-color 0.3s; /* Agrega una transición suave para el cambio de color */
+}
+
+a.build-button:hover {
+    background-color: #C10080; /* Color diferente al hacer hover */
+}
+
+.required-atribute {
     margin-left: 54px;
     display: inline-block;
     vertical-align: middle;
 
 }
 
-.required{
+.required {
     background-color: #FFFFFF !important;
     border-color: #E10098 !important;
     border-radius: 30% !important;
-    height: 13px !important ;
+    height: 13px !important;
     width: 13px !important;
 }
 
 
-.required:checked  {
+.required:checked {
     background-color: #E10098 !important;
     border-color: #E10098 !important;
     border-radius: 30% !important;
@@ -211,7 +227,7 @@
     width: 13px !important;
 }
 
-.required-label{
+.required-label {
     font-size: 13px;
     vertical-align: middle !important;
     padding-bottom: 8px;
@@ -221,7 +237,7 @@
     vertical-align: middle !important;
 }
 
-.title-text{
+.title-text {
     margin-top: 10px;
     margin-bottom: 10px;
     color: #E10098;
@@ -231,4 +247,48 @@
     width: 1000px;
     text-align: left;
 
+}
+
+/*modal-loader*/
+.modal-loader {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+}
+
+.modal-loader-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #fff;
+    margin: 25% auto;
+    padding: 20px;
+    width: 50%;
+    text-align: center;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #E10098;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

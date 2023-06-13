@@ -1,10 +1,10 @@
 import re
 
-from classes import OpenAPI
-from oas_analysis.read_schemas import SPECIAL_SCHEMAS
-from config_file.utils import replace, parse_type_oas_graphql
-from oas_analysis.read_schemas import read_schema
-from oas_analysis.utils import parse_ref
+from python.classes import OpenAPI
+from python.oas_analysis.read_schemas import SPECIAL_SCHEMAS
+from python.config_file.utils import replace, parse_type_oas_graphql
+from python.oas_analysis.read_schemas import read_schema
+from python.oas_analysis.utils import parse_ref
 
 
 FILE_PATH = 'templates/config_template_v1.txt'

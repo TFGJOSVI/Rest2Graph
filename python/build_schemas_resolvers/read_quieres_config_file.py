@@ -1,6 +1,6 @@
-from build_schemas_resolvers.read_schemas_config_file import search_schema
-from build_schemas_resolvers.utils import parse_type
-from classes import Query, Parameter, Response
+from python.build_schemas_resolvers.read_schemas_config_file import search_schema
+from python.build_schemas_resolvers.utils import parse_type
+from python.classes import Query, Parameter, Response
 
 
 def read_queires_config_file(file_path: str) -> list[Query]:

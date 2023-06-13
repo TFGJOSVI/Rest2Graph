@@ -1,6 +1,6 @@
 import os
 
-from build_schemas_resolvers.build_resolvers import build_resolvers
+from python.build_schemas_resolvers.build_resolvers import build_resolvers
 from python.build_schemas_resolvers.create_open_api import create_open_api
 from python.build_schemas_resolvers.write_resolvers import write_resolvers
 from python.build_schemas_resolvers.utils import zip_directory

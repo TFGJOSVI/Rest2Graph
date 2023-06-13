@@ -7,91 +7,51 @@ import gql from 'graphql-tag';
 
 const typeDefs = gql`#graphql
 
-	type Categoria {
-		id: Int
-		nombre: String
-	}
-
-	type Director {
-		id: Int
-		nombre: String
-		apellido: String
-		edad: Int
-	}
-
-	type Pelicula {
-		id: Int
-		nombre: String
-		descripcion: String
-		anyo: Int
-		director: Int
-		categoria: Int
-	}
-
-	input InputCategoria {
-		id: Int
-		nombre: String
-	}
-
-	input InputDirector {
-		id: Int
-		nombre: String
-		apellido: String
-		edad: Int
-	}
-
-	input InputPelicula {
-		id: Int
-		nombre: String
-		descripcion: String
-		anyo: Int
-		director: Int
-		categoria: Int
-	}
-
   
 
 
     
 type Query {
-		 getDirectores: [Director],
+		 findPetsByStatus(status: String): [Pet],
 
-		 getDirectoresById(id: Int!): Director,
+		 findPetsByTags(tags: [String]): [Pet],
 
-		 getCategorias: [Categoria],
+		 getPetById(petId: Int!): Pet,
 
-		 getCategoriasById(id: Int!): Categoria,
+		 getInventory: ObjectObject,
 
-		 getPeliculas: [Pelicula],
+		 getOrderById(orderId: Int!): Order,
 
-		 getPeliculasById(id: Int!): Pelicula,
+		 loginUser(username: String, password: String): String,
 
-		 getPeliculasCategoriaById(id: Int!): [Pelicula],
+		 logoutUser: String,
 
-		 getPeliculasDirectorById(id: Int!): [Pelicula],
+		 getUserByName(username: String!): User,
 
 }
 
 type Mutation {
-		 postDirectores(input: InputDirector): Director,
+		 updatePet(input: InputPet): Pet,
 
-		 putDirectoresById(id: Int!, input: InputDirector): Director,
+		 addPet(input: InputPet): Pet,
 
-		 deleteDirectoresById(id: Int!): Director,
+		 updatePetWithForm(petId: Int!, name: String, status: String): String,
 
-		 postCategorias(input: InputCategoria): Categoria,
+		 deletePet(api_key: String, petId: Int!): String,
 
-		 putCategoriasById(id: Int!, input: InputCategoria): Categoria,
+		 uploadFile(petId: Int!, additionalMetadata: String, input: InputString): ApiResponse,
 
-		 deleteCategoriasById(id: Int!): Categoria,
+		 placeOrder(input: InputOrder): Order,
 
-		 postPeliculas(input: InputPelicula): Pelicula,
+		 deleteOrder(orderId: Int!): String,
 
-		 putPeliculasById(id: Int!, input: InputPelicula): Pelicula,
+		 createUser(input: InputUser): User,
 
-		 deletePeliculasById(id: Int!): Pelicula,
+		 createUsersWithListInput(input: [InputUser]): User,
 
-		 deletePeliculasByIdCategoriaByCat(id: Int!, cat: Int!): Pelicula,
+		 updateUser(username: String!, input: InputUser): String,
+
+		 deleteUser(username: String!): String,
 
 }
 
@@ -99,27 +59,28 @@ type Mutation {
 
 const resolvers = {
     Query: {
-	 getDirectores: (root, args) => get(`http://localhost:8000/directores?`),
-	 getDirectoresById: (root, args) => get(`http://localhost:8000/directores/${args.id}?`),
-	 getCategorias: (root, args) => get(`http://localhost:8000/categorias?`),
-	 getCategoriasById: (root, args) => get(`http://localhost:8000/categorias/${args.id}?`),
-	 getPeliculas: (root, args) => get(`http://localhost:8000/peliculas?`),
-	 getPeliculasById: (root, args) => get(`http://localhost:8000/peliculas/${args.id}?`),
-	 getPeliculasCategoriaById: (root, args) => get(`http://localhost:8000/peliculas/categoria/${args.id}?`),
-	 getPeliculasDirectorById: (root, args) => get(`http://localhost:8000/peliculas/director/${args.id}?`),
+	 findPetsByStatus: (root, args) => get(`https://petstore3.swagger.io/api/v3/pet/findByStatus?${'status='+ args.status ? args.status : ''}`),
+	 findPetsByTags: (root, args) => get(`https://petstore3.swagger.io/api/v3/pet/findByTags?${'tags='+ args.tags ? args.tags : ''}`),
+	 getPetById: (root, args) => get(`https://petstore3.swagger.io/api/v3/pet/${args.petId}?`),
+	 getInventory: (root, args) => get(`https://petstore3.swagger.io/api/v3/store/inventory?`),
+	 getOrderById: (root, args) => get(`https://petstore3.swagger.io/api/v3/store/order/${args.orderId}?`),
+	 loginUser: (root, args) => get(`https://petstore3.swagger.io/api/v3/user/login?${'username='+ args.username ? args.username : ''} +'&'+${'password='+ args.password ? args.password : ''}`),
+	 logoutUser: (root, args) => get(`https://petstore3.swagger.io/api/v3/user/logout?`),
+	 getUserByName: (root, args) => get(`https://petstore3.swagger.io/api/v3/user/${args.username}?`),
 
     },
     Mutation: {
-	 postDirectores: (root, args) => post(`http://localhost:8000/directores?`,args),
-	 putDirectoresById: (root, args) => put(`http://localhost:8000/directores/${args.id}?`,args),
-	 deleteDirectoresById: (root, args) => deleteData(`http://localhost:8000/directores/${args.id}?`,args),
-	 postCategorias: (root, args) => post(`http://localhost:8000/categorias?`,args),
-	 putCategoriasById: (root, args) => put(`http://localhost:8000/categorias/${args.id}?`,args),
-	 deleteCategoriasById: (root, args) => deleteData(`http://localhost:8000/categorias/${args.id}?`,args),
-	 postPeliculas: (root, args) => post(`http://localhost:8000/peliculas?`,args),
-	 putPeliculasById: (root, args) => put(`http://localhost:8000/peliculas/${args.id}?`,args),
-	 deletePeliculasById: (root, args) => deleteData(`http://localhost:8000/peliculas/${args.id}?`,args),
-	 deletePeliculasByIdCategoriaByCat: (root, args) => deleteData(`http://localhost:8000/peliculas/${args.id}/categoria/${args.cat}? +'&'+`,args),
+	 updatePet: (root, args) => put(`https://petstore3.swagger.io/api/v3/pet?`,args),
+	 addPet: (root, args) => post(`https://petstore3.swagger.io/api/v3/pet?`,args),
+	 updatePetWithForm: (root, args) => post(`https://petstore3.swagger.io/api/v3/pet/${args.petId}? +'&'+${'name='+ args.name ? args.name : ''} +'&'+${'status='+ args.status ? args.status : ''}`,args),
+	 deletePet: (root, args) => delete(`https://petstore3.swagger.io/api/v3/pet/${args.petId}? +'&'+`,args),
+	 uploadFile: (root, args) => post(`https://petstore3.swagger.io/api/v3/pet/${args.petId}/uploadImage? +'&'+${'additionalMetadata='+ args.additionalMetadata ? args.additionalMetadata : ''}`,args),
+	 placeOrder: (root, args) => post(`https://petstore3.swagger.io/api/v3/store/order?`,args),
+	 deleteOrder: (root, args) => delete(`https://petstore3.swagger.io/api/v3/store/order/${args.orderId}?`,args),
+	 createUser: (root, args) => post(`https://petstore3.swagger.io/api/v3/user?`,args),
+	 createUsersWithListInput: (root, args) => post(`https://petstore3.swagger.io/api/v3/user/createWithList?`,args),
+	 updateUser: (root, args) => put(`https://petstore3.swagger.io/api/v3/user/${args.username}?`,args),
+	 deleteUser: (root, args) => delete(`https://petstore3.swagger.io/api/v3/user/${args.username}?`,args),
 
     }
 };
