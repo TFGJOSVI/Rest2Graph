@@ -8,9 +8,7 @@ parent_directory = os.path.dirname(current_directory)
 parent_parent_directory = os.path.dirname(parent_directory)
 sys.path.append(parent_parent_directory)
 
-import yaml
 from flask import Flask, render_template, request, send_file
-from markupsafe import escape
 from python.oas_analysis.read_open_api import read_open_api
 from python.classes import *
 from python.build_schemas_resolvers.create_source_code import create_source_code
