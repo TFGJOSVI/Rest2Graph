@@ -7,105 +7,9 @@ import gql from 'graphql-tag';
 
 const typeDefs = gql`#graphql
 
-	type User {
-		id: Int
-		username: String
-		firstName: String
-		lastName: String
-		email: String
-		password: String
-		phone: String
-		userStatus: Int
-	}
-
-	type Pet {
-		id: Int
-		name: String!
-		category: Category
-		photoUrls: [String]!
-		tags: [Tag]
-		status: String
-	}
-
-	type Order {
-		id: Int
-		petId: Int
-		quantity: Int
-		shipDate: String
-		status: String
-		complete: Boolean
-	}
-
-	type ApiResponse {
-		code: Int
-		type: String
-		message: String
-	}
-
-	type ObjectObject {
-		additionalProperties: Int
-	}
-
-	input InputOrder {
-		id: Int
-		petId: Int
-		quantity: Int
-		shipDate: String
-		status: String
-		complete: Boolean
-	}
-
-	input InputUser {
-		id: Int
-		username: String
-		firstName: String
-		lastName: String
-		email: String
-		password: String
-		phone: String
-		userStatus: Int
-	}
-
-	input InputPet {
-		id: Int
-		name: String!
-		category: InputCategory
-		photoUrls: [String]!
-		tags: [InputTag]
-		status: String
-	}
-
   
 
-	type Pet {
-		id: Int
-		name: String!
-		category: InputCategory
-		photoUrls: [String]!
-		tags: [InputTag]
-		status: String
-	}
 
-	type Tag {
-		id: Int
-		name: String
-	}
-
-	input InputPet {
-		id: Int
-		name: String!
-		category: InputInputCategory
-		photoUrls: [String]!
-		tags: [InputInputTag]
-		status: String
-	}
-
-	input InputTag {
-		id: Int
-		name: String
-	}
-
-  
     
 type Query {
 		 findPetsByStatus(status: String): [Pet],
@@ -169,14 +73,14 @@ const resolvers = {
 	 updatePet: (root, args) => put(`https://petstore3.swagger.io/api/v3/pet?`,args),
 	 addPet: (root, args) => post(`https://petstore3.swagger.io/api/v3/pet?`,args),
 	 updatePetWithForm: (root, args) => post(`https://petstore3.swagger.io/api/v3/pet/${args.petId}? +'&'+${'name='+ args.name ? args.name : ''} +'&'+${'status='+ args.status ? args.status : ''}`,args),
-	 deletePet: (root, args) => deleteData(`https://petstore3.swagger.io/api/v3/pet/${args.petId}? +'&'+`,args),
+	 deletePet: (root, args) => delete(`https://petstore3.swagger.io/api/v3/pet/${args.petId}? +'&'+`,args),
 	 uploadFile: (root, args) => post(`https://petstore3.swagger.io/api/v3/pet/${args.petId}/uploadImage? +'&'+${'additionalMetadata='+ args.additionalMetadata ? args.additionalMetadata : ''}`,args),
 	 placeOrder: (root, args) => post(`https://petstore3.swagger.io/api/v3/store/order?`,args),
-	 deleteOrder: (root, args) => deleteData(`https://petstore3.swagger.io/api/v3/store/order/${args.orderId}?`,args),
+	 deleteOrder: (root, args) => delete(`https://petstore3.swagger.io/api/v3/store/order/${args.orderId}?`,args),
 	 createUser: (root, args) => post(`https://petstore3.swagger.io/api/v3/user?`,args),
 	 createUsersWithListInput: (root, args) => post(`https://petstore3.swagger.io/api/v3/user/createWithList?`,args),
 	 updateUser: (root, args) => put(`https://petstore3.swagger.io/api/v3/user/${args.username}?`,args),
-	 deleteUser: (root, args) => deleteData(`https://petstore3.swagger.io/api/v3/user/${args.username}?`,args),
+	 deleteUser: (root, args) => delete(`https://petstore3.swagger.io/api/v3/user/${args.username}?`,args),
 
     }
 };
