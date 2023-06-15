@@ -13,13 +13,24 @@ from python.paths import SOURCE_CODE_RETURN_ZIP, CONFIG_FILE_PATH, COPIES_TEMPLA
 from python.build_schemas_resolvers.create_source_code import create_source_code_not_default_path, create_source_code
 from python.config_file.create_config_file import create_config_file
 
+CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
-@click.command()
+
+@click.command(context_settings = CONTEXT_SETTINGS)
 @click.pass_context
-@click.option('--oas_path', default=None, help='Path to the OpenAPI file.')
-@click.option('--destination_path', default=None, help='Path to the destination folder.')
-@click.option('--config_file', default=False, is_flag=True, help='If not provided, a config file not will be created.')
+@click.option('-o','--oas-path', default=None, help='Path to the OpenAPI file.')
+@click.option('-d','--destination-path', default=None, help='Path to the destination folder.')
+@click.option('-c','--config-file', default=False, is_flag=True, help='If not provided, a config file not will be created.')
 def build_graph(ctx, oas_path: str, destination_path: str, config_file: bool):
+
+    """
+    A tool to build GraphQL schemas and resolvers from an OpenAPI file.
+
+    Authors:
+    - Vicente Cambrón Tocados <viccamtoc@alum.us.es>
+    - José Luis García Marín <josgarmar31@alum.us.es>
+    """
+
     if not oas_path:
         click.echo('Please provide a path to the OpenAPI file.')
         ctx.abort()
@@ -43,7 +54,6 @@ def build_graph(ctx, oas_path: str, destination_path: str, config_file: bool):
             os.remove(COPIES_TEMPLATE_PATH)
             
         create_config_file(oas_path, COPIES_TEMPLATE_PATH)
-        time.sleep(5)
         click.edit(filename=COPIES_TEMPLATE_PATH)
         create_source_code_not_default_path(COPIES_TEMPLATE_PATH)
         shutil.copy(SOURCE_CODE_RETURN_ZIP, destination_path)

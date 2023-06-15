@@ -1,7 +1,5 @@
-import re
-
-from build_schemas_resolvers.utils import parse_type
-from classes import Attribute, Component, Schema
+from python.build_schemas_resolvers.utils import parse_type
+from python.classes import Attribute, Component, Schema
 
 
 STRING_COMPONENT_OBJECT = Component('String', [Attribute('value', 'string', True)])
@@ -16,7 +14,17 @@ BOOLEAN_SCHEMA = Schema('_OBJECT_BOOLEAN', BOOLEAN_COMPONENT_OBJECT)
 INTEGER_COMPONENT_OBJECT = Component('Integer', [Attribute('value', 'integer', True)])
 INTEGER_SCHEMA = Schema('_OBJECT_INTEGER', INTEGER_COMPONENT_OBJECT)
 
-def read_schemas(file_path: str) -> list[str]:
+def read_schemas(file_path: str) -> list[Schema]:
+
+    """
+    Read the schemas config file and return a list of schemas.
+
+    :param file_path:
+        The path of the config file.
+    :return:
+        A list of schemas.
+    """
+
     schemas = []
     with open(file_path, 'r') as file:
         lines = file.read()

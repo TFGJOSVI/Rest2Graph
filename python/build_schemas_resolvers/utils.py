@@ -2,10 +2,7 @@ import os
 import shutil
 import zipfile
 
-
-
-
-def parse_type(response: str):
+def parse_type(response: str) -> str:
     if response.__contains__('['):
         type = 'array'
     elif response == 'Int':
@@ -22,13 +19,13 @@ def parse_type(response: str):
     return type
 
 
-def copy_dir(src, dst):
+def copy_dir(src: str, dst: str) -> None:
     if os.path.exists(dst):
-        shutil.rmtree(dst)
+        shutil.rmtree(dst,  ignore_errors=True)
     shutil.copytree(src, dst)
 
 
-def zip_directory(directory_path, zip_path):
+def zip_directory(directory_path: str, zip_path: str) -> None:
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for root, dirs, files in os.walk(directory_path):
             for file in files:

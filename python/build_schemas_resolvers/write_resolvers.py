@@ -1,5 +1,5 @@
 from python.build_schemas_resolvers.build_resolvers import build_resolvers
-from python.paths import SOURCE_CODE_BASE_PATH, SOURCE_CODE_RETURN_PATH
+from python.paths import SOURCE_CODE_BASE_PATH, SOURCE_CODE_RETURN_PATH, INDEX_JS
 from python.build_schemas_resolvers.utils import copy_dir
 import os
 from python.classes import OpenAPI
@@ -7,7 +7,7 @@ from python.config_file .load_schemas import write_schemas_string
 from python.config_file.utils import replace
 from python.build_schemas_resolvers.write_schemas import write_schemas_string_build
 
-INDEX_JS = os.path.join(SOURCE_CODE_RETURN_PATH, 'sourceCode', 'index.js')
+
 
 def write_resolvers(open_api: OpenAPI) -> None:
 

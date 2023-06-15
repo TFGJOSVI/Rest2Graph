@@ -1,9 +1,19 @@
-from build_schemas_resolvers.read_schemas_config_file import search_schema
-from build_schemas_resolvers.utils import parse_type
-from classes import Query, Parameter, Response
+from python.build_schemas_resolvers.read_schemas_config_file import search_schema
+from python.build_schemas_resolvers.utils import parse_type
+from python.classes import Query, Parameter, Response
 
 
 def read_queires_config_file(file_path: str) -> list[Query]:
+
+    """
+    Read the queries config file and return a list of queries.
+
+    :param file_path:
+        The path of the config file.
+    :return:
+        A list of queries.
+    """
+
     queries = []
     with open(file_path, 'r') as file:
 
@@ -74,9 +84,3 @@ def read_queires_config_file(file_path: str) -> list[Query]:
             queries.append(Query(name=name, url=url, parameters=parameters, response=response, description=None))
 
     return queries
-
-
-
-
-
-

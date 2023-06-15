@@ -1,16 +1,22 @@
-import re
-
-from classes import OpenAPI
-from oas_analysis.read_schemas import SPECIAL_SCHEMAS
-from config_file.utils import replace, parse_type_oas_graphql
-from oas_analysis.read_schemas import read_schema
-from oas_analysis.utils import parse_ref
-
-
-FILE_PATH = 'templates/config_template_v1.txt'
+from python.classes import OpenAPI
+from python.oas_analysis.read_schemas import SPECIAL_SCHEMAS
+from python.config_file.utils import parse_type_oas_graphql
+from python.oas_analysis.read_schemas import read_schema
 
 
 def write_schemas_string(open_api: OpenAPI, oas: dict) -> str:
+
+    """
+    Load the schemas from the OpenAPI specification.
+
+    :param open_api:
+        An OpenAPI instance where includes the servers, queries and mutations.
+    :param oas:
+        The OpenAPI specification dictionary.
+    :return:
+        A string containing the schemas.
+    """
+
     queries = open_api.queries
     mutations = open_api.mutations
 
@@ -138,5 +144,17 @@ def write_schemas_string(open_api: OpenAPI, oas: dict) -> str:
 
 
 def load_schemas(open_api: OpenAPI, oas: dict) -> str:
+
+    """
+    Load the schemas from the OpenAPI specification.
+
+    :param open_api:
+        An OpenAPI instance where includes the servers, queries and mutations.
+    :param oas:
+        The OpenAPI specification dictionary.
+    :return:
+        A string containing the schemas.
+    """
+
     return write_schemas_string(open_api, oas)
 

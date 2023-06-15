@@ -13,3 +13,4 @@ BUILD_SCHEMAS_RESOLVERS_PATH = os.path.join(PYTHON_PATH, 'build_schemas_resolver
 SOURCE_CODE_BASE_PATH = os.path.join(BUILD_SCHEMAS_RESOLVERS_PATH, 'source_code_base')
 SOURCE_CODE_RETURN_PATH = os.path.join(BUILD_SCHEMAS_RESOLVERS_PATH, 'source_code_return')
 SOURCE_CODE_RETURN_ZIP = os.path.join(SOURCE_CODE_RETURN_PATH, 'sourceCode.zip')
+INDEX_JS = os.path.join(SOURCE_CODE_RETURN_PATH, 'sourceCode', 'index.js')

@@ -1,4 +1,4 @@
-from config_file.utils import parse_type_oas_graphql
+from python.config_file.utils import parse_type_oas_graphql
 from python.classes import Schema
 
 def write_schemas_string_build(schemas_list: list[Schema], all=False) -> str:

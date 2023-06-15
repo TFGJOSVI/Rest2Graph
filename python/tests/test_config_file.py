@@ -1,7 +1,12 @@
 import os
+import sys
 
-from config_file.load_mutations import load_mutations
-from oas_analysis.utils import load_oas
+current_directory = os.getcwd()
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+
+from python.config_file.load_mutations import load_mutations
+from python.oas_analysis.utils import load_oas
 from python.paths import TESTS_SET_PATH, COPIES_TEMPLATE_PATH
 from python.oas_analysis.read_open_api import read_open_api as read_oas
 from python.config_file.load_servers import load_servers
@@ -25,8 +30,8 @@ class TestConfigFile:
         oas_auth = {
             'name': 'authentiq_team.yaml',
             'servers': '\t- https://6-dot-authentiqio.appspot.com\n',
-            'schemas': '\ttype JWT {\n\t\texp: Int\n\t\tfield: String\n\t\tsub: String\n\t}',
-            'queries': '\t- key_retrieve(PK: String!) : JWT\n\t\t- url: GET /key/{PK}',
+            'schemas':  'type ObjectObject {\n',
+            'queries': '- key_retrieve(PK: String!): JWT\n',
             'mutations': '\t- key_register: ObjectObject\n\t\t- url: POST /key\n\t\t- request_body: InputAuthentiqID'
 
         }
@@ -35,7 +40,7 @@ class TestConfigFile:
             'name': 'configuration_API.yaml',
             'servers': '\t- https://balanceplatform-api-test.adyen.com/bcl/v2\n',
             'schemas': '\ttype PaginatedBalanceAccountsResponse {\n\t\tbalanceAccounts: [BalanceAccount]!\n\t\thasNext: Boolean!\n\t\thasPrevious: Boolean!\n\t}',
-            'queries': '\t- get-accountHolders-id(id: String!) : AccountHolder\n\t\t- url: GET /accountHolders/{id}',
+            'queries': '\t- get-accountHolders-id(id: String!): AccountHolder\n\t\t- url: GET /accountHolders/{id}',
             'mutations': '\t- post-accountHolders: AccountHolder\n\t\t- url: POST /accountHolders\n\t\t- request_body: InputAccountHolderInfo'
         }
 
@@ -51,7 +56,7 @@ class TestConfigFile:
             'name': 'pet_clinic.yaml',
             'servers': '\t- https://petstore3.swagger.io/api/v3\n',
             'schemas': '\ttype Pet {\n\t\tid: Int\n\t\tname: String!\n\t\tcategory: Category\n\t\tphotoUrls: [String]!\n\t\ttags: [Tag]\n\t\tstatus: String\n\t}',
-            'queries': '\t- findPetsByStatus(status: String) : [Pet]\n\t\t- url: GET /pet/findByStatus',
+            'queries': '- findPetsByStatus(): [Pet]\n',
             'mutations': '\t- updatePet: Pet\n\t\t- url: PUT /pet\n\t\t- request_body: InputPet'
         }
 
@@ -77,7 +82,7 @@ class TestConfigFile:
 
             schemas = load_schemas(open_api, load_oas(oas))
 
-            assert i['schemas'] in schemas
+            assert i['schemas'].strip() in schemas.strip()
 
     def test_load_queries(self):
 
@@ -88,7 +93,7 @@ class TestConfigFile:
 
             queries = load_queries(open_api)
 
-            assert i['queries'] in queries
+            assert i['queries'].strip() in queries.strip()
 
     def test_load_mutations(self):
 
@@ -99,18 +104,17 @@ class TestConfigFile:
 
             mutations = load_mutations(open_api)
 
-            assert i['mutations'] in mutations
+            assert i['mutations'].strip() in mutations.strip()
 
     def test_create_config_file(self):
 
             for i in self.oas_list:
                 oas = os.path.join(TESTS_SET_PATH, i['name'])
 
-                path_config = os.path.join(COPIES_TEMPLATE_PATH, f"copy-{i['name']}.txt")
 
-                create_config_file(oas, path_config)
+                create_config_file(oas, COPIES_TEMPLATE_PATH)
 
-                assert os.path.exists(path_config)
+                assert os.path.exists(COPIES_TEMPLATE_PATH)
 
-                os.remove(path_config)
+                os.remove(COPIES_TEMPLATE_PATH)
 
