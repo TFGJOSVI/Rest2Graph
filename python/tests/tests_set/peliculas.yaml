@@ -1,0 +1,534 @@
+openapi: 3.0.1
+info:
+  title: Proyecto API
+  version: 1.0.0
+  description: Proyecto API
+servers:
+  - url: http://localhost:8000
+  - url: http://127.0.0.0:8080
+tags:
+  - name: Directores
+    description: API para los directores
+  - name: Peliculas
+    description: API para las peliculas
+  - name: Categorias
+    description: API para las categorias
+
+
+paths:
+  /directores:
+    get:
+      tags:
+        - Directores
+      summary: Lista de directores
+      description: Lista de directores
+      responses:
+        '200':
+          description: Lista de directores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Director'
+        '404':
+          description: No se encontraron directores
+    post:
+      tags:
+        - Directores
+      summary: Crear director
+      description: Crear director
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Director'
+      responses:
+        '200':
+          description: Director creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Director'
+        '400':
+          description: Error al crear director
+        '404':
+          description: No se encontraron directores
+        '500':
+          description: Error interno
+
+  /directores/{id}:
+    get:
+      tags:
+        - Directores
+      summary: Detalle de director
+      description: Detalle de director
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del director
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalle de director
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Director'
+        '404':
+          description: No se encontraron directores
+    put:
+      tags:
+        - Directores
+      summary: Actualizar director
+      description: Actualizar director
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del director
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Director'
+      responses:
+        '200':
+          description: Director actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Director'
+        '400':
+          description: Error al actualizar director
+        '404':
+          description: No se encontraron directores
+        '500':
+          description: Error interno
+    delete:
+      tags:
+        - Directores
+      summary: Eliminar director
+      description: Eliminar director
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del director
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Director eliminado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Director'
+        '400':
+          description: Error al eliminar director
+        '404':
+          description: No se encontraron directores
+        '500':
+          description: Error interno
+
+  /categorias:
+    get:
+      tags:
+        - Categorias
+      summary: Lista de categorias
+      description: Lista de categorias
+      responses:
+        '200':
+          description: Lista de categorias
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categoria'
+        '404':
+          description: No se encontraron categorias
+    post:
+      tags:
+        - Categorias
+      summary: Crear categoria
+      description: Crear categoria
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+      responses:
+        '200':
+          description: Categoria creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+        '400':
+          description: Error al crear categoria
+        '404':
+          description: No se encontraron categorias
+        '500':
+          description: Error interno
+
+  /categorias/{id}:
+    get:
+      tags:
+        - Categorias
+      summary: Detalle de categoria
+      description: Detalle de categoria
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la categoria
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalle de categoria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+        '404':
+          description: No se encontraron categorias
+    put:
+      tags:
+        - Categorias
+      summary: Actualizar categoria
+      description: Actualizar categoria
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la categoria
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+      responses:
+        '200':
+          description: Categoria actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+        '400':
+          description: Error al actualizar categoria
+        '404':
+          description: No se encontraron categorias
+        '500':
+          description: Error interno
+    delete:
+      tags:
+        - Categorias
+      summary: Eliminar categoria
+      description: Eliminar categoria
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la categoria
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Categoria eliminada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+        '400':
+          description: Error al eliminar categoria
+        '404':
+          description: No se encontraron categorias
+        '500':
+          description: Error interno
+
+  /peliculas:
+    get:
+      tags:
+        - Peliculas
+      summary: Lista de peliculas
+      description: Lista de peliculas
+      responses:
+        '200':
+          description: Lista de peliculas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pelicula'
+        '404':
+          description: No se encontraron peliculas
+    post:
+      tags:
+        - Peliculas
+      summary: Crear pelicula
+      description: Crear pelicula
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pelicula'
+      responses:
+        '200':
+          description: Pelicula creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pelicula'
+        '400':
+          description: Error al crear pelicula
+        '404':
+          description: No se encontraron peliculas
+        '500':
+          description: Error interno
+
+  /peliculas/{id}:
+    get:
+      tags:
+        - Peliculas
+      summary: Detalle de pelicula
+      description: Detalle de pelicula
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la pelicula
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalle de pelicula
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pelicula'
+        '404':
+          description: No se encontraron peliculas
+    put:
+      tags:
+        - Peliculas
+      summary: Actualizar pelicula
+      description: Actualizar pelicula
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la pelicula
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pelicula'
+      responses:
+        '200':
+          description: Pelicula actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pelicula'
+        '400':
+          description: Error al actualizar pelicula
+        '404':
+          description: No se encontraron peliculas
+        '500':
+          description: Error interno
+    delete:
+      tags:
+        - Peliculas
+      summary: Eliminar pelicula
+      description: Eliminar pelicula
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la pelicula
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Pelicula eliminada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pelicula'
+        '400':
+          description: Error al eliminar pelicula
+        '404':
+          description: No se encontraron peliculas
+        '500':
+          description: Error interno
+
+  /peliculas/categoria/{id}:
+    get:
+      tags:
+        - Peliculas
+      summary: Lista de peliculas por categoria
+      description: Lista de peliculas por categoria
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la categoria
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Lista de peliculas por categoria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pelicula'
+        '404':
+          description: No se encontraron peliculas
+
+  /peliculas/director/{id}:
+    get:
+      tags:
+        - Peliculas
+      summary: Lista de peliculas por director
+      description: Lista de peliculas por director
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del director
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Lista de peliculas por director
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pelicula'
+        '404':
+          description: No se encontraron peliculas
+
+  /peliculas/{id}/categoria/{cat}:
+    delete:
+      tags:
+        - Peliculas
+      summary: Eliminar categoria de pelicula
+      description: Eliminar categoria de pelicula
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la pelicula
+          schema:
+            type: integer
+        - name: cat
+          in: path
+          required: true
+          description: ID de la categoria
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Categoria eliminada de pelicula
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pelicula'
+        '400':
+          description: Error al eliminar categoria de pelicula
+        '404':
+          description: No se encontraron peliculas
+        '500':
+          description: Error interno
+
+
+
+
+components:
+  schemas:
+    Director:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nombre:
+          type: string
+        apellido:
+          type: string
+        edad:
+          type: integer
+
+    Pelicula:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        anyo:
+          type: integer
+        director:
+          type: integer
+        categoria:
+          type: integer
+
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nombre:
+          type: string
+
+    requestBodies:
+      Director:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Director'
+      Pelicula:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pelicula'
+      Categoria:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string

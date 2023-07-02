@@ -42,6 +42,7 @@ def load_oas(path: str):
     """
     # Check if path exists
     if not os.path.exists(path):
+        print(path)
         raise ValueError('Path does not exist')
 
     if path.endswith('.json'):
@@ -50,6 +51,7 @@ def load_oas(path: str):
         _file = yaml2json(path)
         _file = json.loads(_file)
     else:
+        print(path)
         raise ValueError('File format not supported')
 
     return _file
@@ -70,9 +72,11 @@ def search_ref(oas: dict, ref: str):
         raise ValueError('Ref is not valid')
 
     rute = ref.split('/')
+
     for i in rute:
         if i != '#':
             oas = oas[i]
+
     return oas
 
 

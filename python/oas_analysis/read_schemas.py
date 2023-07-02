@@ -15,8 +15,10 @@ BOOLEAN_SCHEMA = Schema('_OBJECT_BOOLEAN', BOOLEAN_COMPONENT_OBJECT)
 INTEGER_COMPONENT_OBJECT = Component('Integer', [Attribute('value', 'integer', True)])
 INTEGER_SCHEMA = Schema('_OBJECT_INTEGER', INTEGER_COMPONENT_OBJECT)
 
+SPECIAL_SCHEMAS = [STRING_SCHEMA, NUMBER_SCHEMA, BOOLEAN_SCHEMA, INTEGER_SCHEMA]
 
-def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict) -> Schema:
+
+def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict, atributes: Union[list, None]) -> Schema:
     """
     Reads the definition of an object schema and converts it into a `Schema` instance.
 
@@ -30,14 +32,35 @@ def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict
         An instance of the `Schema` class.
     """
 
-    attributes = []
+    if atributes is None:
+        attributes = []
+    else:
+        attributes = list(set(atributes))
+
     if 'properties' in schema:
         for name, parameter in schema['properties'].items():
 
-            if ('$ref' in parameter or 'properties' in parameter) or \
-                    (type in parameter and parameter['type'] == 'array'):
-                parameter = read_schema(parameter, oas)
-                parameter = Attribute(name, parameter.type, name in required if required else False)
+            if '$ref' in parameter or 'properties' in parameter:
+
+                ref_schema = parameter['$ref'] if '$ref' in parameter else None
+
+                parameter = read_schema(parameter, oas, attributes)
+
+                parameter = Attribute(name, parameter.component.name, name in required if required else False, ref_schema=ref_schema)
+
+            elif 'type' in parameter and parameter['type'] == 'array':
+
+                items_types = parameter['items']
+
+                if '$ref' in items_types:
+                    ref_schema = items_types['$ref']
+                    items_types = parse_ref(items_types['$ref'])[-1]
+                else:
+                    items_types = items_types['type']
+                    ref_schema = None
+
+                parameter = Attribute(name, 'array', name in required if required else False, items_types, ref_schema)
+
             else:
 
                 if 'oneOf' in parameter:
@@ -45,7 +68,10 @@ def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict
 
                 parameter = Attribute(name, parameter['type'], name in required if required else False)
 
-            attributes.append(parameter)
+            atributes_name = [attribute.name for attribute in attributes]
+
+            if parameter.name not in atributes_name:
+                attributes.append(parameter)
 
     if 'additionalProperties' in schema:
         additional_properties = schema['additionalProperties']
@@ -60,7 +86,7 @@ def read_object_schema(schema: dict, required: Union[list[str], bool], oas: dict
     return Schema('object', component)
 
 
-def read_array_schema(schema: dict, oas: dict) -> Schema:
+def read_array_schema(schema: dict, oas: dict, atributes: Union[list | None] = []) -> Schema:
     """
     Reads the definition of an array schema and converts it into a `Schema` instance.
     :param schema:
@@ -71,14 +97,14 @@ def read_array_schema(schema: dict, oas: dict) -> Schema:
         An instance of the `Schema` class.
     """
 
-    schema = read_schema(schema['items'], oas)
+    schema = read_schema(schema['items'], oas, atributes)
 
     schema.type = 'array'
 
     return schema
 
 
-def read_schema(schema: dict, oas: dict) -> Schema:
+def read_schema(schema: dict, oas: dict, atributes: Union[list | None] = []) -> Schema:
     """
     Reads the definition of a schema and converts it into a `Schema` instance.
 
@@ -105,13 +131,13 @@ def read_schema(schema: dict, oas: dict) -> Schema:
         schema.pop('$ref')
         schema.update(schema_ref)
         schema['title'] = ref[-1]
-        return read_schema(schema, oas)
+        return read_schema(schema, oas, atributes)
 
     if 'type' in schema:
         if schema['type'] == 'object':
-            return read_object_schema(schema, required, oas)
+            return read_object_schema(schema, required, oas, atributes)
         elif schema['type'] == 'array':
-            return read_array_schema(schema, oas)
+            return read_array_schema(schema, oas, atributes)
         elif schema['type'] == 'string':
             return STRING_SCHEMA
         elif schema['type'] == 'number':
@@ -121,4 +147,4 @@ def read_schema(schema: dict, oas: dict) -> Schema:
         elif schema['type'] == 'boolean':
             return BOOLEAN_SCHEMA
     else:
-        return read_object_schema(schema, required, oas)
+        return read_object_schema(schema, required, oas, atributes)
